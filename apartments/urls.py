@@ -5,6 +5,7 @@ from . import views
 
 
 urlpatterns = [
-    path('',views.index,name='index'),
+    path('',views.ApartmentListView.as_view(),name='index'),
 
 ] 
+  

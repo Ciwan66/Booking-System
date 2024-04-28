@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Apartments</title>
+    <style>
+        a{
+            text-decoration:none;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Apartments</h1>
+    <ul>
+      {% for apartment in apartments %}
+      <div>
+
+
+       
+      <li>
+              <a href="#" class="card">  <h2>{{ apartment.apt_name }}</h2> </a>
+
+
+        <p>Description: {{ apartment.description }}</p>
+        <p>Category: {{ apartment.category }}</p>
+        <p>City: {{ apartment.city }}</p>
+        <p>Country: {{ apartment.country }}</p>
+        <p>Rooms: {{ apartment.rooms }}</p>
+        <p>Beds: {{ apartment.beds }}</p>
+        <p>{% if apartment.wifi %}wifi{% endif %}</p>
+        <p>{% if apartment.tv %}tv{% endif %}</p>
+
+        <p>Price per Night: {{ apartment.price_per_night }}</p>
+
+        {% if apartment.cover_image %}
+        <img src="{{apartment.cover_image.url}}"/>
+        {% endif %}
+
+        
+      </li>
+      </div>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
