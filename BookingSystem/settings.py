@@ -32,15 +32,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #3rd part apps
     'jazzmin',
-    'apartments.apps.ApartmentsConfig',
+
+    #main apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #project apps
+    'apartments.apps.ApartmentsConfig',
     'accounts.apps.AccountsConfig',
+    'reservations.app.ReservationsConfig'
 ]
 
 MIDDLEWARE = [
