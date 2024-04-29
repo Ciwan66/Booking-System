@@ -1,46 +1,71 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Apartments</title>
-    <style>
-        a{
-            text-decoration:none;
-        }
-    </style>
-  </head>
-  <body>
-    <h1>Apartments</h1>
+<head>
+  <meta charset="UTF-8" />
+  <title>Apartments</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .card {
+      display: block;
+      text-decoration: none;
+      color: #333;
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    .card h2 {
+      margin-top: 0;
+    }
+    .card p {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Apartments</h1>
+  <div class="container">
     <ul>
       {% for apartment in apartments %}
-      <div>
-
-
-       
       <li>
-              <a href="#" class="card">  <h2>{{ apartment.apt_name }}</h2> </a>
-
-
-        <p>Description: {{ apartment.description }}</p>
-        <p>Category: {{ apartment.category }}</p>
-        <p>City: {{ apartment.city }}</p>
-        <p>Country: {{ apartment.country }}</p>
-        <p>Rooms: {{ apartment.rooms }}</p>
-        <p>Beds: {{ apartment.beds }}</p>
-        <p>{% if apartment.wifi %}wifi{% endif %}</p>
-        <p>{% if apartment.tv %}tv{% endif %}</p>
-
-        <p>Price per Night: {{ apartment.price_per_night }}</p>
-
-        {% if apartment.cover_image %}
-        <img src="{{apartment.cover_image.url}}"/>
-        {% endif %}
-
-        
+        <a href="{% url 'detail' apartment.id %}" class="card">
+          <h2>{{ apartment.apt_name }}</h2>
+          <p><strong>City:</strong> {{ apartment.city }}</p>
+          <p><strong>Country:</strong> {{ apartment.country }}</p>
+          <p><strong>Price per Night:</strong> {{ apartment.price_per_night }}</p>
+          {% if apartment.cover_image %}
+          <img width="500px" src="{{apartment.cover_image.url}}" alt="Apartment Image" />
+          {% endif %}
+        </a>
       </li>
-      </div>
       {% endfor %}
     </ul>
-  </body>
+  </div>
+</body>
 </html>

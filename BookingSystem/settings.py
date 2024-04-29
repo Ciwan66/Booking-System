@@ -137,8 +137,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
-SESSION_COOKIE_AGE = 300
+# session age in hours
+SESSION_COOKIE_AGE = 60*60*2
 
 LOGIN_REDIRECT_URL = '/accounts/'
 LOGIN_URL = 'users_login'
