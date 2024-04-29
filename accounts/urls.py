@@ -8,6 +8,6 @@ urlpatterns = [
     path('',views.dashboard,name='users_dashboard'),
     path('register/',views.RegisterView.as_view(),name='users_register'),
     path('login/',views.CustomLoginView.as_view(redirect_authenticated_user=True,authentication_form=LoginForm),name='users_login'),
-    path('logout/',auth_views.LogoutView.as_view(template_name='apartment/index.html'),name='users_logout'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='apartment/list.html'),name='users_logout'),
 
 ]
