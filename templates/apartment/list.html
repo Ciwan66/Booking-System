@@ -1,85 +1,42 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Apartments</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
-    h1 {
-      text-align: center;
-      padding: 20px 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
-    .card {
-      display: block;
-      text-decoration: none;
-      color: #333;
-      background-color: #fff;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease;
-    }
-    .card:hover {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    }
-    .card img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    .card h2 {
-      margin-top: 0;
-    }
-    .card p {
-      margin: 10px 0;
-    }
+{% extends "base.html" %}
 
-  </style>
-</head>
-<body>
-  <h1>Apartments</h1>
+{% load static %}
+{% block title %}Apartments{% endblock title %}
+
+
+{% block content %}
+
+<h1 class="">Apartments</h1>
 
 
   
 
+<div class="container bg-light p-4 mt-3 mb-4">
 
 {% include 'partials/search_bar.html' with cities=cities countries=countries %}
- 
+</div>
 
 
-  
-  <div class="container">
-    <ul>
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> <!-- Use Bootstrap grid classes for responsive layout -->
       {% for apartment in apartments %}
-      <li>
-        <a href="{% url 'detail' apartment.id %}" class="card">
-          <h2>{{ apartment.apt_name }}</h2>
-          <p><strong>City:</strong> {{ apartment.city }}</p>
-          <p><strong>Country:</strong> {{ apartment.country }}</p>
-          <p><strong>Price per Night:</strong> {{ apartment.price_per_night }}</p>
-          {% if apartment.cover_image %}
-          <img width="500px" src="{{apartment.cover_image.url}}" alt="Apartment Image" />
-          {% endif %}
-        </a>
-      </li>
+      <div class="col">
+          <a href="{% url 'detail' apartment.id %}" class="card text-decoration-none"> <!-- Apply Bootstrap card class -->
+              <div class="card-body">
+                  <h5 class="card-title">{{ apartment.apt_name }}</h5>
+                  <p class="card-text"><strong>City:</strong> {{ apartment.city }}</p>
+                  <p class="card-text"><strong>Country:</strong> {{ apartment.country }}</p>
+                  <p class="card-text"><strong>Price per Night:</strong> {{ apartment.price_per_night }}</p>
+                  {% if apartment.cover_image %}
+                  <img src="{{ apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image"> <!-- Apply Bootstrap card image class -->
+                  {% endif %}
+              </div>
+          </a>
+      </div>
       {% endfor %}
-    </ul>
   </div>
+</div>
 
 
+{% endblock content %}
 
-</body>
-</html>
