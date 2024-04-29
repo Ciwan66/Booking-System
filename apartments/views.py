@@ -10,10 +10,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
+#  apartment list view content
 class ApartmentListView(ListView):
     model = Apartment
     context_object_name = 'apartments'
     template_name = "apartment/list.html"
+
+
+#  i added the data context to  filter and put the options in the selects to search apartments by country or city...
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -26,11 +30,13 @@ class ApartmentListView(ListView):
     
  
 
+#  apartment detil view
 class ApartmentDetailView(DetailView):
     model = Apartment
     template_name = "apartment/detail.html"
     
     #get context data to return the images with the detail
+    # i returned the images of the apartment also from the apartment image model(table)
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         
@@ -44,7 +50,7 @@ class ApartmentDetailView(DetailView):
                 
             
         return context
-
+# search apartment function its have the following fields and i return the apartmens  that matchs these fields
 
 def search_apartments(request):
     country_name=request.GET.get("country_input")
@@ -70,12 +76,8 @@ def search_apartments(request):
     if city_select:
         # Filter apartments by city name through the related City model
         apartments = apartments.filter(city__city_name=city_select)
-
     if n_rooms:
         apartments = apartments.filter(rooms__gte=n_rooms)
-
-    
-
     if  price_starts and price_ends:
         apartments = apartments.filter(price_per_night__range=(price_starts, price_ends))
     elif price_starts:
@@ -83,7 +85,6 @@ def search_apartments(request):
     elif price_ends:
         apartments = apartments.filter(price_per_night__lte=price_ends)   
         
-
     context = {
         'apartments': apartments,
         'cities': City.objects.all(),
