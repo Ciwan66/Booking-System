@@ -1,0 +1,130 @@
+<style>
+ 
+    form {
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /**/
+    }
+  
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: calc(50% - 10px);
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .card {
+        display: block;
+        text-decoration: none;
+        color: #333;
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .card h2 {
+        margin-top: 0;
+    }
+
+    .card p {
+        margin: 10px 0;
+    }
+    #search_bar{
+        display: none;
+      }
+</style>
+<button onclick="showSearch()">Search Apartment</button>
+
+<div id="search_bar"> 
+<form method="GET" action="{% url 'search_apartments' %}">
+    <div>
+        <label for="city_select">City:</label>
+        <select id="city_select" name="city_select">
+            <option value="">Select city...</option>
+            {% for city in cities %}
+            <option value="{{ city.city_name}}">{{ city.city_name }}</option>
+            {% endfor %}
+        </select>
+        <label for="city_input">Or enter city:</label>
+        <input type="text" id="city_input" name="city_input" placeholder="Enter city...">
+    </div>
+    <div>
+        <label for="country_select">Country:</label>
+        <select id="country_select" name="country_id">
+            <option value="">Select country...</option>
+            {% for country in countries %}
+            <option value="{{ country.id }}">{{ country.country_name }}</option>
+            {% endfor %}
+        </select>
+        <label for="country_input">Or enter country:</label>
+        <input type="text" id="country_input" name="country_input" placeholder="Enter country...">
+    </div>
+    <div>
+        <label for="n_rooms">Number of Rooms:</label>
+        <input type="number" id="n_rooms" name="n_rooms" placeholder="Number of rooms">
+    </div>
+    <div>
+        <label for="price_starts">Price starts with:</label>
+        <input type="number" id="price_starts" name="price_starts" placeholder="Minimum price">
+    </div>
+    <div>
+        <label for="price_ends">Price Ends with:</label>
+        <input type="number" id="price_ends" name="price_ends" placeholder="Maximum price">
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+
+</div>
+
+
+<script>
+    function showSearch() {
+        var searchForm = document.getElementById("search_bar");
+        if (searchForm.style.display === "none") {
+            searchForm.style.display = "block";
+        } else {
+            searchForm.style.display = "none";
+        }
+    }
+</script>
