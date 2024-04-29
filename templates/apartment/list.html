@@ -46,10 +46,21 @@
     .card p {
       margin: 10px 0;
     }
+
   </style>
 </head>
 <body>
   <h1>Apartments</h1>
+
+
+  
+
+
+{% include 'parts/search_bar.html' with cities=cities countries=countries %}
+ 
+
+
+  
   <div class="container">
     <ul>
       {% for apartment in apartments %}
@@ -67,5 +78,8 @@
       {% endfor %}
     </ul>
   </div>
+
+
+
 </body>
 </html>
