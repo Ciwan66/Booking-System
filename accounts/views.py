@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect 
 from django.contrib import messages
 from django.views import View
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView ,PasswordResetView
 from .forms import RegisterForm,LoginForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -15,6 +15,9 @@ from .models import CustomUser
 from django.core.mail import EmailMessage  
 from django.http import HttpResponse  
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 @login_required
 def dashboard(request):
@@ -97,3 +100,12 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
     else:  
         return HttpResponse('Activation link is invalid!')  
+    
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'accounts/password_reset_form.html'
+    email_template_name = 'accounts/password_reset_email.html'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('users_login')
