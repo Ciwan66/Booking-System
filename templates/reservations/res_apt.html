@@ -1,0 +1,25 @@
+<!-- Template code of the next page (e.g., create-reserv.html) -->
+{% if request.GET.apartment_id %}
+    {% with apartment_id=request.GET.apartment_id %}
+  
+    <p>The apartment ID is: {{ apartment_id }}</p>
+
+<form  method="post">
+
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="hidden" name="apartment" value="{{apartment_id}}"/>
+    <input type='submit' value='Submit'>
+
+</form>
+
+
+
+
+  {% endwith %}
+  
+  
+  
+  {% else %}
+    <p>No apartment ID provided.</p>
+{% endif %}

@@ -42,6 +42,9 @@
             {% endif %}
         </div>
     </div>
+    <a href="{% url 'creat-reserv' apartment.id %}?apartment_id={{ apartment.id }}">
+        Book this house now
+    </a>
 </div>
 
 {% endblock content %}
