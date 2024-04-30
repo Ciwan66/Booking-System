@@ -148,3 +148,11 @@ SESSION_COOKIE_AGE = 60*60*2
 
 LOGIN_REDIRECT_URL = '/accounts/'
 LOGIN_URL = 'users_login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'delequvalorant@gmail.com'
+EMAIL_HOST_PASSWORD = 'soab ifzx ptbi qago'
+
