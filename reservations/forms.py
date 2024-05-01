@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import DateInput
-from .models import Reservation
+from .models import Reservation , ReservationStatus
 
 class ReservationForm(forms.ModelForm):
     class Meta:
@@ -21,3 +21,8 @@ class UpdateResForm(forms.ModelForm):
             'check_in_date': DateInput(attrs={'type': 'date'}),
             'check_out_date': DateInput(attrs={'type': 'date'}),
         }
+
+
+class ReservationStatusForm(forms.Form):
+    id = forms.IntegerField(widget=forms.HiddenInput())
+    new_status = forms.ModelChoiceField(queryset=ReservationStatus.objects.all(), empty_label=None)
