@@ -17,7 +17,6 @@ class ApartmentListView(ListView):
     context_object_name = 'apartments'
     template_name = "apartment/list.html"
 
-
 #  i added the data context to  filter and put the options in the selects to search apartments by country or city...
 
     def get_context_data(self, **kwargs):
@@ -35,9 +34,6 @@ class ApartmentListView(ListView):
 class ApartmentDetailView(DetailView):
     model = Apartment
     template_name = "apartment/detail.html"
-    
-
-    
     
     #get context data to return the images with the detail
     # i returned the images of the apartment also from the apartment image model(table)
