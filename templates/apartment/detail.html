@@ -1,51 +1,57 @@
 {% extends "base.html" %}
 {% block title %}{{ apartment.apt_name }}{% endblock title %}
 
-
-
 {% block content %}
-<div class="container bg-light p-4 mt-3">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
             <h1>{{ apartment.apt_name }}</h1>
-            <p><strong>Description:</strong> {{ apartment.description }}</p>
-            <p><strong>Category:</strong> {{ apartment.category }}</p>
-            <p><strong>Rooms:</strong> {{ apartment.rooms }}</p>
-            <p><strong>Beds:</strong> {{ apartment.beds }}</p>
-            <p>
-                {% if apartment.wifi %}
-                    <strong>Wifi:</strong> Yes
-                {% else %}
-                    <strong>Wifi:</strong> No
-                {% endif %}
-            </p>
-            <p>
-                {% if apartment.tv %}
-                    <strong>TV:</strong> Yes
-                {% else %}
-                    <strong>TV:</strong> No
-                {% endif %}
-            </p>
-            <p><strong>City:</strong> {{ apartment.city }}</p>
-            <p><strong>Country:</strong> {{ apartment.country }}</p>
+            <p class="lead"><strong>Description:</strong> {{ apartment.description }}</p>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>Category:</strong> {{ apartment.category }}</p>
+                    <p><strong>Rooms:</strong> {{ apartment.rooms }}</p>
+                    <p><strong>Beds:</strong> {{ apartment.beds }}</p>
+                    {% if apartment.wifi %}
+                        <p><strong>Wifi:</strong> Yes</p>
+                    {% else %}
+                        <p><strong>Wifi:</strong> No</p>
+                    {% endif %}
+                    {% if apartment.tv %}
+                        <p><strong>TV:</strong> Yes</p>
+                    {% else %}
+                        <p><strong>TV:</strong> No</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <p><strong>City:</strong> {{ apartment.city }}</p>
+                    <p><strong>Country:</strong> {{ apartment.country }}</p>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
             {% if images %}
-                <h2>Images</h2>
+                <h2 class="mb-3">Images</h2>
                 <div class="row">
                     {% for apt_image in images %}
-                        <div class="col-md-6">
-                            <img src="{{ apt_image.image.url }}" alt="house image" class="img-fluid mb-2" />
+                        <div class="col-md-6 mb-3">
+                            <img src="{{ apt_image.image.url }}" alt="house image" class="img-fluid rounded">
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
     </div>
-    <a href="{% url 'creat-reserv' apartment.id %}?apartment_id={{ apartment.id }}">
-        Book this house now
-    </a>
 </div>
-{% include "../reservations/res_apt.html" %}
+
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        {% include "../reservations/res_apt.html" %}
+    {% else %}
+
+        <p class="lead">To book this apartment, please <a href="{% url "users_login" %}?next=/{{apartment.id}}" class="text-primary">log in</a> or <a href="{% url "users_register" %}" class="text-primary">sign up</a>.</p>
+
+    
+        {% endif %}
+</div>
 {% endblock content %}
-   

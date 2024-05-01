@@ -146,8 +146,9 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # session age in hours
 SESSION_COOKIE_AGE = 60*60*2
 
-LOGIN_REDIRECT_URL = '/accounts/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'users_login'
+LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
