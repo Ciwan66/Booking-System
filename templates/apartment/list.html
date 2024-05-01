@@ -6,7 +6,6 @@
 
 {% block content %}
 
-<h1 class="">Apartments</h1>
 
 
   
@@ -20,7 +19,7 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for apartment in apartments %}
         <div class="col">
-            <a href="{% url 'detail' apartment.id %}?apartment_id={{apartment.id}}" class="card text-decoration-none">
+            <a href="{% url 'detail' apartment.id %}" class="card text-decoration-none">
                 <img src="{% if apartment.cover_image %}{{ apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" class="card-img-top" alt="Apartment Image">
                 <div class="card-body">
                     <h5 class="card-title">{{ apartment.apt_name }}</h5>
@@ -28,7 +27,7 @@
                     <p class="card-text"><strong>Price per Night:</strong> ${{ apartment.price_per_night }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="card-text">Rooms: {{ apartment.rooms }} | Beds: {{ apartment.beds }} | Bathrooms: {{ apartment.bath_rooms }}</p>
-                        <a href="{% url 'detail' apartment.id %}?apartment_id={{apartment.id}}" class="btn btn-primary">View Details</a>
+                        <a href="{% url 'detail' apartment.id %}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </a>

@@ -5,12 +5,14 @@ from django.conf import settings
 
 class Country(models.Model):
     country_name = models.CharField(max_length=100)
+    country_image=models.ImageField(upload_to='countries/', blank=True, null=True)
 
     def __str__(self):
         return self.country_name
 
 class City(models.Model):
     city_name = models.CharField(max_length=100)
+    city_image=models.ImageField(upload_to="cities/",null=True,blank=True)
     postal_code = models.IntegerField()
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
@@ -19,6 +21,7 @@ class City(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
+    category_image=models.ImageField(upload_to='categories/',null=True,blank=True)
 
     def __str__(self):
         return self.category_name
