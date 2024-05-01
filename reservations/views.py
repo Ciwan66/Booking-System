@@ -1,16 +1,19 @@
 from django.shortcuts import render
-from .models import Reservation,ReservationStatus
+
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+
 from apartments.models import Apartment,ApartmentImage
+from .models import Reservation,ReservationStatus
+
 from datetime import timedelta
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from .forms import ReservationForm,UpdateResForm
 
 
+from django.http import HttpResponseRedirect, Http404
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 
 
@@ -36,7 +39,9 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
     redirect_field_name = "next"
     model = Reservation
     success_url = "/"
-    form_class= ReservationForm
+    form_class = ReservationForm
+
+    
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -47,14 +52,21 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
             # Check if checkout date is after check-in date
             check_in_date = form.cleaned_data['check_in_date']
             check_out_date = form.cleaned_data['check_out_date']
-            if check_out_date <= check_in_date:
+            if check_out_date <= check_in_date :
                 messages.error(self.request, "Checkout date must be after check-in date.")
-                return HttpResponseRedirect(reverse('reservation_create'))  # Redirect to the reservation creation page
+                return HttpResponseRedirect(reverse('detail', args=[apartment_id]))  # Redirect to the reservation creation page
             
             # Check if the apartment is available for booking
-            if apartment_instance.is_booked:
-                messages.error(self.request, "Selected apartment is already booked.")
-                return HttpResponseRedirect(reverse('reservation_create'))  # Redirect to the reservation creation page
+            reservations = Reservation.objects.filter(
+                apartment=apartment_id,
+                check_out_date__gte=check_in_date,
+                check_in_date__lte=check_out_date,
+                reservation_status=2,
+                
+            )
+            if reservations :
+                messages.error(self.request, "Selected apartment is already booked for the selected dates.")
+                return HttpResponseRedirect(reverse('detail', args=[apartment_id]))  # Redirect to the reservation creation page
             
             # Calculate duration of stay
             duration_of_stay = check_out_date - check_in_date
@@ -68,7 +80,6 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
         obj.user = self.request.user
         obj.status = ReservationStatus.objects.get(pk=1)  # Set default status as New
         return super().form_valid(form)
-
 
 #creat update list view
 class ReservationUpdateView(UpdateView):
@@ -88,12 +99,19 @@ class ReservationUpdateView(UpdateView):
             check_out_date = form.cleaned_data['check_out_date']
             if check_out_date <= check_in_date:
                 messages.error(self.request, "Checkout date must be after check-in date.")
-                return HttpResponseRedirect(reverse('list-reserv'))  # Redirect to the reservation creation page
+                return HttpResponseRedirect(reverse('update-reserv', args=[self.object.id]))  # Redirect to the reservation creation page
             
             # Check if the apartment is available for booking
-            if apartment_instance.is_booked:
+            reservations = Reservation.objects.filter(
+                apartment=apartment_id,
+                check_out_date__gte=check_in_date,
+                check_in_date__lte=check_out_date,
+                reservation_status=2,
+                
+            )
+            if reservations:
                 messages.error(self.request, "Selected apartment is already booked.")
-                return HttpResponseRedirect(reverse('list-reserv'))  # Redirect to the reservation creation page
+                return HttpResponseRedirect(reverse('update-reserv', args=[self.object.id]))  # Redirect to the reservation creation page
             
             # Calculate duration of stay
             duration_of_stay = check_out_date - check_in_date
