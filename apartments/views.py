@@ -5,6 +5,7 @@ from .models import Apartment,ApartmentImage,Country,City
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from reservations.forms import ReservationForm
 #import user to get the user id
 
 
@@ -35,15 +36,19 @@ class ApartmentDetailView(DetailView):
     model = Apartment
     template_name = "apartment/detail.html"
     
+
+    
+    
     #get context data to return the images with the detail
     # i returned the images of the apartment also from the apartment image model(table)
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         
         apartment=context['apartment']
+
         try:
             images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
-        
+            context["form"]=ReservationForm
             context["images"]=images
         except ApartmentImage.DoesNotExist:
                 pass

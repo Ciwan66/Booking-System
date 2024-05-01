@@ -4,7 +4,7 @@
   
     <p>The apartment ID is: {{ apartment_id }}</p>
 
-<form  method="post">
+<form  action="{% url 'creat-reserv'  apartment_id  %}" method="post">
 
     {% csrf_token %}
     {{form.as_p}}

@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Apartments{% endblock title %}
+{% block title %}Your Reservations{% endblock title %}
 
 {% block content %}
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    {% for res in reservations %}
-    <div class="col">
-      <div class="card h-100">
+  <div class="row">
+    {% for reservation in reservations %}
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        {% if reservation.apartment.cover_image.url  %}
+        <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
+        {% else %}
+        <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
+        
+        {% endif %}
+        <a></a>
         <div class="card-body">
-          <h5 class="card-title">{{ res.apartment }}</h5>
-          <p class="card-text">Status: {{ res.reservation_status }}</p>
-          <a href="{% url 'detail-reserv' res.id %}" class="btn btn-primary">View Details</a>
+
+          <h5 class="card-title">{{ reservation.apartment.name }}</h5>
+          <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+          <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
+          <p class="card-text">Total Price: {{ reservation.total_price }}</p>
+          <p class="card-text">Status: {{ reservation.reservation_status }}</p>
+          {% if reservation.reservation_status.id == 1 %}
+            <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
+          {% endif %}
         </div>
       </div>
     </div>

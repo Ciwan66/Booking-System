@@ -3,7 +3,7 @@ from .models import Reservation,ReservationStatus
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from apartments.models import Apartment
+from apartments.models import Apartment,ApartmentImage
 from datetime import timedelta
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -16,16 +16,14 @@ from .forms import ReservationForm,UpdateResForm
 
 
 # Create your views here.
-class ReservationListView(LoginRequiredMixin,ListView):
+class ReservationListView(LoginRequiredMixin, ListView):
     model = Reservation
-    template_name='reservations/list_res.html'
+    template_name = 'reservations/list_res.html'
     context_object_name = 'reservations'
-    
+
+
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
-        
-
-
+        return Reservation.objects.filter(user=self.request.user).order_by('-check_in_date')
     
 class ReservationDetailView(LoginRequiredMixin,DetailView):
     model = Reservation
