@@ -1,25 +1,20 @@
 <!-- Template code of the next page (e.g., create-reserv.html) -->
-{% if request.GET.apartment_id %}
-    {% with apartment_id=request.GET.apartment_id %}
-  
-    <p>The apartment ID is: {{ apartment_id }}</p>
-
-<form  action="{% url 'creat-reserv'  apartment_id  %}" method="post">
-
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="hidden" name="apartment" value="{{apartment_id}}"/>
-    <input type='submit' value='Submit'>
-
-</form>
-
-
-
-
-  {% endwith %}
-  
-  
-  
-  {% else %}
-    <p>No apartment ID provided.</p>
-{% endif %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 ">
+            <form action="{% url 'creat-reserv' apartment.id %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="check-in-date" class="form-label">Check-in Date</label>
+                    <input type="date" class="form-control" id="check-in-date" name="check_in_date" required>
+                </div>
+                <div class="mb-3">
+                    <label for="check-out-date" class="form-label">Check-out Date</label>
+                    <input type="date" class="form-control" id="check-out-date" name="check_out_date" required>
+                </div>
+                <input type="hidden" name="apartment" value="{{ apartment.id }}">
+                <button type="submit" class="btn btn-primary">Book Now</button>
+            </form>
+        </div>
+    </div>
+</div>
