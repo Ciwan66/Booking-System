@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import Reservation,ReservationStatus
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,6 +9,9 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import ReservationForm,UpdateResForm
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
+
 
 
 
@@ -105,4 +108,22 @@ class ReservationUpdateView(UpdateView):
         obj.status = ReservationStatus.objects.get(pk=1)  # Set default status as New
         return super().form_valid(form)
 
+@user_passes_test(lambda u: u.is_staff)
+def apartment_admin(request):
+    if request.method == 'POST':
+        res_id = request.POST.get('reservation_id')
+        new_status = request.POST.get('new_status')
+        try:
+            res = Reservation.objects.get(id=res_id)
+            new_status = ReservationStatus.objects.get(id=new_status)
+            res.reservation_status = new_status
+            res.save()
+        except Reservation.DoesNotExist:
+            # Handle case where apartment is not found
+            pass
+            return redirect(reverse('test'))
 
+
+    # If request method is GET, retrieve all apartments
+    reservations = Reservation.objects.filter(reservation_status=1)
+    return render(request, 'reservations/apartment_admin.html', {'reservations': reservations})

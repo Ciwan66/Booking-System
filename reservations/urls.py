@@ -4,7 +4,6 @@ from .views import ReservationListView  as ReservationListView
 from .views import ReservationDetailView  as ReservationDetailView
 from .views import ReservationUpdateView  as ReservationUpdateView
 
-
 urlpatterns = [
     path("", ReservationListView.as_view(), name='list-reserv'),
     path("res-details/<int:pk>", ReservationDetailView.as_view(), name='detail-reserv'),
