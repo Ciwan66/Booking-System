@@ -20,3 +20,5 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"Reservation for {self.apartment} by {self.user}"
+
+    

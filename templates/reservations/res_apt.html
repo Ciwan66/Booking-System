@@ -1,4 +1,13 @@
 <!-- Template code of the next page (e.g., create-reserv.html) -->
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6 ">
