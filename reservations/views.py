@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect,get_object_or_404
 
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,6 +37,8 @@ class ReservationDetailView(LoginRequiredMixin,DetailView):
     model = Reservation
     template_name = "reservations/res_detail.html"
     context_object_name = "reservation"  # Your own name for the object that will be passed to the template.
+
+    
 
 class ReservationCreateView(LoginRequiredMixin, CreateView):
     login_url = "/accounts/login/"
@@ -158,3 +160,18 @@ def apartment_admin(request):
     # If request method is GET, retrieve all apartments
     reservations = Reservation.objects.filter(reservation_status=1)
     return render(request, 'reservations/apartment_admin.html', {'reservations': reservations})
+# views.py
+
+
+
+def cancel_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, pk=reservation_id)
+    
+    # Retrieve the 'Rejected' status object
+    cancel_status = ReservationStatus.objects.get(id=4)  # Assuming 3 is the ID for "Rejected" status
+    
+    # Set the reservation status to 'Rejected'
+    reservation.reservation_status = cancel_status
+    reservation.save()
+    
+    return redirect('detail-reserv',reservation_id)

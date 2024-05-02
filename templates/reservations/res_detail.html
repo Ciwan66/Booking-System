@@ -17,6 +17,7 @@
           <p>Status: {{ reservation.reservation_status }}</p>
           {% if reservation.reservation_status.id == 1 %}
             <a href="{% url 'update-reserv' reservation.pk %}" class="btn btn-primary">Update</a>
+            <a href="{% url 'cancel-reserv' reservation.pk %}" class="btn btn-primary">Canel</a>
           {% endif %}
         </div>
       </div>

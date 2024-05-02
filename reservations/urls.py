@@ -3,8 +3,10 @@ from .views import ReservationCreateView as ReservationCreateView
 from .views import ReservationListView  as ReservationListView
 from .views import ReservationDetailView  as ReservationDetailView
 from .views import ReservationUpdateView  as ReservationUpdateView
+from .views import cancel_reservation
 
 urlpatterns = [
+    path('cancel-reserv/<int:reservation_id>/', cancel_reservation, name='cancel-reserv'),
     path("", ReservationListView.as_view(), name='list-reserv'),
     path("res-details/<int:pk>", ReservationDetailView.as_view(), name='detail-reserv'),
     path("res-update/<int:pk>", ReservationUpdateView.as_view(), name='update-reserv'),
