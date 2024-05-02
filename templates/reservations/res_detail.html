@@ -4,6 +4,8 @@
 {% block title %}Reservation Details{% endblock title %}
 
 {% block content %}
+{% if reservation %}
+
 <div class="container">
   <div class="row">
     <div class="col-md-6 offset-md-3">
@@ -24,4 +26,14 @@
     </div>
   </div>
 </div>
+
+
+{% else %}
+    <!-- If reservation queryset is empty, redirect to error-url -->
+  
+                    <script>
+                        window.location.href = "some-thing-wrong";
+                    </script>
+                
+{% endif %}
 {% endblock content %}
