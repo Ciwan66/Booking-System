@@ -5,31 +5,112 @@
 
 {% block content %}
 <div class="container">
-  <div class="row">
-    {% for reservation in reservations %}
-    <div class="col-md-6 mb-4">
-      <div class="card">
-        {% if reservation.apartment.cover_image.url  %}
-        <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
-        {% else %}
-        <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
-        
-        {% endif %}
-        <a></a>
-        <div class="card-body">
+  <h1 class="mb-4">Your Reservations</h1>
+  
+  <!-- Tab Buttons -->
+  <ul class="nav nav-tabs" id="reservationTabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="accepted-tab" data-toggle="tab" href="#accepted" role="tab" aria-controls="accepted" aria-selected="false">Accepted</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected</a>
+    </li>
+  </ul>
 
-          <h5 class="card-title">{{ reservation.apartment.name }}</h5>
-          <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
-          <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
-          <p class="card-text">Total Price: {{ reservation.total_price }}</p>
-          <p class="card-text">Status: {{ reservation.reservation_status }}</p>
-          {% if reservation.reservation_status.id == 1 %}
-            <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
+  <!-- Tab Content -->
+  <div class="tab-content" id="reservationTabContent">
+    <!-- Pending Reservations -->
+    <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+      <div class="row">
+        {% for reservation in reservations %}
+          {% if reservation.reservation_status_id == 1 %}
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                {% if reservation.apartment.cover_image.url %}
+                  <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
+                {% else %}
+                  <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ reservation.apartment.name }}</h5>
+                  <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+                  <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
+                  <p class="card-text">Total Price: {{ reservation.total_price }}</p>
+                  <p class="card-text">Status: {{ reservation.reservation_status }}</p>
+                  <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
+                </div>
+              </div>
+            </div>
           {% endif %}
-        </div>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
+
+    <!-- Accepted Reservations -->
+    <div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
+      <div class="row">
+        {% for reservation in reservations %}
+          {% if reservation.reservation_status_id == 2 %}
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                {% if reservation.apartment.cover_image.url %}
+                  <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
+                {% else %}
+                  <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ reservation.apartment.name }}</h5>
+                  <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+                  <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
+                  <p class="card-text">Total Price: {{ reservation.total_price }}</p>
+                  <p class="card-text">Status: {{ reservation.reservation_status }}</p>
+                  <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Rejected Reservations -->
+    <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+      <div class="row">
+        {% for reservation in reservations %}
+          {% if reservation.reservation_status_id == 3 %}
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                {% if reservation.apartment.cover_image.url %}
+                  <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
+                {% else %}
+                  <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ reservation.apartment.name }}</h5>
+                  <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+                  <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
+                  <p class="card-text">Total Price: {{ reservation.total_price }}</p>
+                  <p class="card-text">Status: {{ reservation.reservation_status }}</p>
+                  <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#reservationTabs a').on('click', function(e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+  });
+</script>
 {% endblock content %}
