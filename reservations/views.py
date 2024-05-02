@@ -1,20 +1,14 @@
 from django.shortcuts import render , redirect,get_object_or_404
-
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from apartments.models import Apartment,ApartmentImage
 from .models import Reservation,ReservationStatus
-
 from datetime import timedelta
 from .forms import ReservationForm,UpdateResForm
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import user_passes_test
-
+from django.contrib.auth.decorators import user_passes_test , login_required
 from django.conf import settings
-
 from django.core.mail import send_mail
-
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
@@ -38,7 +32,9 @@ class ReservationDetailView(LoginRequiredMixin,DetailView):
     template_name = "reservations/res_detail.html"
     context_object_name = "reservation"  # Your own name for the object that will be passed to the template.
 
-    
+    def get_queryset(self):
+        # Only show reservations of the authenticated user
+        return Reservation.objects.filter(user=self.request.user)
 
 class ReservationCreateView(LoginRequiredMixin, CreateView):
     login_url = "/accounts/login/"
@@ -163,15 +159,22 @@ def apartment_admin(request):
 # views.py
 
 
-
+@login_required
 def cancel_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, pk=reservation_id)
+    # Ensure that only the owner of the reservation can cancel it
+    reservation = get_object_or_404(Reservation, pk=reservation_id, user=request.user)
     
-    # Retrieve the 'Rejected' status object
-    cancel_status = ReservationStatus.objects.get(id=4)  # Assuming 3 is the ID for "Rejected" status
-    
-    # Set the reservation status to 'Rejected'
-    reservation.reservation_status = cancel_status
-    reservation.save()
-    
-    return redirect('detail-reserv',reservation_id)
+    try:
+        # Retrieve the 'Cancelled' status object
+        cancel_status = ReservationStatus.objects.get(id=4)  # Assuming 4 is the ID for "Cancelled" status
+        
+        # Set the reservation status to 'Cancelled'
+        reservation.reservation_status = cancel_status
+        reservation.save()
+        
+        # Redirect to the reservation detail page
+        return redirect('detail-reserv', reservation_id=reservation_id)
+    except ReservationStatus.DoesNotExist:
+        # Handle the case where the status doesn't exist
+        # Redirect the user to an appropriate page or display an error message
+        return redirect('error-page')
