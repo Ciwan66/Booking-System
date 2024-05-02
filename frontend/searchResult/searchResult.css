@@ -1,0 +1,62 @@
+:root {
+    --main-color: #313131;
+    --secondary-color: #737373;
+    --hover-color: #7b6025;
+    --secondary-golden-color: #a97510;
+}
+
+.homeBtn {
+    background-color: var(--secondary-color);
+    width: 120px;
+    display: inline-block !important;
+    position: absolute;
+    left: 10%;
+}
+.homeBtn:hover {
+    background-color: var(--hover-color);
+}
+.rooms img {
+    width: 90%;
+}
+.headline {
+    font-weight: bold !important;
+    background-color: var(--main-color);
+    width: fit-content;
+    margin: auto;
+}
+.descriptionBar {
+    top: 87%;
+    background: var(--main-color);
+    width: 90%;
+    left: 5%;
+}
+
+.image {
+    overflow: hidden;
+}
+.image::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255 255 255 / 20%);
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: 2;
+}
+.image:hover::before {
+    animation: flashing 0.7s;
+}
+
+@keyframes flashing {
+    0%, 40% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        width: 200%;
+        height: 200%;
+    }
+}
