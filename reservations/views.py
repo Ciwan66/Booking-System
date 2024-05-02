@@ -11,7 +11,9 @@ from .forms import ReservationForm,UpdateResForm
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import user_passes_test
 
+from django.conf import settings
 
+from django.core.mail import send_mail
 
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
@@ -126,7 +128,7 @@ class ReservationUpdateView(UpdateView):
         obj.status = ReservationStatus.objects.get(pk=1)  # Set default status as New
         return super().form_valid(form)
 
-@user_passes_test(lambda u: u.is_staff)
+@user_passes_test(lambda u: u.is_staff,login_url='admin:index')
 def apartment_admin(request):
     if request.method == 'POST':
         res_id = request.POST.get('reservation_id')
@@ -136,6 +138,17 @@ def apartment_admin(request):
             new_status = ReservationStatus.objects.get(id=new_status)
             res.reservation_status = new_status
             res.save()
+            if new_status.id==2:
+                message = f'Hi {res.user.first_name}, your booking request accepted.'
+            else:
+                message = f'Hi {res.user.first_name}, your booking request rejected'
+
+            subject = 'Booking'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [res.user.email, ]
+            send_mail( subject, message, email_from, recipient_list )
+
+
         except Reservation.DoesNotExist:
             # Handle case where apartment is not found
             pass
