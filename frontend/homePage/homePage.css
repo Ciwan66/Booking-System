@@ -13,17 +13,23 @@ img {
     width: 100%;
 }
 /* home */
+.loginLinks {
+    gap: 40px !important;
+}
 .loginBtn {
     background-color: var(--secondary-color);
-    width: 120px;
-    margin-left: 8rem;
+    width: 100px;
 }
 .loginBtn:hover {
     background-color: var(--hover-color);
 }
 header {
     position: absolute;
+    background-color: var(--main-color);
     width: 100%;
+    height: 67px;
+    display: flex !important;
+    align-items: center;
 }
 
 .container {
@@ -34,7 +40,7 @@ header {
 }
 
 .navLink {
-    color: black;
+    color: rgb(255, 255, 255);
 }
 .navLink:hover {
     color: white;
