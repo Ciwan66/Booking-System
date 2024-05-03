@@ -153,7 +153,7 @@ def apartment_admin(request):
             return redirect(reverse('test'))
 
     reservations = Reservation.objects.filter(reservation_status=ReservationStatus.objects.get(pk=1))
-    return render(request, 'reservations/apartment_admin.html', {'reservations': reservations})
+    return render(request, 'admin/apartment_admin.html', {'reservations': reservations})
 
 
 @login_required

@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Apartment Admin</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            margin-top: 50px;
-        }
-    </style>
-</head>
-<body>
+{% extends "admin/base.html" %}
+{% block sidebar %}
+    {{block.super}}
+    <div>
+        <h1>Extra links</h1>
+        <a href="/admin/extra/">My extra link</a>
+    </div>
+{% endblock %}
+    {% block content %}
     <div class="container">
-        <h1 class="mb-4 text-center">To go to  <a href="{% url "admin:index" %}">Admin Panel</a></h1>
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -46,5 +41,4 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+    {% endblock content %}
