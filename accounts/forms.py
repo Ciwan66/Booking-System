@@ -8,33 +8,37 @@ class RegisterForm(UserCreationForm):
 
     first_name=forms.CharField(max_length=50,
                             required=True,
-                            widget=forms.TextInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                          'placeholder':'First Name'}))
+                            widget=forms.TextInput(attrs={'id':"textFirstName" ,
+                                                          'class':"form-control signupName mb-4" ,
+                                                          'placeholder':"First Name"}))
 
     last_name=forms.CharField(max_length=50,
                             required=True,
-                            widget=forms.TextInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                          'placeholder':'Last Name'}))
+                            widget=forms.TextInput(attrs={'id': 'textLastName', 
+                                                          'class': 'form-control signupName mb-4', 
+                                                          'placeholder': 'Last Name'}))
 
     email=forms.EmailField(max_length=50,
                             required=True,
-                            widget=forms.TextInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                          'placeholder':'Email'}))
+                            widget=forms.TextInput(attrs={'id': 'email', 
+                                                          'class': 'form-control mb-4', 
+                                                          'placeholder': 'Email address'}))
 
     password1=forms.CharField(max_length=50,
                             required=True,
-                            widget=forms.PasswordInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                          'placeholder':'Password'}))
+                            widget=forms.PasswordInput(attrs={'id': 'password', 
+                                                              'class': 'form-control', 
+                                                              'placeholder': 'Password'}))
 
     password2=forms.CharField(max_length=50,
                             required=True,
-                            widget=forms.PasswordInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                          'placeholder':'Confirm Password'}))
+                            widget=forms.PasswordInput(attrs={'id': 'password', 
+                                                              'class': 'form-control', 
+                                                              'placeholder': 'Confirm Password'}))
 
     phone_number=forms.CharField(max_length=11,
                             required=True,
-                            widget=forms.TextInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                          'placeholder':'Phone Number'}))
+                            widget=forms.TextInput(attrs={'id': 'phoneNumber', 'class': 'form-control mb-4', 'placeholder': 'Phone Number'}))
 
     class Meta:
         model = CustomUser
@@ -45,13 +49,12 @@ class RegisterForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username=forms.EmailField(max_length=50,
                             required=True,
-                            widget=forms.EmailInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0','placeholder': 'Email'}))
+                            widget=forms.EmailInput(attrs={'id':'form2Example11' ,'class':'form-control mb-4',
+                                          'placeholder':'Email address' }))
     password=forms.CharField(max_length=50,
                             required=False,
-                            widget=forms.PasswordInput(attrs={'class':'form-control border-top-0 border-left-0 border-right-0',
-                                                              'placeholder':'Password',
-                                                              'data_toggle':'password',
-                                                              'name':'password'}))
+                            widget=forms.PasswordInput(attrs={'id':"form2Example22", 'class':"form-control",
+                                          'placeholder':"Password" }))
     remember_me =forms.BooleanField(required=False)
     class Meta:
         model = CustomUser

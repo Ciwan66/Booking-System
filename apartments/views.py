@@ -1,13 +1,25 @@
 from django.shortcuts import render
-from .models import Apartment,ApartmentImage,Country,City
+from .models import Apartment,ApartmentImage,Country,City,Category
 
 #import list view
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from reservations.forms import ReservationForm
 #import user to get the user id
 
 
+
+class MainListView(ListView):
+    model = Category
+    context_object_name='categories'
+    template_name='index/main.html'  
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add additional context data
+        context['cities'] = City.objects.all()  # Replace 'Your City' with the actual city name
+        return context
 
 # Create your views here.
 #  apartment list view content
@@ -35,15 +47,19 @@ class ApartmentDetailView(DetailView):
     model = Apartment
     template_name = "apartment/detail.html"
     
+
+    
+    
     #get context data to return the images with the detail
     # i returned the images of the apartment also from the apartment image model(table)
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         
         apartment=context['apartment']
+
         try:
             images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
-        
+            context["form"]=ReservationForm
             context["images"]=images
         except ApartmentImage.DoesNotExist:
                 pass
@@ -55,6 +71,7 @@ class ApartmentDetailView(DetailView):
 def search_apartments(request):
     country_name=request.GET.get("country_input")
     country_id=request.GET.get("country_id")
+    category_id=request.GET.get("category")
     city_name = request.GET.get("city_input")
     city_select = request.GET.get("city_select")
     n_rooms = request.GET.get("n_rooms")
@@ -69,6 +86,9 @@ def search_apartments(request):
     if country_id:
         # Filter apartments by city name through the related City model
         apartments = apartments.filter(country=country_id)
+    if category_id:
+        # Filter apartments by city name through the related City model
+        apartments = apartments.filter(category=category_id)
         
     if city_name:
         # Filter apartments by city name through the related City model

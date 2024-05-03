@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block title %}Update Reservation{% endblock title %}
+
+{% block content %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Update Reservation for Apartment ID: {{ reservation.apartment.id }}</h5>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="apartment" value="{{ reservation.apartment.id }}">
+            <input type="submit" value="Update" class="btn btn-primary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}

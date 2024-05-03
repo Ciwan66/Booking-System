@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from reservations.views import apartment_admin
 
 urlpatterns = [
+    path('admin/requests', apartment_admin,name='requests'),
     path('admin/', admin.site.urls),
     path('',include('apartments.urls')),
     path('accounts/',include('accounts.urls')),
+    path('res/',include('reservations.urls')),
+    
 ]
     
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
