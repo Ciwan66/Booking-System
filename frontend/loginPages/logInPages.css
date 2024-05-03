@@ -25,20 +25,22 @@
 
     
     .navigationBtn {
-        color: black;
+        color: white;
+        background: #737373;
+        border: 2px solid transparent !important;
 }
     .navigationBtn:hover {
-        background: linear-gradient(to right, #98772e, #000000);
+        background: linear-gradient(to right, #98772e, #000000) !important;
         color: white;
         border: 2px solid black !important;
         text-decoration: none;
     }
 
-    .mainBtn {
-        transition: all .2s ease !important;
-}
     .mainBtn:hover {
         border: 2px solid black !important;
+    }
+    .forgotPasswordLink:hover {
+        color: #a97510 !important;   
     }
     /* loginPageAndGeneral */
 
