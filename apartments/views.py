@@ -1,8 +1,13 @@
-from django.shortcuts import render
-from .models import Apartment,ApartmentImage,Country,City,Category
-from reservations.models import Reservation
+from django.shortcuts import render,redirect
+from django.urls import reverse
+from django.urls import reverse_lazy
+from django.http import Http404
+
+
+from .models import Apartment,ApartmentImage,Country,City,Category,favorite
+
 #import list view
-from django.views.generic import ListView, DetailView,View
+from django.views.generic import ListView, DetailView,View,CreateView,RedirectView,DeleteView
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from reservations.forms import ReservationForm
@@ -44,6 +49,7 @@ class ApartmentListView(ListView):
 
 #  apartment detil view
 class ApartmentDetailView(DetailView):
+    
     model = Apartment
     template_name = "apartment/detail.html"
     
@@ -54,6 +60,7 @@ class ApartmentDetailView(DetailView):
     # i returned the images of the apartment also from the apartment image model(table)
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
         apartment=context['apartment']
 
         if Reservation.objects.filter(user=self.request.user,apartment=apartment,reservation_status=2):
@@ -62,6 +69,8 @@ class ApartmentDetailView(DetailView):
             context['add_comment'] = False
 
         context['comments']=Comment.objects.filter(apartment=apartment)
+        context['favorite'] = favorite.objects.filter(apartment=self.object, user=self.request.user).first()
+
         try:
             images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
             context["form"]=ReservationForm
@@ -117,3 +126,35 @@ def search_apartments(request):
     }
     
     return render(request, 'apartment/find_apartment.html', context)
+
+
+
+
+
+class FavoriteCreateView(CreateView):
+    model = favorite
+    template_name = "apartment/detail.html"
+    fields=['apartment']
+
+    def get_success_url(self):
+        """Returns the URL to redirect to after a successful form submission."""
+        return reverse("detail", kwargs={"pk": self.object.apartment.id})
+
+    def form_valid(self, form):
+        """If the form is valid, save the associated object."""
+        self.object = form.save(commit=False)
+        # Assuming you need to set some additional fields before saving
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+class FavoriteDeleteView(DeleteView):
+    model = favorite
+    def get_success_url(self):
+        # Get the apartment associated with the favorite
+        apartment = self.object.apartment
+        # Assuming your 'detail' URL pattern takes an 'apartment_id' argument
+        return reverse('detail', kwargs={'pk': apartment.id})
+   
+        # Redirect to the detail view of the apartment
+ 
