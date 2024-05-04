@@ -9,7 +9,7 @@
         {% for apartment in apartments %}
         <div class="col">
             <a href="{% url 'detail' apartment.id %}" class="card text-decoration-none">
-                <img src="{% if apartment.cover_image %}{{ apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" class="card-img-top" alt="Apartment Image">
+                <img  src="{% if apartment.cover_image %}{{ apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" class="card-img-top" alt="Apartment Image">
                 <div class="card-body">
                     <h5 class="card-title">{{ apartment.apt_name }}</h5>
                     <p class="card-text"><strong>Location:</strong> {{ apartment.city }}, {{ apartment.country }}</p>
