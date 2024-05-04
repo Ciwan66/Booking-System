@@ -85,8 +85,12 @@ WSGI_APPLICATION = 'BookingSystem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'EndREwrZwKyNbsobhcHNdnuwfekjsimW',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '43794',
     }
 }
 
@@ -171,7 +175,6 @@ JAZZMIN_SETTINGS = {
     "site_brand": "booking",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "static\images\logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": None,

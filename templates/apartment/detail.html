@@ -49,7 +49,10 @@
         {% include "../reservations/res_apt.html" %}
         <div class="container mt-4">
             {% include "reviews/list_comment.html" %}
-        {% include "reviews/add_comment.html" %}
+            {% if add_comment %}
+            {% include "reviews/add_comment.html" %}
+
+            {% endif %}
 
         </div>
     {% else %}

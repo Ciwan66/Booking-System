@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Apartment,ApartmentImage,Country,City,Category
-
+from reservations.models import Reservation
 #import list view
 from django.views.generic import ListView, DetailView,View
 from django.db.models import Q
@@ -54,8 +54,13 @@ class ApartmentDetailView(DetailView):
     # i returned the images of the apartment also from the apartment image model(table)
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        
         apartment=context['apartment']
+
+        if Reservation.objects.filter(user=self.request.user,apartment=apartment,reservation_status=2):
+            context['add_comment'] = True
+        else:
+            context['add_comment'] = False
+
         context['comments']=Comment.objects.filter(apartment=apartment)
         try:
             images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
