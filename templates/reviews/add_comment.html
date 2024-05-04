@@ -1,5 +1,5 @@
 <!-- Inside your form -->
-<form method="POST" action="{% url "comment" %}">      
+<form method="POST" action="{% url "comment"  apartment.id %}">      
     {% csrf_token %}
     <div class="form-group">
         <label for="comments">Comments:</label>

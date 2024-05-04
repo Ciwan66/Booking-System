@@ -4,17 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Comment
 from .forms import CommentForm
 from apartments.models import Apartment
+from django.urls import reverse
+
 # Create your views here.
 
-class CommentList(LoginRequiredMixin,ListView):
-    model = Comment
-    template_name = 'reviews/list_comments.html'
-    context_object_name = 'comments'
 
 class CommentAdd(LoginRequiredMixin,CreateView):
     form_class= CommentForm
     model = Comment
-    success_url = "/"
     redirect_field_name = "next"
 
     template_name = 'reviews/add_comment.html'
@@ -26,5 +23,8 @@ class CommentAdd(LoginRequiredMixin,CreateView):
         obj.apartment = apartment_ins
         return super().form_valid(form)
 
+    def get_success_url(self) :
+        apartment_id = self.request.POST.get('apartment')
+        return reverse('detail',kwargs={'pk':apartment_id})
         
     
