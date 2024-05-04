@@ -3,6 +3,25 @@
 
 {% block content %}
 <div class="container mt-4">
+
+
+    {% if not favorite %}
+    <form method="post" action="{% url 'favorite_create'  %}">
+
+        {% csrf_token %}
+        <input type="hidden" name='apartment' value='{{apartment.id}}'>
+        <!-- Add form fields here if necessary -->
+        <button type="submit">Add to Favorites</button>
+    </form>
+    
+    {% endif %}
+    {% if favorite %}
+    
+    <form method="post" action="{% url 'favorite_delete' favorite.id %}">
+        {% csrf_token %}
+        <button type="submit">Remove from Favorites</button>
+    </form>
+    {% endif %}
     <div class="row">
         <div class="col-md-8">
             <h1>{{ apartment.apt_name }}</h1>
