@@ -10,8 +10,10 @@ urlpatterns = [
     path('search/', views.search_apartments, name='search_apartments'),
     path('add-favorite/', views.FavoriteCreateView.as_view(), name='favorite_create'),
     path('delete-favorite/<int:pk>', views.FavoriteDeleteView.as_view(), name='favorite_delete'),
+    path('favorites/', views.FavoriteListView.as_view(), name='favorite_list'),
 
     path('comment/',include('reviews.urls')),
+
 
     
 ] 

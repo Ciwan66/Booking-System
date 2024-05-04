@@ -15,7 +15,7 @@
                     <a class="nav-link" href="{% url "index" %}" style="color: white;">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Link</a>
+                    <a class="nav-link" href="{% url "favorite_list" %}" style="color: white;">My Favorites</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">

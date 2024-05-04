@@ -138,7 +138,7 @@ class FavoriteCreateView(CreateView):
 
     def get_success_url(self):
         """Returns the URL to redirect to after a successful form submission."""
-        return reverse("detail", kwargs={"pk": self.object.apartment.id})
+        return self.request.POST.get('next', reverse_lazy('home'))
 
     def form_valid(self, form):
         """If the form is valid, save the associated object."""
@@ -146,15 +146,27 @@ class FavoriteCreateView(CreateView):
         # Assuming you need to set some additional fields before saving
         self.object.user = self.request.user
         self.object.save()
-        return super().form_valid(form)
+        return redirect(self.get_success_url())
 
 class FavoriteDeleteView(DeleteView):
     model = favorite
     def get_success_url(self):
-        # Get the apartment associated with the favorite
-        apartment = self.object.apartment
-        # Assuming your 'detail' URL pattern takes an 'apartment_id' argument
-        return reverse('detail', kwargs={'pk': apartment.id})
+        """Returns the URL to redirect to after a successful form submission."""
+        return self.request.POST.get('next', reverse_lazy('home'))
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return redirect(self.get_success_url())
    
         # Redirect to the detail view of the apartment
  
+class FavoriteListView(ListView):
+    model = favorite
+    template_name = "apartment/user_favorites.html"
+
+    def get_context_data(self, **kwargs) :
+        context = super().get_context_data(**kwargs)
+        context["favorites"] =favorite.objects.filter(user=self.request.user) 
+        return context
+    
