@@ -85,12 +85,8 @@ WSGI_APPLICATION = 'BookingSystem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'EndREwrZwKyNbsobhcHNdnuwfekjsimW',
-        'HOST': 'monorail.proxy.rlwy.net',
-        'PORT': '43794',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
