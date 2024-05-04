@@ -1,0 +1,54 @@
+<!-- apartment_detail.html -->
+
+
+<div class="comments-section">
+    <h3>Comments</h3>
+    <ul class="comment-list">
+        {% for comment in comments %}
+        <li class="comment">
+            <div class="comment-content">{{ comment.text }}</div>
+            <div class="comment-meta">
+                <span class="comment-author">{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
+                <span class="comment-date">{{ comment.created_at|date:"F j, Y" }}</span>
+            </div>
+        </li>
+        {% empty %}
+        <li class="no-comments">No comments yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+<style>
+    /* Add this to your CSS file */
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comment-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.comment-content {
+    margin-bottom: 5px;
+}
+
+.comment-meta {
+    font-size: 12px;
+    color: #888;
+}
+
+.comment-author {
+    margin-right: 10px;
+}
+
+.comment-date {
+    margin-left: 10px;
+}
+
+</style>

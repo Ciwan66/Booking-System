@@ -1,0 +1,14 @@
+<!-- Inside your form -->
+<form method="POST" action="{% url "comment" %}">      
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="comments">Comments:</label>
+        <textarea class="form-control" id="text" name="text" rows="4"></textarea>
+    </div>
+    <input type="hidden" name="apartment" value="{{ apartment.id }}">
+
+    <!-- Button to submit comments -->
+    <button type="submit" class="btn btn-primary">Submit Comment</button>
+
+    <!-- Login button and other buttons -->
+</form>

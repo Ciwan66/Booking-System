@@ -2,24 +2,24 @@ from django.shortcuts import render
 from .models import Apartment,ApartmentImage,Country,City,Category
 
 #import list view
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView,View
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from reservations.forms import ReservationForm
+from reviews.models import Comment
 #import user to get the user id
 
-
-
-class MainListView(ListView):
-    model = Category
-    context_object_name='categories'
-    template_name='index/main.html'  
-
+class Index(ListView):
+    model = Apartment
+    template_name = 'index.html'
+    context_object_name = 'apartments'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add additional context data
-        context['cities'] = City.objects.all()  # Replace 'Your City' with the actual city name
+        context["categories"] = Category.objects.all()
+        context['cities'] = City.objects.all()
         return context
+    
+
 
 # Create your views here.
 #  apartment list view content
@@ -56,7 +56,7 @@ class ApartmentDetailView(DetailView):
         context=super().get_context_data(**kwargs)
         
         apartment=context['apartment']
-
+        context['comments']=Comment.objects.filter(apartment=apartment)
         try:
             images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
             context["form"]=ReservationForm

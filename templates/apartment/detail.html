@@ -47,6 +47,11 @@
 <div class="container mt-4">
     {% if user.is_authenticated %}
         {% include "../reservations/res_apt.html" %}
+        <div class="container mt-4">
+            {% include "reviews/list_comment.html" %}
+        {% include "reviews/add_comment.html" %}
+
+        </div>
     {% else %}
 
         <p class="lead">To book this apartment, please <a href="{% url "users_login" %}?next=/{{apartment.id}}" class="text-primary">log in</a> or <a href="{% url "users_register" %}" class="text-primary">sign up</a>.</p>
@@ -54,4 +59,6 @@
     
         {% endif %}
 </div>
+
+
 {% endblock content %}

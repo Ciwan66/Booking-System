@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     #project apps
     'apartments.apps.ApartmentsConfig',
     'accounts.apps.AccountsConfig',
-    'reservations.apps.ReservationsConfig'
+    'reservations.apps.ReservationsConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [
