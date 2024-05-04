@@ -5,7 +5,7 @@ from django.http import Http404
 
 
 from .models import Apartment,ApartmentImage,Country,City,Category,favorite
-
+from reservations.models import Reservation,ReservationStatus
 #import list view
 from django.views.generic import ListView, DetailView,View,CreateView,RedirectView,DeleteView
 from django.db.models import Q
