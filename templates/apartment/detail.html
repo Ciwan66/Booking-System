@@ -5,6 +5,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
+        
             <h1>{{ apartment.apt_name }}</h1>
             <p class="lead"><strong>Description:</strong> {{ apartment.description }}</p>
             <div class="row mb-4">
@@ -29,6 +30,10 @@
                 </div>
             </div>
         </div>
+<select name="" id="">
+    <option value=""> {{ apartment.city }};{{ apartment.country }}</option>
+</select>
+
         <div class="col-md-4">
             {% if images %}
                 <h2 class="mb-3">Images</h2>

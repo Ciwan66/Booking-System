@@ -13,17 +13,23 @@ img {
     width: 100%;
 }
 /* home */
+.loginLinks {
+    gap: 40px !important;
+}
 .loginBtn {
     background-color: var(--secondary-color);
-    width: 120px;
-    margin-left: 8rem;
+    width: 80px;
 }
 .loginBtn:hover {
     background-color: var(--hover-color);
 }
 header {
     position: absolute;
+    background-color: var(--main-color);
     width: 100%;
+    height: 67px;
+    display: flex !important;
+    align-items: center;
 }
 
 .container {
@@ -34,11 +40,14 @@ header {
 }
 
 .navLink {
-    color: black;
+    color: rgb(255, 255, 255);
 }
 .navLink:hover {
     color: white;
     background-color: var(--hover-color);
+}
+.linksAndLogo {
+    gap: 30px !important;
 }
 
 .landing {
@@ -46,20 +55,22 @@ header {
     background-size: cover;
     height: 100vh;
 }
+@media screen and (max-width: 576px) {
+    .landing {
+        height: 45.9vh;
+    }
+}
 .searchContainer {
     height: 56vh;
-}
-label {
-    position: absolute;
-    left: 50%;
-    font-size: 12px;
-    background-color: var(--main-color);
-    transform: translatex(-50%);
-    padding: 2px;
 }
 .formRow {
     display: flex;
     justify-content: center;
+}
+@media screen and (max-width: 576px) {
+    .formRow {
+        flex-direction: column;
+    }
 }
 
 .tm-form-element {
@@ -68,22 +79,41 @@ label {
 .tm-section-pad-2 {
     padding: 30px 20px 14px;
 }
+@media screen and (max-width: 576px) {
+    .tm-section-pad-2 {
+        padding: 0 20px 14px;
+    }
+}
 .form-control {
     border-radius: 0;
-    padding: 1.8rem 55px !important;
 }
 .tm-search-form {
     width: 54%;
-    background-color: var(--main-color);
+    background-color: var(--secondary-color);
 }
 .tm-search-form .tm-form-element {
     width: 33%;
-}
-.tm-search-form .tm-form-element {
     padding: 0 5px;
 }
+@media (max-width: 576px) {
+    .tm-form-element {
+        width: 100% !important;
+    }
+}
+@media (max-width: 576px) {
+    .tm-search-form {
+        width: 52%;
+        background-color: transparent; 
+    }
+}
+
 .form-group {
     margin-bottom: 1rem;
+}
+@media (max-width: 576px) {
+    .form-group {
+        margin-bottom: .25rem !important;
+    }
 }
 .tm-form-element-icon {
     color: var(--main-color);
@@ -91,13 +121,17 @@ label {
     top: 15px;
     left: 15px;
 }
-.childIcon {
-    top: 22px;
+@media (max-width: 576px) {
+    .tm-form-element-icon {
+        text-align: left !important;
+        font-size: 1.4rem !important; 
+    }
 }
+
 .form-control {
     display: block;
     width: 100%;
-    padding: .375rem .75rem;
+    height: calc(2.25rem + 24px) !important; 
     font-size: 1rem;
     line-height: 1.5;
     color: #fcfeff;
@@ -108,6 +142,34 @@ label {
     border-radius: .25rem;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+@media (max-width: 576px) {
+    .form-control {
+        height: calc(2.25rem + 6px) !important; 
+    }
+}
+.select2-container--default .select2-selection--single {
+    display: block !important;
+    width: 100%;
+    height: calc(2.25rem + 24px) !important; 
+    padding: .9rem 55px !important;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #fcfeff;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+@media (max-width: 576px) {
+    .select2-container--default .select2-selection--single {
+        height: calc(2.25rem + 6px) !important; 
+        padding: .4rem 0 !important;
+    }
+}
 .checkBtnDiv {
     width: fit-content !important;
     left: 50%;
@@ -117,16 +179,66 @@ label {
     padding: 0.7rem;
     width: 200px;
     color: white !important;
-    background-color: var(--secondary-color) !important;
+    background-color: var(--main-color) !important;
 }
 .checkBtn:hover {
     background-color: var(--hover-color) !important;
 }
+
+header nav .toggle-menu {
+    color: white;
+    font-size: 22px;
+}
+@media (min-width: 768px) {
+    header nav .toggle-menu {
+        display: none;
+    }
+}
+header nav ul {
+    display: flex;
+}
+header nav ul a {
+    display: block;
+}
+@media (max-width: 767px) {
+    header nav ul {
+        display: none;
+    }
+
+    header nav .toggle-menu:hover + ul,
+    header nav ul.active {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgb(0 0 0 / 50%);
+        z-index: 2;
+    }
+    header nav .toggle-menu:hover + ul li a {
+        padding: 15px !important;
+    }
+}
 /* home */
 
 /* about */
+@media (max-width: 576px) {
+    .about {
+        margin-top: 3rem;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
 .aboutLeft {
     width: 40%;
+}
+@media (max-width: 576px) {
+    .aboutLeft {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
 }
 .headline {
     font-weight: bold !important;
@@ -134,9 +246,19 @@ label {
 .secondHeader {
     color: var(--secondary-golden-color);
 }
+@media (max-width: 576px) {
+    .text-sm-center {
+        text-align: center;
+    }
+}
 .aboutRight {
     width: 57%;
     text-align: right;
+}
+@media (max-width: 576px) {
+    .aboutRight {
+        width: 103%;
+    }
 }
 .roomImg1 {
     right: 51%;
@@ -151,20 +273,56 @@ label {
     box-shadow: -2px 4px 17px rgba(0, 0, 0, 2);
 }
 /* about */
+/* firstCarousel */
+.firstCarousel {
+    padding: 1rem 0 4rem !important;
+}
+/* firstCarousel */
+
+/* secondCarousel */
+@media (min-width: 576px) {
+    .secondCarouselContainer {
+        margin: auto;
+        width: 65%;
+    }
+}
+/* secondCarousel */
 
 /* services */
 .services {
     padding: 3rem 3rem 0;
     background: #d7d7d7;
+    margin-top: 1rem;
+}
+@media (max-width: 576px) {
+    .serviceImg {
+        padding: 2rem 0 !important;
+    }
 }
 .services img {
     width: 90%;
+}
+@media (max-width: 576px) {
+    .services img {
+        width: 102%;
+    }
 }
 /* services */
 
 /* reviews  */
 .reviews {
     height: 100vh;
+}
+@media (max-width: 576px) {
+    .reviews {
+        margin: 3rem 0 2rem;
+        height: auto;
+    }
+}
+@media (max-width: 576px) {
+    .display-sm-none {
+        display: none !important;
+    }
 }
 .reviews .cards {
     height: 21rem;
@@ -184,6 +342,30 @@ label {
 .contact {
     background: var(--main-color);
     padding: 4rem;
+}
+@media (max-width:767px) {
+    .contact {
+        padding: 0;
+    }
+}
+@media (max-width:767px) {
+    .justify-content-sm-center {
+        justify-content: center;
+    }
+}
+@media (max-width: 576px) {
+    .contactRow {
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem 1.5rem;
+    }
+}
+@media (max-width:767px) {
+    .mb-sm-2 {
+        margin: 1.6rem 0 !important;
+    }
 }
 footer .social a {
     color: white;

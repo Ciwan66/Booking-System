@@ -8,6 +8,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 
 </head>
 <body>
@@ -15,14 +21,29 @@
     <!-- home -->
     <header>
         <div class="container">
-            <a href="../loginPages/logIn.html" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Log in</a>
-            <nav>
-                <a class="p-3 text-decoration-none rounded navLink" href="#home">Home</a>
-                <a class="p-3 text-decoration-none rounded navLink" href="#about">About Us</a>
-                <a class="p-3 text-decoration-none rounded navLink" href="#service">Service</a>
-                <a class="p-3 text-decoration-none rounded navLink" href="#reviews">Reviews</a>
-                <a class="p-3 text-decoration-none rounded navLink" href="#contact">Contact</a>
-            </nav>
+
+            <div class="loginLinks d-flex">
+                <a href="../loginPages/logIn.html" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Log in</a>
+                <a href="../loginPages/signUp.html" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Sign up</a>
+                <a href="../loginPages/logIn.html" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Log out</a>
+            </div>
+            
+            <div class="d-flex align-items-center linksAndLogo">
+                <nav>
+                    <i class="fas fa-bars toggle-menu"></i>
+                    <ul class="mb-0 list-unstyled">
+                        <li><a class="p-3 text-decoration-none rounded navLink" href="#home">Home</a></li>
+                        <li><a class="p-3 text-decoration-none rounded navLink" href="#about">About Us</a></li>
+                        <li><a class="p-3 text-decoration-none rounded navLink" href="#service">Service</a></li>
+                        <li><a class="p-3 text-decoration-none rounded navLink" href="#reviews">Reviews</a></li>
+                        <li><a class="p-3 text-decoration-none rounded navLink" href="#contact">Contact</a></li>
+                        <li><a class="p-3 text-decoration-none rounded navLink" href="../myReservationPage//myReservation.html">My Reservations</a></li>
+                    </ul>
+                </nav>
+                <img src="../images/logo.png" style="width: 60px;" alt="">
+            </div>
+            
+
         </div>
     </header>
     
@@ -30,60 +51,33 @@
         <div class="d-flex justify-content-center align-items-center searchContainer">
             <form action="index.html" method="get" class="tm-search-form tm-section-pad-2 rounded position-relative">
                 <div class="formRow tm-search-form-row">
-                    <div class="form-group tm-form-element tm-form-element-100">
-                        <i class="fas fa-map-marker-alt fa-fw fa-2x tm-form-element-icon"></i>
-                        <input name="city" type="text" class="form-control" id="inputCity" placeholder="Your destination">
+                    <div class="form-group mb-sm-1 tm-form-element tm-form-element-100">
+                        <i class="fas fa-map-marker-alt fa-fw fa-md-2x tm-form-element-icon"></i>
+                        <select name="city" class="form-control" id="inputCity" placeholder="Your destination">
+                        </select>
+                    </div>
+                    
+                    <div class="form-group tm-form-element tm-form-element-50 position-relative">
+                        <i class="fa fa-calendar fa-2x tm-form-element-icon display-sm-none"></i>
+                        <input type="text" placeholder="Check-in" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'" name="check-in" class="form-control checkInDate text-center" id="inputCheckIn" value="Check In">
                     </div>
                     <div class="form-group tm-form-element tm-form-element-50 position-relative">
-                        <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                        <label class="text-white rounded-bottom" for="inputCheckIn">Check In</label>
-                        <input name="check-in" type="date" min="2024-05-01T00:00"
-                            max="2025-12-31T23:59" step="1" class="form-control" id="inputCheckIn">
-                    </div>
-                    <div class="form-group tm-form-element tm-form-element-50 position-relative">
-                        <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                        <label class="text-white rounded-bottom" for="inputCheckIn">Check Out</label>
-                        <input name="check-out" type="date" min="2024-05-01T00:00"
-                            max="2025-12-31T23:59" step="1" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                        <i class="fa fa-calendar fa-2x tm-form-element-icon display-sm-none"></i>
+                        <input type="text" placeholder="Check-out" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'" name="check-out" class="form-control checkOutDate text-center" id="inputCheckOut" value="Check Out">
                     </div>
                 </div>
 
                 <div class="formRow tm-search-form-row">
-                    <div class="form-group tm-form-element tm-form-element-2">                                            
-                        <select name="adult" class="form-control tm-select" id="adult">
-                            <option value="">Adult</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                        <i class="fa fa-2x fa-user tm-form-element-icon"></i>
+                    <div class="form-group tm-form-element tm-form-element-100">
+                        <i class="fa-solid fa-dollar-sign fa-fw fa-2x tm-form-element-icon"></i>
+                        <input type="number" id="minPrice" class="form-control text-center" name="minPrice" placeholder="Min price" min="1">
                     </div>
-                    <div class="form-group tm-form-element tm-form-element-2">                                            
-                        <select name="children" class="form-control tm-select" id="children">
-                            <option value="">Children</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                        <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small childIcon"></i>
+                    <div class="form-group tm-form-element tm-form-element-100">
+                        <i class="fa-solid fa-dollar-sign fa-fw fa-2x tm-form-element-icon"></i>
+                        <input type="number" id="maxPrice" class="form-control text-center" name="maxPrice" placeholder="Max price">
                     </div>
                     <div class="form-group tm-form-element tm-form-element-2">
-                        <select name="room" class="form-control tm-select" id="room">
+                        <select name="room" class="form-control tm-select text-center" id="room">
                             <option value="">Room</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -99,6 +93,7 @@
                         <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
                     </div>
                 </div>
+                <div id="error-message" class="text-danger text-center bg-white rounded mb-1"></div>
                 <div class="form-group tm-form-element tm-form-element-2 position-absolute checkBtnDiv">
                     <button type="submit" class="btn checkBtn tm-btn-search headline">Check Availability</button>
                 </div>
@@ -109,10 +104,10 @@
 
     <!-- about -->
     <div class="about d-flex p-5" id="about">
-        <div class="aboutLeft d-flex flex-column justify-content-center  mr-5">
-            <h3 class="headline mb-4"> About Us</h3>
-            <h2 class="mb-4 secondHeader">Your Gateway to Luxury Getaways</h2>
-            <p class="pr-5">
+        <div class="aboutLeft d-flex flex-column justify-content-center mr-md-5">
+            <h3 class="headline mb-4 text-sm-center"> About Us</h3>
+            <h2 class="mb-4 secondHeader text-sm-center">Your Gateway to Luxury Getaways</h2>
+            <p class="pr-md-5 text-sm-center">
                 Indulge in the ultimate vacation experience with Opulence.
                 Since our inception in 2024, we've been on a mission to redefine travel,
                 offering discerning travelers like you a seamless and enriching booking journey.
@@ -135,25 +130,127 @@
     </div>
     <!-- about -->
 
+    <!-- first carousel -->
+    <div id="carouselExampleDark1" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item firstCarousel active" data-bs-interval="10000">
+
+                <div class="cards d-flex justify-content-center align-items-center">
+                    <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <img src="../images/1.jpg" alt="">                        
+                        <h3 class="text-center mt-2">Istanbul</h3>
+                    </div>
+                    <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <img src="../images/2.jpg" alt="">                        
+                        <h3 class="text-center mt-2">evet</h3>
+                    </div>
+                    <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <img src="../images/3.jpg" alt="">                        
+                        <h3 class="text-center mt-2">no</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item firstCarousel" data-bs-interval="10000">
+
+                <div class="cards d-flex justify-content-center align-items-center">
+                    <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <img src="../images/1.jpg" alt="">                        
+                        <h3 class="text-center mt-2">Istanbul</h3>
+                    </div>
+                    <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <img src="../images/2.jpg" alt="">                        
+                        <h3 class="text-center mt-2">Istanbul</h3>
+                    </div>
+                    <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <img src="../images/3.jpg" alt="">                        
+                        <h3 class="text-center mt-2">Istanbul</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!-- first carousel -->
+
+    <!-- second carousel -->
+    <div id="carouselExampleDark2" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+                <div class="d-flex mb-4 p-3 secondCarouselContainer">
+                    <div class="w-50">
+                        <img src="../images/3.jpg" class="mb-2" alt="">                        
+                        <h3 class="text-center mt-2">Ankara</h3>
+                    </div>
+                    <div class="w-50">
+                        <img src="../images/2.jpg" class="mb-2" alt="">                        
+                        <h3 class="text-center mt-2">Antalya</h3>
+                    </div>
+                </div>                   
+            </div>
+            <div class="carousel-item" data-bs-interval="10000">
+                <div class="d-flex mb-4 p-3 secondCarouselContainer">
+                    <div class="w-50">
+                        <img src="../images/3.jpg" alt="">                        
+                        <h3 class="text-center mt-2">Ankara</h3>
+                    </div>
+                    <div class="w-50">
+                        <img src="../images/2.jpg" alt="">                        
+                        <h3 class="text-center mt-2">Antalya</h3>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
+    <!--second carousel -->
+
     <!-- services -->
     <div class="services text-center h-100" id="service">
         <h3 class="headline mb-4">Jewel Services</h3>
         <h2 class="secondHeader">We Deliver Exceptional Features for You</h2>
-        <div class="mr-5 ml-5 p-5">
+        <div class="mr-md-5 ml-md-5 p-md-5 serviceImg">
             <img src="../images/services.png" alt="">
         </div>
     </div>
     <!-- services -->
 
     <!-- reviews -->
-    <div class="reviews p-5 text-center" id="reviews">
+    <div class="reviews p-md-5 text-center" id="reviews">
         <h4 class="headline mb-4">Reviews</h4>
         <h2 class="mb-5 secondHeader"> What Our Clients Said</h2>
-        <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div id="carouselExampleDark3" class="carousel carousel-dark slide">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleDark3" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark3" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark3" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="10000">
@@ -170,7 +267,7 @@
                             <p>Opulence exceeded all my expectations! Their vacation apartments are nothing short of luxurious, with stylish decor, modern amenities, and breathtaking views. The booking process was seamless, and their customer service team was attentive and helpful throughout my stay.</p>
                             <h3 class="secondHeader">Enes Altay</h3>
                         </div>
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
                             <div class="stars p-2">
                                 <i class="fas fa-star starColor starColor"></i>
                                 <i class="fas fa-star starColor starColor"></i>
@@ -181,7 +278,7 @@
                             <p>Absolutely impressed with Opulence's vacation apartments! From the moment I stepped into my rental, I was blown away by the attention to detail and the high-end finishes.</p>
                             <h3 class="secondHeader">Merva Ulsoy</h3>
                         </div>
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
                             <div class="stars p-2">
                                 <i class="fas fa-star starColor"></i>
                                 <i class="fas fa-star starColor"></i>
@@ -208,7 +305,7 @@
                             <p>Opulence exceeded all my expectations! Their vacation apartments are nothing short of luxurious, with stylish decor, modern amenities, and breathtaking views. The booking process was seamless, and their customer service team was attentive and helpful throughout my stay.</p>
                             <h3 class="secondHeader">Semih Korkmaz</h3>
                         </div>
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
                             <div class="stars p-2">
                                 <i class="fas fa-star starColor"></i>
                                 <i class="fas fa-star starColor"></i>
@@ -219,7 +316,7 @@
                             <p>Absolutely impressed with Opulence's vacation apartments! From the moment I stepped into my rental, I was blown away by the attention to detail and the high-end finishes.</p>
                             <h3 class="secondHeader">Fatma Kibar</h3>
                         </div>
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
                             <div class="stars p-2">
                                 <i class="fas fa-star starColor"></i>
                                 <i class="fas fa-star starColor"></i>
@@ -246,7 +343,7 @@
                             <p>Opulence exceeded all my expectations! Their vacation apartments are nothing short of luxurious, with stylish decor, modern amenities, and breathtaking views. The booking process was seamless, and their customer service team was attentive and helpful throughout my stay.</p>
                             <h3 class="secondHeader">Selim Yarar</h3>
                         </div>
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
                             <div class="stars p-2">
                                 <i class="fas fa-star starColor"></i>
                                 <i class="fas fa-star starColor"></i>
@@ -257,7 +354,7 @@
                             <p>Absolutely impressed with Opulence's vacation apartments! From the moment I stepped into my rental, I was blown away by the attention to detail and the high-end finishes.</p>
                             <h3 class="secondHeader">Azim Sakar</h3>
                         </div>
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                        <div class="card display-sm-none p-2 m-3 justify-content-between" style="width: 18rem;">
                             <div class="stars p-2">
                                 <i class="fas fa-star starColor"></i>
                                 <i class="fas fa-star starColor"></i>
@@ -273,11 +370,11 @@
             </div>
     
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark3" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark3" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -288,22 +385,22 @@
 
     <!-- contact -->
     <footer class="contact text-white" id="contact">
-        <div class="row">
+        <div class="row contactRow">
 
             <div class="col">
-                <h3 class="mb-4"> Contact Us</h3>
+                <h3 class="mb-4 text-sm-center"> Contact Us</h3>
 
                 <!-- general info -->
                 <div class="contactInfo  mb-4">
-                    <div class="line d-flex align-items-center mb-2">
+                    <div class="line d-flex align-items-center mb-2 justify-content-sm-center">
                         <i class="fas fa-map-marker-alt fa-fw mr-2"></i>
                         <div class="info">Turkey, Istanbul, Esenyurt, Inside<br>The Sphinx, Room Number 132</div>
                     </div>
-                    <div class="line d-flex align-items-center mb-2">
+                    <div class="line d-flex align-items-center mb-2 justify-content-sm-center">
                         <i class="fas fa-solid fa-envelope mr-3"></i>
                         <div class="info">info@Opulence.com.tr</div>
                     </div>
-                    <div class="line d-flex align-items-center">
+                    <div class="line d-flex align-items-center justify-content-sm-center">
                         <i class="fas fa-phone-volume fa-fw mr-2"></i>
                         <div class="info">
                             <span class="d-block">+90 216 326 38 51</span>
@@ -314,7 +411,7 @@
                 <!-- general info -->
                 
                 <!-- social-media -->
-                <ul class="social d-flex list-unstyled m-0">
+                <ul class="social d-flex list-unstyled justify-content-sm-center m-md-0 mb-sm-2">
                     <li class="mr-3">
                         <a href="https://www.facebook.com" class="rounded d-flex justify-content-center align-items-center text-decoration-none">
                             <i class="fab fa-facebook d-flex justify-content-center align-items-center"></i>
@@ -335,9 +432,9 @@
             </div>
 
             <!-- second column links -->
-            <div class="col d-flex flex-column align-items-center">
+            <div class="col d-flex flex-column align-items-center mb-sm-2">
                 <h3 class="mb-4">Links</h3>
-                <ul class="links list-unstyled text-center">
+                <ul class="links list-unstyled text-center justify-content-sm-center">
                     <li class="mb-3"><a href="#home" class="text-decoration-none text-white">Home</a></li>
                     <li class="mb-3"><a href="#about" class="text-decoration-none text-white">About Us</a></li>
                     <li class="mb-3"><a href="#service" class="text-decoration-none text-white">Service</a></li>
@@ -348,7 +445,7 @@
             <!-- second column links -->
 
             <!-- third column newsletter -->
-            <div class="col d-flex flex-column align-items-end">
+            <div class="col d-flex flex-column align-items-md-end">
                 <div class="align-items-center text-center">
                     <h3 class="mb-5">Newsletter</h3>
                     <p class="mb-5">We're passionate about sharing fresh<br>offers and exclusive promotions!</p>
@@ -361,6 +458,8 @@
     </footer> 
     <!-- contact -->
 
+    <script></script>
+    <script src="homePage.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

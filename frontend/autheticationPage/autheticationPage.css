@@ -1,0 +1,50 @@
+:root {
+    --main-color: #313131;
+    --secondary-color: #737373;
+    --hover-color: #7b6025;
+    --secondary-golden-color: #a97510;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.custom-container {
+    max-width: fit-content;
+    margin: 100px auto;
+    padding: 3rem;
+    border-radius: 0.5rem; 
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+@media screen and (max-width: 576px) {
+    .custom-container {
+        margin: 100px 40px;
+    }
+}
+.error-heading {
+    font-size: 2.5rem;
+    color: #dc3545;
+    text-align: center;
+}
+@media screen and (max-width: 576px) {
+    .error-heading {
+        margin-bottom: 1.3rem;
+    }
+}
+.error-message {
+    font-size: 1.25rem;
+    color: #6c757d;
+    text-align: center;
+}
+.btn-back {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(206, 206, 206);
+    width: fit-content;
+}
+.btn-back:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
