@@ -1,39 +1,38 @@
-
-
 <div class="landing" id="home">
     <div class="d-flex justify-content-center align-items-center searchContainer">
-        <form method="GET" action="{% url 'search_apartments' %}"   class="tm-search-form tm-section-pad-2 rounded position-relative">
+        <form method="GET" action="{% url 'search_apartments' %}" class="tm-search-form tm-section-pad-2 rounded position-relative">
             <div class="formRow tm-search-form-row">
                 <div class="form-group mb-sm-1 tm-form-element tm-form-element-100">
                     <i class="fas fa-map-marker-alt fa-fw fa-md-2x tm-form-element-icon"></i>
-                    <select name="city_select" name="city" class="form-control" id="inputCity" placeholder="Your destination">
+                    <select name="city" class="form-control" id="inputCity" placeholder="Your destination">
+                        <option value="">Select a city</option>
                         {% for city in cities %}
                         <option value="{{ city.city_name }}">{{ city.city_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                
+
                 <div class="form-group tm-form-element tm-form-element-50 position-relative">
                     <i class="fa fa-calendar fa-2x tm-form-element-icon display-sm-none"></i>
-                    <input type="text" placeholder="Check-in" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'" name="check-in" class="form-control checkInDate text-center" id="inputCheckIn" value="Check In">
+                    <input type="date" placeholder="Check-in" name="check-in" class="form-control checkInDate text-center" id="inputCheckIn">
                 </div>
                 <div class="form-group tm-form-element tm-form-element-50 position-relative">
                     <i class="fa fa-calendar fa-2x tm-form-element-icon display-sm-none"></i>
-                    <input type="text" placeholder="Check-out" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'" name="check-out" class="form-control checkOutDate text-center" id="inputCheckOut" value="Check Out">
+                    <input type="date" placeholder="Check-out" name="check-out" class="form-control checkOutDate text-center" id="inputCheckOut">
                 </div>
             </div>
 
             <div class="formRow tm-search-form-row">
                 <div class="form-group tm-form-element tm-form-element-100">
                     <i class="fa-solid fa-dollar-sign fa-fw fa-2x tm-form-element-icon"></i>
-                    <input type="number" id="minPrice" class="form-control text-center" name="minPrice" placeholder="Min price" min="1" value="price_starts">
+                    <input type="number" id="minPrice" class="form-control text-center" name="minPrice" placeholder="Min price" min="1">
                 </div>
                 <div class="form-group tm-form-element tm-form-element-100">
                     <i class="fa-solid fa-dollar-sign fa-fw fa-2x tm-form-element-icon"></i>
-                    <input type="number" id="maxPrice" class="form-control text-center" name="maxPrice" placeholder="Max price" value="price_ends">
+                    <input type="number" id="maxPrice" class="form-control text-center" name="maxPrice" placeholder="Max price">
                 </div>
                 <div class="form-group tm-form-element tm-form-element-2">
-                    <select name="n_rooms" class="form-control tm-select text-center" id="room" value="n_rooms">
+                    <select name="n_rooms" class="form-control tm-select text-center" id="room">
                         <option value="">Room</option>
                         <option value="1">1</option>
                         <option value="2">2</option>

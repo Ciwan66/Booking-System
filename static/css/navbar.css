@@ -1,0 +1,47 @@
+.loginLinks {
+    gap: 40px !important;
+}
+.loginBtn {
+    background-color: var(--secondary-color);
+    width: 80px;
+}
+.loginBtn:hover {
+    background-color: var(--hover-color);
+}
+header {
+    position: absolute;
+    background-color: var(--main-color);
+    width: 100%;
+    height: 67px;
+    display: flex !important;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 95px;
+}
+
+.navLink {
+    color: rgb(255, 255, 255);
+}
+.navLink:hover {
+    color: white;
+    background-color: var(--hover-color);
+}
+.linksAndLogo {
+    gap: 30px !important;
+}
+
+.landing {
+    background-image: url("../images/homeImage.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+@media screen and (max-width: 576px) {
+    .landing {
+        height: 45.9vh;
+    }
+}

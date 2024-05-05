@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.http import Http404
+from datetime import datetime
+
 
 
 from .models import Apartment,ApartmentImage,Country,City,Category,favorite
@@ -26,12 +28,11 @@ class Index(ListView):
 
         # Group apartments into sets of three
         grouped_apartments = [apartments[i:i+3] for i in range(0, len(apartments), 3)]
-        grouped_cities = [cities[i:i+2] for i in range(0, len(cities), 2)]
         context = {
             'countries': Country.objects.all().order_by('country_name'),
                  }
         context['apartment_sets'] = grouped_apartments
-        context['cities_sets'] = grouped_cities
+        context['cities'] = City.objects.all().order_by('city_name')
         return context
 
 
@@ -71,75 +72,66 @@ class ApartmentDetailView(DetailView):
         context=super().get_context_data(**kwargs)
         context['pk'] = self.kwargs['pk']
         apartment=context['apartment']
+        if self.request.user.is_authenticated :
+            if Reservation.objects.filter(user=self.request.user,apartment=apartment,reservation_status=2):
+                context['add_comment'] = True
+            else:
+                context['add_comment'] = False
 
-        if Reservation.objects.filter(user=self.request.user,apartment=apartment,reservation_status=2):
-            context['add_comment'] = True
-        else:
-            context['add_comment'] = False
-
-        context['comments']=Comment.objects.filter(apartment=apartment)
-        context['favorite'] = favorite.objects.filter(apartment=self.object, user=self.request.user).first()
+            context['comments']=Comment.objects.filter(apartment=apartment)
+            context['favorite'] = favorite.objects.filter(apartment=self.object, user=self.request.user).first()
 
         try:
-            images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
-            context["form"]=ReservationForm
-            context["images"]=images
+                images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
+                context["form"]=ReservationForm
+                context["images"]=images
         except ApartmentImage.DoesNotExist:
-                pass
+                    pass
+                    
                 
-            
         return context
 # search apartment function its have the following fields and i return the apartmens  that matchs these fields
 
 def search_apartments(request):
-    country_name=request.GET.get("country_input")
-    country_id=request.GET.get("country_id")
-    category_id=request.GET.get("category")
-    city_name = request.GET.get("city_input")
-    city_select = request.GET.get("city_select")
+    city_name = request.GET.get("city")
     n_rooms = request.GET.get("n_rooms")
-    price_starts = request.GET.get("price_starts")
-    price_ends = request.GET.get("price_ends")
+    price_starts = request.GET.get("minPrice")
+    price_ends = request.GET.get("maxPrice")
+    check_in_date_str = request.GET.get("check-in")
+    check_out_date_str = request.GET.get("check-out")
 
     apartments = Apartment.objects.all()
 
-    if country_name:
-        # Filter apartments by city name through the related City model
-        apartments = apartments.filter(country__country_name__contains=country_name)
-    if country_id:
-        # Filter apartments by city name through the related City model
-        apartments = apartments.filter(country=country_id)
-    if category_id:
-        # Filter apartments by city name through the related City model
-        apartments = apartments.filter(category=category_id)
-        
     if city_name:
-        # Filter apartments by city name through the related City model
-        apartments = apartments.filter(city__city_name__contains=city_name)
-    if city_select:
-        # Filter apartments by city name through the related City model
-        apartments = apartments.filter(city__city_name=city_select)
+        apartments = apartments.filter(city__city_name__icontains=city_name)
     if n_rooms:
         apartments = apartments.filter(rooms__gte=n_rooms)
-    if  price_starts and price_ends:
+    if price_starts and price_ends:
+        price_starts = int(price_starts)
+        price_ends = int(price_ends)
         apartments = apartments.filter(price_per_night__range=(price_starts, price_ends))
     elif price_starts:
-        apartments = apartments.filter(price_per_night__gte=price_starts)   
+        price_starts = int(price_starts)
+        apartments = apartments.filter(price_per_night__gte=price_starts)
     elif price_ends:
-        apartments = apartments.filter(price_per_night__lte=price_ends)   
-        
+        price_ends = int(price_ends)
+        apartments = apartments.filter(price_per_night__lte=price_ends)
+
+    # Filter out apartments that are booked during the specified dates
+    if check_in_date_str and check_out_date_str:
+        check_in_date = datetime.strptime(check_in_date_str, "%Y-%m-%d").date()
+        check_out_date = datetime.strptime(check_out_date_str, "%Y-%m-%d").date()
+        booked_apartments = Reservation.objects.filter(
+            check_in_date__lte=check_out_date, check_out_date__gte=check_in_date, reservation_status=2
+        ).values_list('apartment_id', flat=True)
+        apartments = apartments.exclude(id__in=booked_apartments)
+
     context = {
         'apartments': apartments,
         'cities': City.objects.all(),
-        'countries': Country.objects.all().order_by('country_name'),
     }
-    
+
     return render(request, 'apartment/find_apartment.html', context)
-
-
-
-
-
 class FavoriteCreateView(CreateView):
     model = favorite
     template_name = "apartment/detail.html"

@@ -40,76 +40,51 @@
     {% include "apartment/apartment_list.html" %}
     <!-- first carousel -->
 
-    <!-- second carousel -->
-    <div id="carouselExampleDark2" class="carousel carousel-dark slide">
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleDark2"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-     
-      </div>
-
-
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="10000">
+<!-- second carousel -->
+<div id="carouselExampleDark2" class="carousel carousel-dark slide">
+  <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
           <div class="d-flex mb-4 p-3 secondCarouselContainer">
-            <div class="w-50">
-              <img src="{% static '/images/3.jpg' %}" class="mb-2" alt="" />
-              <h3 class="text-center mt-2">Ankara</h3>
-            </div>
-            <div class="w-50">
-              <img src="{% static '/images/2.jpg' %}" class="mb-2" alt="" />
-              <h3 class="text-center mt-2">Antalya</h3>
-            </div>
-          </div>
-        </div>
-        
-        <div class="carousel-item" data-bs-interval="10000">
-          <div class="d-flex mb-4 p-3 secondCarouselContainer">
-
-            <div class="w-50">
-              <img src="{% static '/images/3.jpg' %}" alt="" />
-              <h3 class="text-center mt-2">Ankara</h3>
-            </div>
-
-
-            <div class="w-50">
-              <img src="{% static '/images/2.jpg' %}" alt="" />
-              <h3 class="text-center mt-2">Antalya</h3>
-            </div>
-
-
-          </div>
-        </div>
+              <div class="w-50">
+                  <img src="{% static '/images/2.jpg' %}" class="mb-2" alt="">                        
+                  <h3 class="text-center mt-2">Ankara</h3>
+              </div>
+              <div class="w-50">
+                  <img src="{% static '/images/2.jpg' %}" class="mb-2" alt="">                        
+                  <h3 class="text-center mt-2">Antalya</h3>
+              </div>
+          </div>                   
       </div>
+      <div class="carousel-item" data-bs-interval="10000">
+          <div class="d-flex mb-4 p-3 secondCarouselContainer">
+              <div class="w-50">
+                  <img src="{% static '/images/2.jpg' %}" alt="">                        
+                  <h3 class="text-center mt-2">Ankara</h3>
+              </div>
+              <div class="w-50">
+                  <img src="{% static '/images/2.jpg' %}" alt="">                        
+                  <h3 class="text-center mt-2">Antalya</h3>
+              </div>
+          </div>            
+      </div>
+  </div>
 
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleDark2"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleDark2"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-    <!--second carousel -->
+<!--second carousel -->
 
     <!-- about -->
     <div class="about d-flex p-5" id="about">

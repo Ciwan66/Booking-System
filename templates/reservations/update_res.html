@@ -1,11 +1,13 @@
-{% extends "base.html" %}
+{% extends "main_base.html" %}
+{% block title %}{{ apartment.apt_name }}{% endblock title %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+
 {% load static %}
 
 
-
-{% block title %}Update Reservation{% endblock title %}
-
 {% block content %}
+<br><br><br><br>
+
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -15,7 +17,6 @@
 {% endif %}
 
 
-<div class="container">
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="card">
@@ -31,7 +32,6 @@
       </div>
     </div>
   </div>
-</div>
 
 
 
