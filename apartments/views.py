@@ -16,18 +16,22 @@ from reviews.models import Comment
 
 class Index(ListView):
     model = Apartment
-    template_name = 'index.html'
+    template_name = 'homepage.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         # Assuming you have a model named Apartment with fields apt_name and cover_image
         apartments = Apartment.objects.all()[:21]
-
+        cities =City.objects.all()[:8],
 
         # Group apartments into sets of three
         grouped_apartments = [apartments[i:i+3] for i in range(0, len(apartments), 3)]
-
+        grouped_cities = [cities[i:i+2] for i in range(0, len(cities), 2)]
+        context = {
+            'countries': Country.objects.all().order_by('country_name'),
+                 }
         context['apartment_sets'] = grouped_apartments
+        context['cities_sets'] = grouped_cities
         return context
 
 

@@ -1,3 +1,6 @@
+body{
+    background-color: #313131;
+}
 * {
     margin: 0;
     padding: 0;
@@ -50,11 +53,7 @@ header {
     gap: 30px !important;
 }
 
-.landing {
-    background-image: url("/static/images/homeImage.jpg");
-    background-size: cover;
-    height: 100vh;
-}
+
 @media screen and (max-width: 576px) {
     .landing {
         height: 45.9vh;

@@ -1,0 +1,530 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  </head>
+  <body>
+    <!-- navbar -->
+{% include "partials/navbar.html" %}
+    <!-- navbar -->
+{% include "partials/search_bar.html" %}
+    <!-- home -->
+
+    <!-- first carousel -->
+    {% include "apartment/apartment_list.html" %}
+    <!-- first carousel -->
+
+    <!-- second carousel -->
+    <div id="carouselExampleDark2" class="carousel carousel-dark slide">
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark2"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+     
+      </div>
+
+
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <div class="d-flex mb-4 p-3 secondCarouselContainer">
+            <div class="w-50">
+              <img src="{% static '/images/3.jpg' %}" class="mb-2" alt="" />
+              <h3 class="text-center mt-2">Ankara</h3>
+            </div>
+            <div class="w-50">
+              <img src="{% static '/images/2.jpg' %}" class="mb-2" alt="" />
+              <h3 class="text-center mt-2">Antalya</h3>
+            </div>
+          </div>
+        </div>
+        
+        <div class="carousel-item" data-bs-interval="10000">
+          <div class="d-flex mb-4 p-3 secondCarouselContainer">
+
+            <div class="w-50">
+              <img src="{% static '/images/3.jpg' %}" alt="" />
+              <h3 class="text-center mt-2">Ankara</h3>
+            </div>
+
+
+            <div class="w-50">
+              <img src="{% static '/images/2.jpg' %}" alt="" />
+              <h3 class="text-center mt-2">Antalya</h3>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleDark2"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleDark2"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!--second carousel -->
+
+    <!-- about -->
+    <div class="about d-flex p-5" id="about">
+        <div class="aboutLeft d-flex flex-column justify-content-center mr-md-5">
+          <h3 class="headline mb-4 text-sm-center">About Us</h3>
+          <h2 class="mb-4 secondHeader text-sm-center">
+            Your Gateway to Luxury Getaways
+          </h2>
+          <p class="pr-md-5 text-sm-center">
+            Indulge in the ultimate vacation experience with Opulence. Since our
+            inception in 2024, we've been on a mission to redefine travel,
+            offering discerning travelers like you a seamless and enriching
+            booking journey. Our team of dedicated travel aficionados curates an
+            exquisite selection of accommodations worldwide, ensuring that every
+            stay is nothing short of extraordinary. Experience the pinnacle of
+            hospitality with Opulence, where luxury meets convenience, and every
+            journey becomes a cherished memory.
+          </p>
+        </div>
+        <div class="aboutRight">
+          <div class="roomImgs position-relative">
+            <!-- <div class="roomImg1"> -->
+            <img
+              src="{% static '/images/room.jpeg' %}"
+              class="rounded roomImg1 position-absolute"
+              alt=""
+            />
+            <!-- </div> -->
+            <!-- <div class=""> -->
+            <img
+              src="{% static '/images/room2.avif' %}"
+              class="rounded roomImg2"
+              alt=""
+            />
+            <!-- </div>                -->
+          </div>
+        </div>
+      </div>
+      <!-- about -->
+  
+    <!-- services -->
+    <div class="services text-center h-100" id="service">
+      <h3 class="headline mb-4">Jewel Services</h3>
+      <h2 class="secondHeader">We Deliver Exceptional Features for You</h2>
+      <div class="mr-md-5 ml-md-5 p-md-5 serviceImg">
+        <img src="{% static '/images/services.png' %}" alt="" />
+      </div>
+    </div>
+    <!-- services -->
+
+    <!-- reviews -->
+    <div class="reviews p-md-5 text-center" id="reviews">
+      <h4 class="headline mb-4">Reviews</h4>
+      <h2 class="mb-5 secondHeader">What Our Clients Said</h2>
+      <div id="carouselExampleDark3" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark3"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark3"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark3"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <div class="cards d-flex justify-content-center align-items-center">
+              <div
+                class="card p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="fas fa-star starColor starColor"></i>
+                </div>
+                <p>
+                  Opulence exceeded all my expectations! Their vacation
+                  apartments are nothing short of luxurious, with stylish decor,
+                  modern amenities, and breathtaking views. The booking process
+                  was seamless, and their customer service team was attentive
+                  and helpful throughout my stay.
+                </p>
+                <h3 class="secondHeader">Enes Altay</h3>
+              </div>
+              <div
+                class="card display-sm-none p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="fas fa-star starColor starColor"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <p>
+                  Absolutely impressed with Opulence's vacation apartments! From
+                  the moment I stepped into my rental, I was blown away by the
+                  attention to detail and the high-end finishes.
+                </p>
+                <h3 class="secondHeader">Merva Ulsoy</h3>
+              </div>
+              <div
+                class="card display-sm-none p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <p>
+                  Opulence truly lives up to its name! Their vacation apartments
+                  are the epitome of luxury, offering spacious layouts, upscale
+                  furnishings, and all the comforts of home. The added perks,
+                  like concierge services and exclusive amenities, made my
+                  vacation unforgettable. Highly recommend!
+                </p>
+                <h3 class="secondHeader">Faruk Berkay</h3>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="10000">
+            <div class="cards d-flex justify-content-center align-items-center">
+              <div
+                class="card p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                </div>
+                <p>
+                  Opulence exceeded all my expectations! Their vacation
+                  apartments are nothing short of luxurious, with stylish decor,
+                  modern amenities, and breathtaking views. The booking process
+                  was seamless, and their customer service team was attentive
+                  and helpful throughout my stay.
+                </p>
+                <h3 class="secondHeader">Semih Korkmaz</h3>
+              </div>
+              <div
+                class="card display-sm-none p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <p>
+                  Absolutely impressed with Opulence's vacation apartments! From
+                  the moment I stepped into my rental, I was blown away by the
+                  attention to detail and the high-end finishes.
+                </p>
+                <h3 class="secondHeader">Fatma Kibar</h3>
+              </div>
+              <div
+                class="card display-sm-none p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                </div>
+                <p>
+                  Opulence truly lives up to its name! Their vacation apartments
+                  are the epitome of luxury, offering spacious layouts, upscale
+                  furnishings, and all the comforts of home. The added perks,
+                  like concierge services and exclusive amenities, made my
+                  vacation unforgettable. Highly recommend!
+                </p>
+                <h3 class="secondHeader">Fatih Yapar</h3>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="10000">
+            <div class="cards d-flex justify-content-center align-items-center">
+              <div
+                class="card p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <p>
+                  Opulence exceeded all my expectations! Their vacation
+                  apartments are nothing short of luxurious, with stylish decor,
+                  modern amenities, and breathtaking views. The booking process
+                  was seamless, and their customer service team was attentive
+                  and helpful throughout my stay.
+                </p>
+                <h3 class="secondHeader">Selim Yarar</h3>
+              </div>
+              <div
+                class="card display-sm-none p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <p>
+                  Absolutely impressed with Opulence's vacation apartments! From
+                  the moment I stepped into my rental, I was blown away by the
+                  attention to detail and the high-end finishes.
+                </p>
+                <h3 class="secondHeader">Azim Sakar</h3>
+              </div>
+              <div
+                class="card display-sm-none p-2 m-3 justify-content-between"
+                style="width: 18rem;"
+              >
+                <div class="stars p-2">
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="fas fa-star starColor"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <p>
+                  Opulence truly lives up to its name! Their vacation apartments
+                  are the epitome of luxury, offering spacious layouts, upscale
+                  furnishings, and all the comforts of home. The added perks,
+                  like concierge services and exclusive amenities, made my
+                  vacation unforgettable. Highly recommend!
+                </p>
+                <h3 class="secondHeader">Yahya Toygar</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleDark3"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleDark3"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- reviews -->
+
+    <!-- contact -->
+    <footer class="contact text-white" id="contact">
+      <div class="row contactRow">
+        <div class="col">
+          <h3 class="mb-4 text-sm-center">Contact Us</h3>
+
+          <!-- general info -->
+          <div class="contactInfo mb-4">
+            <div
+              class="line d-flex align-items-center mb-2 justify-content-sm-center"
+            >
+              <i class="fas fa-map-marker-alt fa-fw mr-2"></i>
+              <div class="info">
+                Turkey, Istanbul, Esenyurt, Inside<br />The Sphinx, Room Number
+                132
+              </div>
+            </div>
+            <div
+              class="line d-flex align-items-center mb-2 justify-content-sm-center"
+            >
+              <i class="fas fa-solid fa-envelope mr-3"></i>
+              <div class="info">info@Opulence.com.tr</div>
+            </div>
+            <div
+              class="line d-flex align-items-center justify-content-sm-center"
+            >
+              <i class="fas fa-phone-volume fa-fw mr-2"></i>
+              <div class="info">
+                <span class="d-block">+90 216 326 38 51</span>
+                <span>+90 216 314 62 37</span>
+              </div>
+            </div>
+          </div>
+          <!-- general info -->
+
+          <!-- social-media -->
+          <ul
+            class="social d-flex list-unstyled justify-content-sm-center m-md-0 mb-sm-2"
+          >
+            <li class="mr-3">
+              <a
+                href="https://www.facebook.com"
+                class="rounded d-flex justify-content-center align-items-center text-decoration-none"
+              >
+                <i
+                  class="fab fa-facebook d-flex justify-content-center align-items-center"
+                ></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a
+                href="https://www.twitter.com"
+                class="rounded d-flex justify-content-center align-items-center text-decoration-none"
+              >
+                <i
+                  class="fab fa-twitter d-flex justify-content-center align-items-center"
+                ></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.whatsapp.com"
+                class="rounded d-flex justify-content-center align-items-center text-decoration-none"
+              >
+                <i
+                  class="fab fa-whatsapp d-flex justify-content-center align-items-center"
+                ></i>
+              </a>
+            </li>
+          </ul>
+          <!-- social-media -->
+        </div>
+
+        <!-- second column links -->
+        <div class="col d-flex flex-column align-items-center mb-sm-2">
+          <h3 class="mb-4">Links</h3>
+          <ul class="links list-unstyled text-center justify-content-sm-center">
+            <li class="mb-3">
+              <a href="#home" class="text-decoration-none text-white">Home</a>
+            </li>
+            <li class="mb-3">
+              <a href="#about" class="text-decoration-none text-white"
+                >About Us</a
+              >
+            </li>
+            <li class="mb-3">
+              <a href="#service" class="text-decoration-none text-white"
+                >Service</a
+              >
+            </li>
+            <li class="mb-3">
+              <a href="#rooms" class="text-decoration-none text-white">Rooms</a>
+            </li>
+            <li>
+              <a href="#reviews" class="text-decoration-none text-white"
+                >Reviews</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- second column links -->
+
+        <!-- third column newsletter -->
+        <div class="col d-flex flex-column align-items-md-end">
+          <div class="align-items-center text-center">
+            <h3 class="mb-5">Newsletter</h3>
+            <p class="mb-5">
+              We're passionate about sharing fresh<br />offers and exclusive
+              promotions!
+            </p>
+            <input
+              type="email"
+              placeholder="Your Email"
+              id="newsletterEmail"
+              class="p-2 w-75"
+            />
+          </div>
+        </div>
+        <!-- third column newsletter -->
+      </div>
+    </footer>
+    <!-- contact -->
+
+    <script></script>
+    <script src="{% static 'js/homePage.js' %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 <div id="carouselExampleDark1" class="carousel carousel-dark slide">
-    <div class="carousel-indicators">
+    <div class="carousel-indicators ">
         {% for apartment_set in apartment_sets %}
             <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
         {% endfor %}
@@ -9,9 +9,23 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="10000">
                 <div class="cards d-flex justify-content-center align-items-center">
                     {% for apartment in apartment_set %}
-                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
-                            <img src="{{ apartment.cover_image.url }}" alt="{{ apartment.apt_name }}">
-                            <h3 class="text-center mt-2">{{ apartment.apt_name|truncatewords:4 }}</h3>
+                    
+                        <div class="card p-2 m-3 justify-content-between mb-3" style="width: 18rem;">
+                            <div class="position-relative overflow-hidden">
+                                <a href=""><img class="img-fluid" src="{{ apartment.cover_image.url }}" alt=""></a>
+                                <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">{{ apartment.category}}</div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                <h5 class="text-primary mb-3">${{ apartment.price_per_night}}</h5>
+                                <a class="d-block h5 mb-2" style="text-decoration:none"href="">{{ apartment.apt_name|truncatewords:3 }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ apartment.country}} - {{ apartment.city}}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ apartment.beds}} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ apartment.bath_rooms}} Bath</small>
+                            </div>
+                     
                         </div>
                     {% endfor %}
                 </div>
