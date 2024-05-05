@@ -1,57 +1,63 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+
+
+{% block styles %}
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/HomePage.css" %} ">
+
+
+
+{% endblock styles %}
+
+<header>
     <div class="container">
-        <a class="navbar-brand" href="{% url "index" %}">
-            <img src="{% static "/images/logo.png" %}" style="width: 40px; padding: 0; margin-right: 10px;" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url "index" %}" style="color: white;">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Link</a>
-                </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'list-reserv' %}" style="color: white;">Reservations</a>
-                </li>
-                {% endif %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white;">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" style="color: black;">Actions</a></li>
-                        <li><a class="dropdown-item" href="#" style="color: black;">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" style="color: black;">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                {% if not user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url "users_login" %}" style="color: white;">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url "users_register" %}" style="color: white;">Sign Up</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <form method="post" action="{% url 'users_logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn nav-link" style="color: white;">Logout</button>
-                    </form>
-                </li>
-                {% endif %}
-            </ul>
-
+        <div class="loginLinks d-flex">
+            {% if not user.is_authenticated %}
+            <a href="{% url "users_login" %}" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Log in</a>
+            <a href="{% url "users_register" %}" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Sign up</a>
+            {% else %}
+            <form method="post" action="{% url 'users_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="text-decoration-none rounded p-2 text-white text-center loginBtn">Logout</button>
+            </form>
+            {% endif %}
         </div>
+        
+        <div class="d-flex align-items-center linksAndLogo">
+            <nav>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="mb-0 list-unstyled">
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="{% url "index" %}">Home</a></li>
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="#about">About Us</a></li>
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="#service">Service</a></li>
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="#reviews">Reviews</a></li>
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="#contact">Contact</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="{% url 'list-reserv' %}">My Reservations</a></li>
+                    <li><a class="p-3 text-decoration-none rounded navLink" href="{% url "favorite_list" %}">My Favorites</a></li>
+
+                    {% endif %}
+                </ul>
+            </nav>
+            <img src="{% static "/images/logo.png" %}" style="width: 60px;" alt="">
+        </div>
+        
+
+        
     </div>
-</nav>
+</header>
+
+<script src="{% static 'js/homePage.js' %}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

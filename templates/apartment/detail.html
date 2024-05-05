@@ -1,11 +1,44 @@
 {% extends "base.html" %}
 {% block title %}{{ apartment.apt_name }}{% endblock title %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 
 {% block content %}
 <div class="container mt-4">
+
+
+  
     <div class="row">
-        <div class="col-md-8">
+
+        {% if not favorite %}
+        <form method="post" action="{% url 'favorite_create'  %}">
+    
+            {% csrf_token %}
+            <input type="hidden" name='apartment' value='{{apartment.id}}'>
+            <input type="hidden" name="next" value="{{ request.path }}">
+
+            <!-- Add form fields here if necessary -->
+            <button class="btn" type="submit" >
+                <h2 title="Add to favorite" class="bi bi-balloon-heart "></h2>
+             </button>
+        </form>
         
+        {% endif %}
+        {% if favorite %}
+        
+        <form method="post" action="{% url 'favorite_delete' favorite.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+
+            <button class="btn" type="submit">
+                <h2 title="Remove from favorite" class="bi bi-balloon-heart-fill"></h2>
+              </button>
+        </form>
+        {% endif %}
+
+        <div class="col-md-8">
+           
+
+
             <h1>{{ apartment.apt_name }}</h1>
             <p class="lead"><strong>Description:</strong> {{ apartment.description }}</p>
             <div class="row mb-4">
@@ -52,6 +85,14 @@
 <div class="container mt-4">
     {% if user.is_authenticated %}
         {% include "../reservations/res_apt.html" %}
+        <div class="container mt-4">
+            {% include "reviews/list_comment.html" %}
+            {% if add_comment %}
+            {% include "reviews/add_comment.html" %}
+
+            {% endif %}
+
+        </div>
     {% else %}
 
         <p class="lead">To book this apartment, please <a href="{% url "users_login" %}?next=/{{apartment.id}}" class="text-primary">log in</a> or <a href="{% url "users_register" %}" class="text-primary">sign up</a>.</p>
@@ -59,4 +100,6 @@
     
         {% endif %}
 </div>
+
+
 {% endblock content %}

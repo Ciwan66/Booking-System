@@ -61,3 +61,19 @@ class ApartmentImage(models.Model):
     def __str__(self):
         return f"Image for {self.apartment.apt_name}"
 
+class favorite(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "favorite"
+        verbose_name_plural = "favorites"
+        unique_together = [['user', 'apartment']]  # Ensure user can add an apartment only once to favorites
+
+    def __str__(self):
+        return self.user.email
+
+    def get_absolute_url(self):
+        return reverse("favorite_detail", kwargs={"pk": self.pk})
+
+
