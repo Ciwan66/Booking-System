@@ -7,7 +7,7 @@
             <select id="city_select" name="city_select" class="form-select">
                 <option value="">Select city...</option>
                 {% for city in cities %}
-                <option value="{{ city.city_name }}">{{ city.city_name }}</option>
+                <option value="{{ city.city_name }}">{{ city.city_name }};{{ city.country }}</option>
                 {% endfor %}
             </select>
         </div>

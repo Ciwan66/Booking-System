@@ -6,22 +6,20 @@
 {% block content %}
 
 <section class="gradient-form" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-xl-10">
-              <div class="card rounded-3 text-black">
-                  <div class="row g-0">
-
-                      <!-- the left side -->
-                      <div class="col-lg-6" style="background-color: #424242;">
-                          <div class="card-body p-md-4 mx-md-4">                
-                              <div class="text-center">
-                                <a href="{% url "index" %}"><img src="{% static "/images/logo.png" %} "
-                                  style="width: 100px;" alt="logo"></a>
-                                  
-                                  <h3 class="mt-1 mb-5 pb-1 text-white">Log in</h3>
-                              </div>
-              
+    <div class="container py-sm-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <!-- the left side -->
+                        <div class="col-lg-6" style="background-color: #424242;">
+                            <div class="card-body p-md-4 mx-md-4">                
+                                <div class="text-center">
+                                    <img src="../images/logo.png"
+                                    style="width: 100px;" alt="logo">
+                                    <h3 class="mt-1 mb-5 pb-1 text-white">Log in</h3>
+                                </div>
+                
                               <form method="POST">      
                                   {% csrf_token %}
                                   <div data-mdb-input-init class="form-outline ">
@@ -46,39 +44,26 @@
               
                               </form>
               
-                          </div>
-                      </div>
-                      <!-- the left side -->
+                            </div>
+                        </div>
+                        <!-- the left side -->
 
-                      <!-- the right side -->
-                      <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                          <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                            <!-- Add this code inside the form tag -->
-
-                              <h3 class="mb-4">Welcome to Opulence!</h3>
-                              <p class="mb-0">
-                                  At Opulence, we redefine luxury living for your vacation experience. Our curated selection of exquisite apartments offers unparalleled comfort and style in some of the world's most desirable destinations. From stunning city escapes to idyllic beachfront retreats, each property in our portfolio is handpicked to ensure an unforgettable stay.                       
-                              </p>
-                              <p>{% if form.errors %}
-                                <div class="">
-                                    Please correct the following issues:<br>
-                                    {% for field, errors in form.errors.items %}
-                                        {% for error in errors %}
-                                            <li>{{ error }}</li>
-                                        {% endfor %}
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
+                        <!-- the right side -->
+                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                <h3 class="mb-4">Welcome to Opulence!</h3>
+                                <p class="mb-0">
+                                    At Opulence, we redefine luxury living for your vacation experience. Our curated selection of exquisite apartments offers unparalleled comfort and style in some of the world's most desirable destinations. From stunning city escapes to idyllic beachfront retreats, each property in our portfolio is handpicked to ensure an unforgettable stay.                       
                                 </p>
-                          </div>
-                      </div>
-                      <!-- the right side -->
+                            </div>
+                        </div>
+                        <!-- the right side -->
 
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
