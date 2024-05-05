@@ -1,80 +1,24 @@
-
-
-{% extends "base.html" %}
-
-{% block includes %}{% endblock includes %}
-{% block content %}
-
-<div class="container bg-light p-4 mt-3 mb-4">
-    Recommended for you
-
-</div>
-{% comment %} 
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% for apartment in apartments %}
-        <div class="col">
-            <a href="{% url 'detail' apartment.id %}" class="card text-decoration-none">
-                <img  src="{% if apartment.cover_image %}{{ apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" class="card-img-top" alt="Apartment Image">
-                <div class="card-body">
-                    <h5 class="card-title">{{ apartment.apt_name }}</h5>
-                    <p class="card-text"><strong>Location:</strong> {{ apartment.city }}, {{ apartment.country }}</p>
-                    <p class="card-text"><strong>Price per Night:</strong> ${{ apartment.price_per_night }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="card-text">Rooms: {{ apartment.rooms }} | Beds: {{ apartment.beds }} | Bathrooms: {{ apartment.bath_rooms }}</p>
-                        <a href="{% url 'detail' apartment.id %}" class="btn btn-primary">View Details</a>
-                    </div>
+<div id="carouselExampleDark1" class="carousel carousel-dark slide">
+    <div class="carousel-indicators">
+        {% for apartment_set in apartment_sets %}
+            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for apartment_set in apartment_sets %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="10000">
+                <div class="cards d-flex justify-content-center align-items-center">
+                    {% for apartment in apartment_set %}
+                        <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
+                            <img src="{{ apartment.cover_image.url }}" alt="{{ apartment.apt_name }}">
+                            <h3 class="text-center mt-2">{{ apartment.apt_name|truncatewords:4 }}</h3>
+                        </div>
+                    {% endfor %}
                 </div>
-            </a>
-        </div>
+            </div>
         {% endfor %}
     </div>
 
- {% endcomment %}
-
-
-
-
- <!-- first carousel -->
- <div id="carouselExampleDark1" class="carousel carousel-dark slide">
-
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-
-        <div class="carousel-item firstCarousel active" data-bs-interval="10000">
-{% for apartmentlist in  apartments %}
-
-{% for aprtment in apartmentlist|slice:"3" %}
-           
-            <div class="cards d-flex justify-content-center align-items-center">
-                <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
-                    <img src=".{{apartment.cover_image.url}}" alt="">                        
-                    <h3 class="text-center mt-2">Istanbul</h3>
-                </div>
-                
-            </div>
-        </div>
-        <div class="carousel-item firstCarousel" data-bs-interval="10000">
-
-            <div class="cards d-flex justify-content-center align-items-center">
-                <div class="card p-2 m-3 justify-content-between" style="width: 18rem;">
-                    <img src="../images/1.jpg" alt="">                        
-                    <h3 class="text-center mt-2">Istanbul</h3>
-                </div>
-                
-            </div>
-    {% endfor %}
-            {% endfor %}
-        </div>
-    </div>
-
-
-
-    
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -84,14 +28,3 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-<!-- first carousel -->
-
-
-
-
-
-
-
-
-    
-</div>{% endblock content %}

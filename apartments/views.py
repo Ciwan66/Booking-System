@@ -17,13 +17,18 @@ from reviews.models import Comment
 class Index(ListView):
     model = Apartment
     template_name = 'index.html'
-    context_object_name = 'apartments'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
-        context['cities'] = City.objects.all()
+
+        # Assuming you have a model named Apartment with fields apt_name and cover_image
+        apartments = Apartment.objects.all()[:21]
+
+
+        # Group apartments into sets of three
+        grouped_apartments = [apartments[i:i+3] for i in range(0, len(apartments), 3)]
+
+        context['apartment_sets'] = grouped_apartments
         return context
-    
 
 
 # Create your views here.
