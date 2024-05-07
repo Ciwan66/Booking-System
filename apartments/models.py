@@ -74,7 +74,10 @@ class favorite(models.Model):
         unique_together = [['user', 'apartment']]  # Ensure user can add an apartment only once to favorites
 
     def __str__(self):
-        return self.user.email
+        if self.user:
+            return self.user.email
+        else:
+            return "No user"
 
     def get_absolute_url(self):
         return reverse("favorite_detail", kwargs={"pk": self.pk})
