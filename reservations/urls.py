@@ -11,7 +11,7 @@ urlpatterns = [
     path("", ReservationListView.as_view(), name='list-reserv'),
     path("res-details/<int:pk>", ReservationDetailView.as_view(), name='detail-reserv'),
     path("res-update/<int:pk>", ReservationUpdateView.as_view(), name='update-reserv'),
-    path('take-house/<int:id>',ReservationCreateView.as_view(),name='creat-reserv'),
+    path('res-house/<int:id>',ReservationCreateView.as_view(),name='creat-reserv'),
     path('some-thing-wrong', redirect_for_errors,name='error-url')
 ]
  

@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+
+    {% block content %}
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Guest</th>
+                    <th>Apartment</th>
+                    <th>Date</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.user.first_name }} {{ reservation.user.last_name }}</td>
+                        <td>{{ reservation.apartment }}</td>
+                        <td>From {{ reservation.check_in_date|date:"Y-m-d" }} to {{ reservation.check_out_date|date:"Y-m-d" }}</td>
+                        <td>{{ reservation.total_price }}</td>
+                        <td>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                                <select name="new_status" class="form-control">
+                                    <option value="2">Accept</option>
+                                    <option value="3">Reject</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary mt-2">Change Status</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock content %}
