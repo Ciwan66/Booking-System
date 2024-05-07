@@ -1,6 +1,3 @@
-
-
-// Function to create room cards dynamically
 function createRoomCards() {
     const roomsContainer = document.querySelector('.roomsBox');
 
@@ -16,6 +13,11 @@ function createRoomCards() {
 
         const col = document.createElement("div");
         col.className = "col-lg-4 col-md-6 column p-0 position-relative image bg-white";
+
+        // Create an anchor element
+        const roomLink = document.createElement("a");
+        roomLink.href = "/" + room.id; // Add the room ID to the URL
+        roomLink.className = "room-link"; // You can add any additional classes or styles here if needed
 
         const image = document.createElement("img");
         image.className = "rounded";
@@ -47,8 +49,10 @@ function createRoomCards() {
         descriptionBar.appendChild(description);
         descriptionBar.appendChild(roomsInfo);
 
-        col.appendChild(image);
-        col.appendChild(descriptionBar);
+        roomLink.appendChild(image);
+        roomLink.appendChild(descriptionBar);
+
+        col.appendChild(roomLink);
 
         currentRow.appendChild(col);
     });
