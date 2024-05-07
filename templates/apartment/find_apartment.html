@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 {% extends "base.html" %}
 {% block title %}Apartment Search{% endblock title %}
 
@@ -31,4 +31,63 @@
 </div>
 {% endif %}
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}
+
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Result</title>
+    <link rel="stylesheet" href="{% static 'css/searchResult.css' %}" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+
+
+
+           {% include "partials/navbar.html" %}
+
+    <div class="rooms p-4 text-center" id="rooms">
+
+
+{% include "partials/search.html" %}
+      <div class="roomsBox"></div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% if apartments %}
+
+
+    <script>
+        const rooms = [
+            {% for room in apartments %}
+            {
+                image: "{{ room.cover_image.url }}",
+                alt: "{{ room.apt_name }}",
+                description: "{{ room.description|escapejs }}",
+                price: "{{ room.price_per_night }} -Night",
+                rooms: "{{ room.rooms }} Rooms",
+                beds: "{{ room.beds }} Beds",
+                id:"{{room.id}}"
+            }
+            {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+    </script>
+    {% else %}
+<div class="container mt-4">
+    <p>No apartments found.</p>
+</div>
+{% endif %}
+    <script src="{% static 'js/searchResult.js' %}"></script>
+  </body>
+</html>

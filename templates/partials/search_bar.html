@@ -1,3 +1,7 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+
 <div class="landing" id="home">
     <div class="d-flex justify-content-center align-items-center searchContainer">
         <form method="GET" action="{% url 'search_apartments' %}" class="tm-search-form tm-section-pad-2 rounded position-relative">

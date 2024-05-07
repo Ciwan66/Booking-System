@@ -1,41 +1,79 @@
-<div
-class="container-fluid bg-primary mb-5 wow fadeIn"
-data-wow-delay="0.1s"
-style="padding: 35px;"
->
-<div class="container">
-  <div class="row g-2">
-    <div class="col-md-10">
-      <div class="row g-2">
-        <div class="col-md-4">
-          <input
-            type="text"
-            class="form-control border-0 py-3"
-            placeholder="Search Keyword"
-          />
-        </div>
-        <div class="col-md-4">
-          
-          <select name="city_select" class="form-select border-0 py-3" id="inputCity" placeholder="Your destination">
-            <option value="" disabled selected hidden>Your destination</option>
-            {% for city in cities %}
-              <option value="{{ city }}">{{ city }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class="col-md-4">
-          <select class="form-select border-0 py-3">
-            <option selected="">Location</option>
-            <option value="1">Location 1</option>
-            <option value="2">Location 2</option>
-            <option value="3">Location 3</option>
-          </select>
-        </div>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+<div class="d-flex justify-content-center align-items-center searchContainer">
+  <form method="GET" action="{% url 'search_apartments' %}" class="tm-search-form tm-section-pad-2 rounded position-relative">
+      <div class="formRow tm-search-form-row">
+          <div class="form-group mb-sm-1 tm-form-element tm-form-element-100">
+              <i class="fas fa-map-marker-alt fa-fw fa-md-2x tm-form-element-icon"></i>
+              <select   name="city" class="form-control" id="inputCity" placeholder="Your destination">
+                  <option value="" >Select City</option>
+                  {% for city in cities %}
+
+                  <option value="{{ city.city_name }}">{{ city.city_name }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+
+          <div class="form-group tm-form-element tm-form-element-50 position-relative">
+              <i class="fa fa-calendar fa-2x tm-form-element-icon display-sm-none"></i>
+              <input type="date" placeholder="Check-in" name="check-in" class="form-control checkInDate text-center" id="inputCheckIn">
+          </div>
+          <div class="form-group tm-form-element tm-form-element-50 position-relative">
+              <i class="fa fa-calendar fa-2x tm-form-element-icon display-sm-none"></i>
+              <input type="date" placeholder="Check-out" name="check-out" class="form-control checkOutDate text-center" id="inputCheckOut">
+          </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <button class="btn btn-dark border-0 w-100 py-3">Search</button>
-    </div>
-  </div>
+
+      <div class="formRow tm-search-form-row">
+          <div class="form-group tm-form-element tm-form-element-100">
+              <i class="fa-solid fa-dollar-sign fa-fw fa-2x tm-form-element-icon"></i>
+              <input type="number" id="minPrice" class="form-control text-center" name="minPrice" placeholder="Min price" min="1">
+          </div>
+          <div class="form-group tm-form-element tm-form-element-100">
+              <i class="fa-solid fa-dollar-sign fa-fw fa-2x tm-form-element-icon"></i>
+              <input type="number" id="maxPrice" class="form-control text-center" name="maxPrice" placeholder="Max price">
+          </div>
+          <div class="form-group tm-form-element tm-form-element-2">
+              <select name="n_rooms" class="form-control tm-select text-center" id="room">
+                  <option value="">Room</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+              </select>
+              <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
+          </div>
+      </div>
+      <div id="error-message" class="text-danger text-center bg-white rounded mb-1"></div>
+      <div class="form-group tm-form-element tm-form-element-2 position-absolute checkBtnDiv">
+          <button type="submit" class="btn checkBtn tm-btn-search headline">Check Availability</button>
+      </div>
+  </form>
 </div>
-</div>
+
+
+
+
+<script src="{% static 'js/homePage.js' %}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

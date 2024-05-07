@@ -1,3 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --main-color: #313131;
+    --secondary-color: #737373;
+    --hover-color: #7b6025;
+    --secondary-golden-color: #a97510;
+}
+
+img {
+    width: 100%;
+}
+/* home */
 .loginLinks {
     gap: 40px !important;
 }
@@ -33,15 +48,4 @@ header {
 }
 .linksAndLogo {
     gap: 30px !important;
-}
-
-.landing {
-    background-image: url("../images/homeImage.jpg");
-    background-size: cover;
-    height: 100vh;
-}
-@media screen and (max-width: 576px) {
-    .landing {
-        height: 45.9vh;
-    }
 }
