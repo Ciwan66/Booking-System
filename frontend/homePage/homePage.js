@@ -97,9 +97,9 @@ $(function() {
 });
 // ----------------------------------------------------------------------------
     // carousels
-$(function() {
-    $('.carousel').carousel ({
-        interval: 1000
-    });
-})
+// $(function() {
+//     $('.carousel').carousel ({
+//         interval: 1000
+//     });
+// })
     // carousels
