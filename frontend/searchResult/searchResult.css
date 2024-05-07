@@ -4,13 +4,18 @@
     --hover-color: #7b6025;
     --secondary-golden-color: #a97510;
 }
-
 .homeBtn {
     background-color: var(--secondary-color);
     width: 120px;
     display: inline-block !important;
-    position: absolute;
+    position: absolute !important;
     left: 10%;
+}
+@media screen and (max-width: 576px) {
+    .homeBtn {
+        position: static !important;
+        margin-bottom: 1rem;
+    }
 }
 .homeBtn:hover {
     background-color: var(--hover-color);
@@ -24,39 +29,47 @@
     width: fit-content;
     margin: auto;
 }
+@media screen and (min-width: 667px) {
+    .row {
+        margin-bottom: 1.6rem;
+    }
+}
 .descriptionBar {
-    top: 87%;
+    bottom: 0;
     background: var(--main-color);
     width: 90%;
     left: 5%;
-}
-
-.image {
+    height: 65px;
     overflow: hidden;
+    overflow-y: auto;
+    transition: height 0.3s ease !important;
 }
-.image::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(255 255 255 / 20%);
-    width: 0;
-    height: 0;
-    opacity: 0;
-    z-index: 2;
+@media screen and (max-width: 576px) {
+    .descriptionBar {
+        height: auto !important;
+    }
 }
-.image:hover::before {
-    animation: flashing 0.7s;
+@media screen and (max-width: 576px) {
+    h4 {
+        font-size: 1.2rem !important;
+        margin: 0.3rem 0 !important;
+    }
+}
+h5 {
+    display: none; 
+}
+.column {
+    margin-bottom: 1.5rem;
+}
+.column:hover .descriptionBar {
+    height: 50% !important;
+}
+.column:hover h5 {
+    display: block;
 }
 
-@keyframes flashing {
-    0%, 40% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        width: 200%;
-        height: 200%;
+@media screen and (min-width: 576px) {
+    .icon-toggle {
+        display: none !important; /* Initially hide the icon */
     }
 }
