@@ -23,7 +23,7 @@ class Index(ListView):
         context = super().get_context_data(**kwargs)
 
         # Assuming you have a model named Apartment with fields apt_name and cover_image
-        apartments = Apartment.objects.all()[:21]
+        apartments = Apartment.objects.all()[:9]
         cities =City.objects.all()[:8],
 
         # Group apartments into sets of three
