@@ -64,7 +64,7 @@ class RegisterView(View):
                         mail_subject, message, to=[to_email]  
             )  
             email.send()  
-            return HttpResponse('Please confirm your email address to complete the registration')  
+            return redirect('users_login')
             
 
         return render(request, self.template_name, {'form': form})
