@@ -4,6 +4,9 @@
     --hover-color: #7b6025;
     --secondary-golden-color: #a97510;
 }
+body{
+    direction: ltr;
+}
 /* header */
 .starColor {
     color: var(--secondary-golden-color);
@@ -135,7 +138,7 @@
 .rating {
     display: flex;
     gap: 8px;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 .rating input {
     display: none;

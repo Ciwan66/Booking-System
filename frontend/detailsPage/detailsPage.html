@@ -13,15 +13,13 @@
         <h1 class="text-center my-4">Apartment Details</h1>
         <div class="container">
             <!-- main description that was displayed in search results -->
-            <h5 class="description text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti voluptatum possimus ex eligendi dolorem sint sed consectetur numquam officia reiciendis! Reiciendis, rem vitae. Quas labore nam ipsum repudiandae deserunt rerum.</h5>
             <!-- main description that was displayed in search results -->
             
             <!-- above pictures -->
             <div class="head d-flex justify-content-between mb-4">
                 <div class="left-side-info d-flex flex-column justify-content-center align-items-center">
                     <h4>100$</h4>
-                    <h4>5 rooms</h4>
-                    <h4>5 beds</h4>
+                    
                     <div class="p-2" id="stars">
                         <!-- Stars will be dynamically generated here -->
                     </div>
@@ -46,13 +44,19 @@
             <div class="imgs mb-5">
 
             </div>
+            
             <!-- pictures -->
-
+            <h5 class="description text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti voluptatum possimus ex eligendi dolorem sint sed consectetur numquam officia reiciendis! Reiciendis, rem vitae. Quas labore nam ipsum repudiandae deserunt rerum.</h5>
+            
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis deserunt, tempore recusandae error nesciunt aperiam voluptatum magni odio laboriosam quasi veritatis quam officia consectetur quis distinctio sed ipsam assumenda sint.</p>
+            <h4>5 rooms</h4>
+            <h4>5 beds</h4>
             <!-- services and evaluation -->
                 <div class="services"></div>
                 <div class="evaluation d-flex flex-column align-items-center">
                     <h4 class="m-0 rateText">Rate this apartment:</h4>
                     <div class="rating mb-3">
+                        <form method="get" action="">
                         <input type="radio" id="star5" name="rating" value="5">
                         <label for="star5"></label>
                         <input type="radio" id="star4" name="rating" value="4">
@@ -63,10 +67,12 @@
                         <label for="star2"></label>
                         <input type="radio" id="star1" name="rating" value="1">
                         <label for="star1"></label>
+                    
                     </div>
-                    <textarea placeholder="Add a comment" class="mb-2 p-2"></textarea>
-                    <button type="button" class="p-2 rounded myBtn evalutaionBtn m-1">Submit</button>
-                </div>        
+                    <textarea name="comment" placeholder="Add a comment" class="mb-2 p-2"></textarea>
+                    <button type="Submit" class="p-2 rounded myBtn evalutaionBtn m-1">Submit</button>
+                </form>
+            </div>        
             <!-- services and evaluation -->
 
             <!-- map -->
