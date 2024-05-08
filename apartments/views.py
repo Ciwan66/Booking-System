@@ -53,6 +53,7 @@ class ApartmentListView(ListView):
             'cities': City.objects.all(),
             'countries': Country.objects.all().order_by('country_name'),
                  }
+
         return context
     
  
@@ -81,13 +82,19 @@ class ApartmentDetailView(DetailView):
             context['comments']=Comment.objects.filter(apartment=apartment)
             context['favorite'] = favorite.objects.filter(apartment=self.object, user=self.request.user).first()
 
+
         try:
                 images=ApartmentImage.objects.filter(apartment=apartment).order_by('-id')
                 context["form"]=ReservationForm
                 context["images"]=images
         except ApartmentImage.DoesNotExist:
                     pass
-                    
+        
+        booked_dates = Reservation.objects.filter(
+                apartment=apartment,
+                reservation_status=ReservationStatus.objects.get(pk=2),
+            ).order_by('-check_in_date')
+        context["booked_dates"]= booked_dates
                 
         return context
 # search apartment function its have the following fields and i return the apartmens  that matchs these fields
