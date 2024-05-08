@@ -1,6 +1,31 @@
-// images
+// // images
+// document.addEventListener("DOMContentLoaded", function() {
+//     const images = ["../images/1.jpg", "../images/2.jpg", "../images/3.jpg","../images/2.jpg", "../images/3.jpg"];
+//     const imgsContainer = document.querySelector('.imgs');
+
+//     let currentRow;
+
+//     images.forEach((image, index) => {
+//         // Create a new row for every third image or at the start
+//         if (index % 3 === 0) {
+//             currentRow = document.createElement('div');
+//             currentRow.className = 'row';
+//             imgsContainer.appendChild(currentRow);
+//         }
+
+//         const col = document.createElement("div");
+//         col.className = "col-md-4";
+
+//         const img = document.createElement("img");
+//         img.src = image;
+//         img.alt = "Apartment Image";
+
+//         col.appendChild(img);
+//         currentRow.appendChild(col);
+//     });
+// });
 document.addEventListener("DOMContentLoaded", function() {
-    const images = ["../images/1.jpg", "../images/2.jpg", "../images/3.jpg","../images/2.jpg", "../images/3.jpg"];
+    const images = ["../images/1.jpg", "../images/2.jpg", "../images/3.jpg", "../images/2.jpg", "../images/3.jpg"];
     const imgsContainer = document.querySelector('.imgs');
 
     let currentRow;
@@ -19,15 +44,41 @@ document.addEventListener("DOMContentLoaded", function() {
         const img = document.createElement("img");
         img.src = image;
         img.alt = "Apartment Image";
+        img.classList.add('expandable-image'); // Add a class for handling expansion
+
+        // Add click event listener to each image
+        img.addEventListener('click', function() {
+            img.classList.toggle('expanded');
+        });
 
         col.appendChild(img);
         currentRow.appendChild(col);
     });
 });
+
 // ---------------------------------------------------------------
 
+// Function to generate stars dynamically based on a variable value
+function generateStars(rating) {
+    let starsHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            starsHTML += '<i class="fas fa-star starColor"></i>';
+        } else if (i - rating == 0.5) {
+            starsHTML += '<i class="fas fa-star-half-alt starColor"></i>';
+        } else {
+            starsHTML += '<i class="far fa-star starColor"></i>';
+        }
+    }
+    return starsHTML;
+}
+// Example usage: Replace 3.5 with your dynamic variable value
+const rating = 2.5;
+const starsContainer = document.getElementById('stars');
+starsContainer.innerHTML = generateStars(rating);
+
 // services
-  const services = [
+const services = [
             { name: 'Breakfast', icon: 'fas fa-coffee' },
             { name: 'Express Check-in', icon: 'fas fa-user-check' },
             { name: 'Free WiFi', icon: 'fas fa-wifi' },
