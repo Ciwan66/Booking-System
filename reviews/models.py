@@ -1,5 +1,4 @@
 from django.db import models
-from apartments.models import Apartment
 from django.conf import settings
 # Create your models here.
 
@@ -10,6 +9,7 @@ class Comment(models.Model):
     text = models.TextField(blank=False,null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    star_rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)], default=1)
+
     def __str__(self):
         return self.text

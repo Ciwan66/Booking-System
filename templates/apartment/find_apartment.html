@@ -1,37 +1,3 @@
-{% comment %} <!DOCTYPE html>
-{% extends "base.html" %}
-{% block title %}Apartment Search{% endblock title %}
-
-{% block content %}
-
-
-
-{% if apartments %}
-    <h2 class="mt-4">Search Results</h2>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> <!-- Use Bootstrap grid classes for responsive layout -->
-        {% for apartment in apartments %}
-        <div class="col">
-            <a href="{% url 'detail' apartment.id %}" class="card text-decoration-none"> <!-- Apply Bootstrap card class -->
-                <div class="card-body">
-                    <h5 class="card-title">{{ apartment.apt_name }}</h5>
-                    <p class="card-text"><strong>City:</strong> {{ apartment.city }}</p>
-                    <p class="card-text"><strong>Country:</strong> {{ apartment.country }}</p>
-                    <p class="card-text"><strong>Price per Night:</strong> {{ apartment.price_per_night }}</p>
-                    {% if apartment.cover_image %}
-                    <img src="{{ apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image"> <!-- Apply Bootstrap card image class -->
-                    {% endif %}
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-{% else %}
-<div class="container mt-4">
-    <p>No apartments found.</p>
-</div>
-{% endif %}
-
-{% endblock content %} {% endcomment %}
 
 {% load static %}
 <html lang="en">

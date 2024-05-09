@@ -75,7 +75,8 @@ class ApartmentDetailView(DetailView):
         apartment=context['apartment']
         if self.request.user.is_authenticated :
             if Reservation.objects.filter(user=self.request.user,apartment=apartment,reservation_status=2):
-                context['add_comment'] = True
+                if not Comment.objects.filter(user=self.request.user,apartment=apartment):
+                    context['add_comment'] = True
             else:
                 context['add_comment'] = False
 

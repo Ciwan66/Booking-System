@@ -18,6 +18,7 @@ class CommentAdd(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
+        obj.star_rating = self.request.POST.get('rating')
         apartment_id = self.request.POST.get('apartment')  # Use get() to avoid KeyError
         apartment_ins = Apartment.objects.get(pk=apartment_id)  # Use get() to retrieve a single instance
         obj.apartment = apartment_ins

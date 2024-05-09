@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.urls import reverse
-
+from reviews.models import Comment
+from django.db.models import Avg
 
 class Country(models.Model):
     country_name = models.CharField(max_length=100)
@@ -49,10 +50,12 @@ class Apartment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
-   
+    def average_rating(self) -> float:
+        return Comment.objects.filter(apartment=self).aggregate(Avg("star_rating"))["star_rating__avg"] or 0
+
 
     def __str__(self):
-        return self.apt_name
+        return f"{self.apt_name}: {self.average_rating()}"
 
 
 class ApartmentImage(models.Model):
