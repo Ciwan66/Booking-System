@@ -1,11 +1,11 @@
 <!-- apartment_detail.html -->
 
-
 <div class="comments-section">
     <h3>Comments</h3>
     <ul class="comment-list">
         {% for comment in comments %}
         <li class="comment">
+            <div class="rating" data-rating="{{ comment.star_rating }}"></div>
             <div class="comment-content">{{ comment.text }}</div>
             <div class="comment-meta">
                 <span class="comment-author">{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
@@ -17,6 +17,75 @@
         {% endfor %}
     </ul>
 </div>
+
+<style>
+    /* Add this to your CSS file */
+
+    .comments-section {
+        margin-top: 20px;
+    }
+
+    .comment-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .comment {
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+    }
+
+    .comment-content {
+        margin-bottom: 5px;
+    }
+
+    .comment-meta {
+        font-size: 12px;
+        color: #888;
+    }
+
+    .comment-author {
+        margin-right: 10px;
+    }
+
+    .comment-date {
+        margin-left: 10px;
+    }
+
+    .starColor {
+        color: orange; /* Change color as needed */
+    }
+</style>
+
+<script>
+    // Encapsulate JavaScript code
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to generate star rating HTML
+        function generateStars(rating, container) {
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    starsHTML += '<i class="fas fa-star starColor"></i>';
+                } else if (i - rating == 0.5) {
+                    starsHTML += '<i class="fas fa-star-half-alt starColor"></i>';
+                } else {
+                    starsHTML += '<i class="far fa-star starColor"></i>';
+                }
+            }
+            container.innerHTML = starsHTML;
+        }
+
+        // Example usage: Replace 3.5 with your dynamic variable value
+        const comments = document.querySelectorAll('.rating');
+        comments.forEach(function (comment) {
+            const rating = parseFloat(comment.dataset.rating);
+            generateStars(rating, comment);
+        });
+    });
+</script>
+
+
+
 <style>
     /* Add this to your CSS file */
 
