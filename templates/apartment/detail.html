@@ -60,22 +60,34 @@
                 </div>
                 <div class="address">{{apartment.city}}, {{apartment.country}}</div>
             </div>
-
+            <form action="{% url "creat-reserv" apartment.id %}" method="POST">
+                {% csrf_token %}
             <div class="right-side d-flex">
                 <div class="position-relative m-1">
                     <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                     <input type="text" placeholder="Check-in" onfocus="this.type='date'"
-                        onblur="if(!this.value) this.type='text'" name="check-in"
-                        class="form-control checkInDate text-center" id="inputCheckIn" value="Check In" />
+                        onblur="if(!this.value) this.type='text'" name="check_in_date"
+                        class="form-control checkInDate text-center" id="inputCheckIn" value="Check In" required />
                 </div>
+                <input type="hidden" name="apartment" value="{{apartment.id}}">
                 <div class="position-relative m-1">
                     <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                     <input type="text" placeholder="Check-out" onfocus="this.type='date'"
-                        onblur="if(!this.value) this.type='text'" name="check-out"
-                        class="form-control checkOutDate text-center" id="inputCheckOut" value="Check Out" />
+                        onblur="if(!this.value) this.type='text'" name="check_out_date"
+                        class="form-control checkOutDate text-center" id="inputCheckOut" value="Check Out" required />
                 </div>
                 <button type="submit" class="p-2 rounded myBtn m-1">Reserve</button>
+                
             </div>
+            <div>
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            </form>
+
         </div>
         <!-- above pictures -->
 

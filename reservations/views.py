@@ -8,8 +8,8 @@ from .forms import ReservationForm, UpdateResForm
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.conf import settings
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect, Http404
-from django.urls import reverse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, Http404
+from django.urls import reverse , reverse_lazy
 from django.contrib import messages
 
 
@@ -49,9 +49,17 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
     template_name = "reservations/res_apt.html"
     redirect_field_name = "next"
     model = Reservation
-    success_url = "/"
+    success_url = reverse_lazy('list-reserv')
     form_class = ReservationForm
-
+    def get(self, request,**kwargs):
+        apartment_id = self.kwargs['pk']
+        return HttpResponseRedirect(reverse('detail', args=[apartment_id]))
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        apartment_id = self.kwargs['pk']
+        messages.error(self.request,"Check dates must be entered")
+        return HttpResponseRedirect(reverse('detail', args=[apartment_id]))
+    
     def form_valid(self, form):
         obj = form.save(commit=False)
         apartment_id = self.request.POST.get('apartment')
