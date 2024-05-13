@@ -1,7 +1,8 @@
-
-<h2>Recominded For You</h2>
+<br><br><br>
 
 <div id="carouselExampleDark1" class="carousel carousel-dark slide">
+    <h2>Recominded For You</h2>
+
     <div class="carousel-indicators">
         {% for apartment_set in apartment_sets %}
             <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
