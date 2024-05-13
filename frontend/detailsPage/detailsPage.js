@@ -1,29 +1,4 @@
 // // images
-// document.addEventListener("DOMContentLoaded", function() {
-//     const images = ["../images/1.jpg", "../images/2.jpg", "../images/3.jpg","../images/2.jpg", "../images/3.jpg"];
-//     const imgsContainer = document.querySelector('.imgs');
-
-//     let currentRow;
-
-//     images.forEach((image, index) => {
-//         // Create a new row for every third image or at the start
-//         if (index % 3 === 0) {
-//             currentRow = document.createElement('div');
-//             currentRow.className = 'row';
-//             imgsContainer.appendChild(currentRow);
-//         }
-
-//         const col = document.createElement("div");
-//         col.className = "col-md-4";
-
-//         const img = document.createElement("img");
-//         img.src = image;
-//         img.alt = "Apartment Image";
-
-//         col.appendChild(img);
-//         currentRow.appendChild(col);
-//     });
-// });
 document.addEventListener("DOMContentLoaded", function() {
     const images = ["../images/1.jpg", "../images/2.jpg", "../images/3.jpg", "../images/2.jpg", "../images/3.jpg"];
     const imgsContainer = document.querySelector('.imgs');
@@ -117,8 +92,9 @@ const services = [
         });
 
 // ------------------------------------------------------------
-//  Set minimum date for check-in
+// Set minimum date for check-in
 $(document).ready(function() {
+
     var today = new Date();
     var month = today.getMonth() + 1;
     var day = today.getDate();
@@ -150,15 +126,35 @@ $(document).ready(function() {
     var maxCheckInDate = year + '-' + month + '-' + day;
     $('.checkInDate').attr('max', maxCheckInDate);
 
-    // Disable booked dates for check-in
-    var bookedDates = ["2024-05-15", "2024-05-16", "2024-05-20"]; // Example booked dates
+    // Adjusted booked dates with check-in and check-out dates as objects
+    var bookedDates = [
+        { checkIn: "2024-05-15", checkOut: "2024-05-16" },
+        { checkIn: "2024-05-20", checkOut: "2024-05-25" }
+    ];
+    
     $('.checkInDate').datepicker({
         dateFormat: 'yy-mm-dd',
         minDate: minDate,
         maxDate: maxCheckInDate,
         beforeShowDay: function(date) {
             var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-            return [bookedDates.indexOf(dateString) == -1, '']; // Return array with true to enable, false to disable, and empty string for the tooltip
+            for (var i = 0; i < bookedDates.length; i++) {
+                var checkIn = new Date(bookedDates[i].checkIn);
+                var checkOut = new Date(bookedDates[i].checkOut);
+                if (date >= checkIn && date <= checkOut) {
+                    // Disable booked dates and days between them
+                    if (date.getTime() >= checkIn.getTime() && date.getTime() <= checkOut.getTime()) {
+                        return [false, 'booked-date', 'Booked'];
+                    } else {
+                        return [true, ''];
+                    }
+                }
+                // Check if the current date is the check-in date itself, and disable it
+                if (dateString === bookedDates[i].checkIn) {
+                    return [false, 'booked-date', 'Booked'];
+                }
+            }
+            return [true, ''];
         },
         onSelect: function(selectedDate) {
             var checkInDate = $(this).datepicker('getDate');
@@ -167,11 +163,10 @@ $(document).ready(function() {
             var checkOutMinDate = formatDate(checkInDate);
             $('.checkOutDate').datepicker('option', 'minDate', checkOutMinDate);
 
-            // Find the first disabled date after the check-in date
             var maxCheckOutDate = new Date(oneYearLater);
             var foundDisabledDate = false;
             for (var i = 0; i < bookedDates.length; i++) {
-                var disabledDate = new Date(bookedDates[i]);
+                var disabledDate = new Date(bookedDates[i].checkOut);
                 if (disabledDate > checkInDate) {
                     maxCheckOutDate = new Date(disabledDate);
                     maxCheckOutDate.setDate(maxCheckOutDate.getDate() - 1); // Set max date to the day before the first disabled date after the check-in date
@@ -193,7 +188,23 @@ $(document).ready(function() {
         minDate: minDate,
         beforeShowDay: function(date) {
             var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-            return [bookedDates.indexOf(dateString) == -1, '']; // Return array with true to enable, false to disable, and empty string for the tooltip
+            for (var i = 0; i < bookedDates.length; i++) {
+                var checkIn = new Date(bookedDates[i].checkIn);
+                var checkOut = new Date(bookedDates[i].checkOut);
+                if (date >= checkIn && date <= checkOut) {
+                    // Disable booked dates and days between them
+                    if (date.getTime() >= checkIn.getTime() && date.getTime() <= checkOut.getTime()) {
+                        return [false, 'booked-date', 'Booked'];
+                    } else {
+                        return [true, ''];
+                    }
+                }
+                // Check if the current date is the check-in date itself, and disable it
+                if (dateString === bookedDates[i].checkIn) {
+                    return [false, 'booked-date', 'Booked'];
+                }
+            }
+            return [true, ''];
         }
     });
 
