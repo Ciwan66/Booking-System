@@ -1,29 +1,119 @@
-{% extends "main_base.html" %}
-{% block title %}{{ apartment.apt_name }}{% endblock title %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/resdetailpage.css' %}" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 
+<div style="text-align:center;margin-top:10px">
+    <h1 ><a href="/">Home</a> | <a href="/favorites/">Favorites</a></h1> 
 
+</div>
 
-
-{% block content %}
-<br><br><br>
 {% if reservation %}
 
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ reservation.apartment }}</h5>
-          <p>Description:{{ reservation.apartment.description }}</p>
-          <p>Check-in Date: {{ reservation.check_in_date }}</p>
-          <p>Check-out Date: {{ reservation.check_out_date }}</p>
-          <p>Total Price: {{ reservation.total_price }}</p>
-          <p>Status: {{ reservation.reservation_status }}</p>
-          {% if reservation.reservation_status.id == 1 %}
-            <a href="{% url 'update-reserv' reservation.pk %}" class="btn btn-primary">Update</a>
-            <a href="{% url 'cancel-reserv' reservation.pk %}" class="btn btn-primary">Canel</a>
-          {% endif %}
-        </div>
-      </div>
+      <div class="container">
+        <div class="row">
+            <table class="table table-bordered details-table">
+                <tr>
+                    <th>
+                        Apartment Details
+                    </th>
+                    <th>
+                        Reservation Details
+                    </th>
+                </tr>
+                <tr>
+                    <td class="agency-details-td">
+                        <div class="row" style='display: flex;justify-content: space-around;'>
+                            <div class="col-6">
+                                <h1>{{ reservation.apartment }}</h1>
+                                <p>Description:{{ reservation.apartment.description|truncatewords:25 }}</p>
+                                <h1>Adress: {{ reservation.apartment.actual_address }}</h1>
+                            </div>
+                            <div class="col-6" style="justify-content: space-around;margin-left:15px">
+                                <p>E-mail: {{ reservation.apartment.user.email }}</p>
+                                <p>Phone number: {{ reservation.apartment.user.phone_number }}</p>
+                            </div>
+                        </div>
 
+                    </td>
+                    <td rowspan="3" class="passenger-details-td">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="passenger-detail">
+                                    <div class="passenger-detail-wrapper">
+                                        <div class="room-detail">
+                                            <div class="room-title">
+                                                <h2>Reservation Details</h2>
+                                            </div>
+                                            <div class="passenger-data d-flex " >
+                                                <div class="passenger-details">
+                                                    <p><strong>Check-In-Date:</strong> {{reservation.check_in_date}}</p>
+                                                    <p><strong>Check-Out-Date:</strong> {{reservation.check_out_date}}</p>
+                                                    <p><strong>Duration:</strong> {{reservation.check_in_date|timesince:reservation.check_out_date}}</p>
+                                                    <p><strong>Price per Night:</strong> ${{reservation.apartment.price_per_night}}</p>
+                                                    <p><strong>Total Price:</strong> ${{reservation.total_price}}</p>
+                                                </div>
+                                                <div class="reservation-status">
+                                                    <h6>Reservation Status : <strong>{{ reservation.reservation_status }}</strong></h6>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="passenger-text">
+                                            <dir class="add-internal-comments">
+                                        {% if reservation.reservation_status.id == 1 %}
+                                            <a href="{% url 'update-reserv' reservation.pk %}" ><button type="button" >Update</button>
+                                            </a>
+                                            <a href="{% url 'cancel-reserv' reservation.pk %}"  ><button type="button" >Cancel</button></a>
+                                          {% endif %}   
+                                            </dir>
+
+                                            <p>Wait for the admin to accept your reservation request.</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="dotted"></div>
+                                </div>
+                            </div>
+                        </div>
+           
+                    </td>
+                </tr>
+                <tr>
+                    <th class="hotel-serivce-th">
+                        Apartment Service Details
+                        <i class="fa fa-bed" aria-hidden="true"></i>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="hotel-service-td">
+                            <div class="row mt-4" style='display: flex;justify-content: space-around;'>
+                                {% if reservation.apartment.tv %}
+                                <div class="col-md-6">
+                                    <div class="service">
+                                        <i class="service-icon fas fa-tv"></i>
+                                        <span>TV</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if reservation.apartment.wifi %}
+                                <div class="col-md-6">
+                                    <div class="service">
+                                        <i class="service-icon fas fa-wifi"></i>
+                                        <span>Free WiFi</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <!-- Add more services here -->
+                            </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
 
 {% else %}
     <!-- If reservation queryset is empty, redirect to error-url -->
@@ -33,4 +123,3 @@
                     </script>
                 
 {% endif %}
-{% endblock content %}

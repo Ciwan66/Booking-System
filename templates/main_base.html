@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}main{% endblock title %}</title>
+        
+    {% block styles %}
+
+
+{% endblock styles %}
     <link rel="stylesheet" href="{% static "css/HomePage.css" %} ">
 
 
@@ -24,11 +29,7 @@
 
   
     
-    
-    {% block styles %}
 
-
-{% endblock styles %}
 </head>
 <body>
   {% include "partials/navbar.html" %}
