@@ -38,8 +38,8 @@
             {% for room in apartments %}
             {
                 image: "{{ room.cover_image.url }}",
-                alt: "{{ room.apt_name }}",
-                description: "{{ room.description|escapejs }}",
+                alt: "{{ room.apt_name|truncatewords:4 }}",
+                description: "{{ room.description|truncatewords:5 }}",
                 price: "{{ room.price_per_night }} -Night",
                 rooms: "{{ room.rooms }} Rooms",
                 beds: "{{ room.beds }} Beds",
