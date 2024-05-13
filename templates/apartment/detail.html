@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <h1 class="text-center my-4">Apartment Details</h1>
+    <h1 class="text-center my-4"><a href="/">Home</a> | <a href="/favorites/">Favorites</a></h1> 
     <div class="container">
         <!-- main description that was displayed in search results -->
         <!-- main description that was displayed in search results -->
@@ -26,7 +26,7 @@
         <!-- above pictures -->
         <div class="head d-flex justify-content-between mb-4">
             <div class="left-side-info d-flex flex-column justify-content-center align-items-center">
-                <h4>{{apartment.price_per_night}}$</h4>
+
                 {% if user.is_authenticated %}
                 {% if not favorite %}
                 <form method="post" action="{% url 'favorite_create'  %}">
@@ -37,7 +37,7 @@
 
                     <!-- Add form fields here if necessary -->
                     <button class="btn" type="submit">
-                        <h2 title="Add to favorite" class="bi bi-balloon-heart "></h2>
+                        <h2>❤</h2>
                     </button>
                 </form>
 
@@ -48,12 +48,16 @@
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ request.path }}">
 
-                    <button class="btn" type="submit">
-                        <h2 title="Remove from favorite" class="bi bi-balloon-heart-fill"></h2>
+                    <button  class="btn" type="submit">
+                        <h2>💔</h2>
                     </button>
                 </form>
                 {% endif %}
                 {% endif %}
+
+
+                <h4>{{apartment.price_per_night}}$</h4>
+                
                 <div class="p-2" id="stars">
                     <!-- Stars will be dynamically generated here -->
 
@@ -164,7 +168,7 @@
         <!-- map -->
 <div class="map">
     <iframe
-        src="https://www.google.com/maps/embed/v1/place?key=yourapikey&q={{apartment.maps_link}}"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d211214.65662049875!2d44.04034597598148!3d34.19162469456739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1556d18dc9b35aa1%3A0x2c63735c09e91577!2z2LPYp9mF2LHYp9ih2Iwg2LXZhNin2K0g2KfZhNiv2YrZhiDZhdit2KfZgdi42KnYjCDYp9mE2LnYsdin2YI!5e0!3m2!1sar!2str!4v1715189426135!5m2!1sar!2str"
         width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
