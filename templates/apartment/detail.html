@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <h1 class="text-center my-4"><a href="/">Home</a> | <a href="/favorites/">Favorites</a></h1> 
+    <h1 class="text-center my-4"><a href="/">Home</a> | <a href="/favorites/">Favorites</a></h1>
     <div class="container">
         <!-- main description that was displayed in search results -->
         <!-- main description that was displayed in search results -->
@@ -48,7 +48,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ request.path }}">
 
-                    <button  class="btn" type="submit">
+                    <button class="btn" type="submit">
                         <h2>💔</h2>
                     </button>
                 </form>
@@ -57,7 +57,7 @@
 
 
                 <h4>{{apartment.price_per_night}}$</h4>
-                
+
                 <div class="p-2" id="stars">
                     <!-- Stars will be dynamically generated here -->
 
@@ -66,30 +66,28 @@
             </div>
             <form action="{% url "creat-reserv" apartment.id %}" method="POST">
                 {% csrf_token %}
-            <div class="right-side d-flex">
-                <div class="position-relative m-1">
-                    <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                    <input type="text" placeholder="Check-in" onfocus="this.type='date'"
-                        onblur="if(!this.value) this.type='text'" name="check_in_date"
-                        class="form-control checkInDate text-center" id="inputCheckIn" value="Check In" required />
+                <div class="right-side d-flex">
+                    <div class="position-relative m-1">
+                        <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                        
+                            <input required type="text" placeholder="Check-in" name="check_in_date" class="form-control checkInDate text-center" id="inputCheckIn" value="Check In">
+                    </div>
+                    <input required type="hidden" name="apartment" value="{{apartment.id}}">
+                    <div class="position-relative m-1">
+                        <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                       
+                            <input required type="text" placeholder="Check-out"  name="check_out_date" class="form-control checkOutDate text-center" id="inputCheckOut" value="Check Out">
+                    </div>
+                    <button type="submit" class="p-2 rounded myBtn m-1">Reserve</button>
+
                 </div>
-                <input type="hidden" name="apartment" value="{{apartment.id}}">
-                <div class="position-relative m-1">
-                    <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                    <input type="text" placeholder="Check-out" onfocus="this.type='date'"
-                        onblur="if(!this.value) this.type='text'" name="check_out_date"
-                        class="form-control checkOutDate text-center" id="inputCheckOut" value="Check Out" required />
+                <div>
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                    </ul>
                 </div>
-                <button type="submit" class="p-2 rounded myBtn m-1">Reserve</button>
-                
-            </div>
-            <div>
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
             </form>
 
         </div>
@@ -100,11 +98,11 @@
 
         <!-- pictures -->
         <h5 class="description text-center">
-           {{apartment.apt_name}}
+            {{apartment.apt_name}}
         </h5>
 
         <p>
-           {{apartment.description}}
+            {{apartment.description}}
         </p>
         <section class="apartment-details">
             <h2 class="section-title">Apartment Details</h2>
@@ -134,10 +132,10 @@
                 </div>
             </div>
         </section>
-        
-        
+
+
         <!-- services and evaluation -->
-        
+
         <section class="services">
             <h2 class="section-title">Services & Amenities</h2>
             <div class="row mt-4">
@@ -160,19 +158,19 @@
                 <!-- Add more services here -->
             </div>
         </section>
-        
+
 
 
 
         <!-- map -->
         <!-- map -->
-<div class="map">
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d211214.65662049875!2d44.04034597598148!3d34.19162469456739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1556d18dc9b35aa1%3A0x2c63735c09e91577!2z2LPYp9mF2LHYp9ih2Iwg2LXZhNin2K0g2KfZhNiv2YrZhiDZhdit2KfZgdi42KnYjCDYp9mE2LnYsdin2YI!5e0!3m2!1sar!2str!4v1715189426135!5m2!1sar!2str"
-        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-<!-- map -->
+        <div class="map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d211214.65662049875!2d44.04034597598148!3d34.19162469456739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1556d18dc9b35aa1%3A0x2c63735c09e91577!2z2LPYp9mF2LHYp9ih2Iwg2LXZhNin2K0g2KfZhNiv2YrZhiDZhdit2KfZgdi42KnYjCDYp9mE2LnYsdin2YI!5e0!3m2!1sar!2str!4v1715189426135!5m2!1sar!2str"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <!-- map -->
 
         <!-- map -->
 
@@ -180,7 +178,7 @@
         <div class="evaluation d-flex flex-column align-items-center">
             <h4 class="m-0 rateText">Rate this apartment:</h4>
             <div class="rating mb-3">
-                <form method="POST" action="{% url "comment"  apartment.id %}">
+                <form method="POST" action="{% url " comment" apartment.id %}">
                     {% csrf_token %}
                     <input type="radio" id="star5" name="rating" value="5" />
                     <label for="star5"></label>
@@ -193,26 +191,26 @@
                     <input type="radio" id="star1" name="rating" value="1" />
                     <label for="star1"></label>
                     <input type="hidden" name="apartment" value="{{ apartment.id }}">
-               
+
             </div>
             <textarea name="text" placeholder="Add a comment" class="mb-2 p-2"></textarea>
             <button type="Submit" class="p-2 rounded myBtn evalutaionBtn m-1">
                 Submit
             </button>
-         </form>
+            </form>
         </div>
         <!-- services and evaluation -->
-{% endif %}
-{% if user.is_authenticated %}
-{% include "reviews/list_comment.html" %}
+        {% endif %}
+        {% if user.is_authenticated %}
+        {% include "reviews/list_comment.html" %}
 
-{% endif %}
+        {% endif %}
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-       
+
 
     <script>
         const images = [
@@ -226,20 +224,20 @@
         ];
 
 
+
         var bookedDates = [
             {% for date in booked_dates %}
 
-        "{{date.check_in_date|date:"Y-m-d" }}",
-        "{{date.check_out_date|date:"Y-m-d" }}",
+
+        { checkIn: "{{date.check_in_date|date:'Y-m-d' }} ", checkOut: "{{date.check_out_date|date:'Y-m-d' }} " },
 
 
-            {% if not forloop.last %}, {% endif %}
         {% endfor %}
             
             ];
 
-        const rating = {{apartment.average_rating}};
-        
+        const rating = {{ apartment.average_rating }};
+
     </script>
 
 

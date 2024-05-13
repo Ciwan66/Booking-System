@@ -72,140 +72,135 @@ function generateStars(rating) {
     return starsHTML;
 }
 // Example usage: Replace 3.5 with your dynamic variable value
-const rating = 2.5;
+
 const starsContainer = document.getElementById('stars');
 starsContainer.innerHTML = generateStars(rating);
 
-// services
-const services = [
-            { name: 'Breakfast', icon: 'fas fa-coffee' },
-            { name: 'Express Check-in', icon: 'fas fa-user-check' },
-            { name: 'Free WiFi', icon: 'fas fa-wifi' },
-            { name: 'Room Service', icon: 'fas fa-concierge-bell' },
-            { name: 'Swimming Pool', icon: 'fas fa-swimming-pool' }
-            // Add more services as needed
-        ];
 
-        const servicesContainer = document.querySelector('.services');
-
-        services.forEach((service, index) => {
-            if (index % 3 === 0) {
-                const row = document.createElement('div');
-                row.className = 'row';
-                servicesContainer.appendChild(row);
-            }
-
-            const serviceRow = servicesContainer.lastElementChild;
-
-            const col = document.createElement('div');
-            col.className = 'col-md-4 d-flex flex-column justify-content-center';
-
-            const serviceDiv = document.createElement('div');
-            serviceDiv.className = 'service';
-
-            const icon = document.createElement('i');
-            icon.className = `service-icon ${service.icon}`;
-
-            const name = document.createElement('span');
-            name.textContent = service.name;
-
-            serviceDiv.appendChild(icon);
-            serviceDiv.appendChild(name);
-            col.appendChild(serviceDiv);
-            serviceRow.appendChild(col);
-        });
-
-// ------------------------------------------------------------
-//  Set minimum date for check-in
+/// ------------------------------------------------------------
+// Set minimum date for check-in
 $(document).ready(function() {
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    var year = today.getFullYear();
-    if (month < 10) {
-        month = '0' + month.toString();
-    }
-    if (day < 10) {
-        day = '0' + day.toString();
-    }
-    var minDate = year + '-' + month + '-' + day;
-    $('.checkInDate').attr('min', minDate);
 
-    // Set maximum date for check-in
-    var oneYearLater = new Date(today);
-    oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+  var today = new Date();
+  var month = today.getMonth() + 1;
+  var day = today.getDate();
+  var year = today.getFullYear();
+  if (month < 10) {
+      month = '0' + month.toString();
+  }
+  if (day < 10) {
+      day = '0' + day.toString();
+  }
+  var minDate = year + '-' + month + '-' + day;
+  $('.checkInDate').attr('min', minDate);
 
-    var month = oneYearLater.getMonth() + 1;
-    var day = oneYearLater.getDate();
-    var year = oneYearLater.getFullYear();
+  // Set maximum date for check-in
+  var oneYearLater = new Date(today);
+  oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
 
-    if (month < 10) {
-        month = '0' + month.toString();
-    }
-    if (day < 10) {
-        day = '0' + day.toString();
-    }
+  var month = oneYearLater.getMonth() + 1;
+  var day = oneYearLater.getDate();
+  var year = oneYearLater.getFullYear();
 
-    var maxCheckInDate = year + '-' + month + '-' + day;
-    $('.checkInDate').attr('max', maxCheckInDate);
+  if (month < 10) {
+      month = '0' + month.toString();
+  }
+  if (day < 10) {
+      day = '0' + day.toString();
+  }
 
-    // Disable booked dates for check-in
-    var bookedDates = ["2024-05-15", "2024-05-16", "2024-05-20"]; // Example booked dates
-    $('.checkInDate').datepicker({
-        dateFormat: 'yy-mm-dd',
-        minDate: minDate,
-        maxDate: maxCheckInDate,
-        beforeShowDay: function(date) {
-            var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-            return [bookedDates.indexOf(dateString) == -1, '']; // Return array with true to enable, false to disable, and empty string for the tooltip
-        },
-        onSelect: function(selectedDate) {
-            var checkInDate = $(this).datepicker('getDate');
-            checkInDate.setDate(checkInDate.getDate() + 1); // Add one day to check-in date
-            
-            var checkOutMinDate = formatDate(checkInDate);
-            $('.checkOutDate').datepicker('option', 'minDate', checkOutMinDate);
+  var maxCheckInDate = year + '-' + month + '-' + day;
+  $('.checkInDate').attr('max', maxCheckInDate);
 
-            // Find the first disabled date after the check-in date
-            var maxCheckOutDate = new Date(oneYearLater);
-            var foundDisabledDate = false;
-            for (var i = 0; i < bookedDates.length; i++) {
-                var disabledDate = new Date(bookedDates[i]);
-                if (disabledDate > checkInDate) {
-                    maxCheckOutDate = new Date(disabledDate);
-                    maxCheckOutDate.setDate(maxCheckOutDate.getDate() - 1); // Set max date to the day before the first disabled date after the check-in date
-                    foundDisabledDate = true;
-                    break;
-                }
-            }
-            if (!foundDisabledDate) {
-                maxCheckOutDate = new Date(oneYearLater);
-                maxCheckOutDate.setDate(maxCheckOutDate.getDate() + 1); // Set max date to one year and one day from the current date
-            }
-            var maxCheckOutDateString = formatDate(maxCheckOutDate);
-            $('.checkOutDate').datepicker('option', 'maxDate', maxCheckOutDateString);
-        }
-    });
+  // Adjusted booked dates with check-in and check-out dates as objects
 
-    $('.checkOutDate').datepicker({
-        dateFormat: 'yy-mm-dd',
-        minDate: minDate,
-        beforeShowDay: function(date) {
-            var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-            return [bookedDates.indexOf(dateString) == -1, '']; // Return array with true to enable, false to disable, and empty string for the tooltip
-        }
-    });
+  
+  $('.checkInDate').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: minDate,
+      maxDate: maxCheckInDate,
+      beforeShowDay: function(date) {
+          var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+          for (var i = 0; i < bookedDates.length; i++) {
+              var checkIn = new Date(bookedDates[i].checkIn);
+              var checkOut = new Date(bookedDates[i].checkOut);
+              if (date >= checkIn && date <= checkOut) {
+                  // Disable booked dates and days between them
+                  if (date.getTime() >= checkIn.getTime() && date.getTime() <= checkOut.getTime()) {
+                      return [false, 'booked-date', 'Booked'];
+                  } else {
+                      return [true, ''];
+                  }
+              }
+              // Check if the current date is the check-in date itself, and disable it
+              if (dateString === bookedDates[i].checkIn) {
+                  return [false, 'booked-date', 'Booked'];
+              }
+          }
+          return [true, ''];
+      },
+      onSelect: function(selectedDate) {
+          var checkInDate = $(this).datepicker('getDate');
+          checkInDate.setDate(checkInDate.getDate() + 1); // Add one day to check-in date
+          
+          var checkOutMinDate = formatDate(checkInDate);
+          $('.checkOutDate').datepicker('option', 'minDate', checkOutMinDate);
 
-    function formatDate(date) {
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var year = date.getFullYear();
-        if (month < 10) {
-            month = '0' + month.toString();
-        }
-        if (day < 10) {
-            day = '0' + day.toString();
-        }
-        return year + '-' + month + '-' + day;
-    }
+          var maxCheckOutDate = new Date(oneYearLater);
+          var foundDisabledDate = false;
+          for (var i = 0; i < bookedDates.length; i++) {
+              var disabledDate = new Date(bookedDates[i].checkOut);
+              if (disabledDate > checkInDate) {
+                  maxCheckOutDate = new Date(disabledDate);
+                  maxCheckOutDate.setDate(maxCheckOutDate.getDate() - 1); // Set max date to the day before the first disabled date after the check-in date
+                  foundDisabledDate = true;
+                  break;
+              }
+          }
+          if (!foundDisabledDate) {
+              maxCheckOutDate = new Date(oneYearLater);
+              maxCheckOutDate.setDate(maxCheckOutDate.getDate() + 1); // Set max date to one year and one day from the current date
+          }
+          var maxCheckOutDateString = formatDate(maxCheckOutDate);
+          $('.checkOutDate').datepicker('option', 'maxDate', maxCheckOutDateString);
+      }
+  });
+
+  $('.checkOutDate').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: minDate,
+      beforeShowDay: function(date) {
+          var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+          for (var i = 0; i < bookedDates.length; i++) {
+              var checkIn = new Date(bookedDates[i].checkIn);
+              var checkOut = new Date(bookedDates[i].checkOut);
+              if (date >= checkIn && date <= checkOut) {
+                  // Disable booked dates and days between them
+                  if (date.getTime() >= checkIn.getTime() && date.getTime() <= checkOut.getTime()) {
+                      return [false, 'booked-date', 'Booked'];
+                  } else {
+                      return [true, ''];
+                  }
+              }
+              // Check if the current date is the check-in date itself, and disable it
+              if (dateString === bookedDates[i].checkIn) {
+                  return [false, 'booked-date', 'Booked'];
+              }
+          }
+          return [true, ''];
+      }
+  });
+
+  function formatDate(date) {
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var year = date.getFullYear();
+      if (month < 10) {
+          month = '0' + month.toString();
+      }
+      if (day < 10) {
+          day = '0' + day.toString();
+      }
+      return year + '-' + month + '-' + day;
+  }
 });

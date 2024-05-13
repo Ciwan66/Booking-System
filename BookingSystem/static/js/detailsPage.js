@@ -1,29 +1,4 @@
-// // images
-// document.addEventListener("DOMContentLoaded", function() {
-//     const images = ["../images/1.jpg", "../images/2.jpg", "../images/3.jpg","../images/2.jpg", "../images/3.jpg"];
-//     const imgsContainer = document.querySelector('.imgs');
 
-//     let currentRow;
-
-//     images.forEach((image, index) => {
-//         // Create a new row for every third image or at the start
-//         if (index % 3 === 0) {
-//             currentRow = document.createElement('div');
-//             currentRow.className = 'row';
-//             imgsContainer.appendChild(currentRow);
-//         }
-
-//         const col = document.createElement("div");
-//         col.className = "col-md-4";
-
-//         const img = document.createElement("img");
-//         img.src = image;
-//         img.alt = "Apartment Image";
-
-//         col.appendChild(img);
-//         currentRow.appendChild(col);
-//     });
-// });
 document.addEventListener("DOMContentLoaded", function() {
     const imgsContainer = document.querySelector('.imgs');
 
@@ -78,85 +53,128 @@ starsContainer.innerHTML = generateStars(rating);
 
 
 // ------------------------------------------------------------
+// Set minimum date for check-in
 $(document).ready(function() {
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    var year = today.getFullYear();
-    if (month < 10) {
+
+  var today = new Date();
+  var month = today.getMonth() + 1;
+  var day = today.getDate();
+  var year = today.getFullYear();
+  if (month < 10) {
       month = '0' + month.toString();
-    }
-    if (day < 10) {
+  }
+  if (day < 10) {
       day = '0' + day.toString();
-    }
-    var minDate = year + '-' + month + '-' + day;
-    $('.checkInDate').attr('min', minDate);
-  
-    var oneYearLater = new Date(today);
-    oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
-  
-    month = oneYearLater.getMonth() + 1;
-    day = oneYearLater.getDate();
-    year = oneYearLater.getFullYear();
-  
-    if (month < 10) {
+  }
+  var minDate = year + '-' + month + '-' + day;
+  $('.checkInDate').attr('min', minDate);
+
+  // Set maximum date for check-in
+  var oneYearLater = new Date(today);
+  oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+
+  var month = oneYearLater.getMonth() + 1;
+  var day = oneYearLater.getDate();
+  var year = oneYearLater.getFullYear();
+
+  if (month < 10) {
       month = '0' + month.toString();
-    }
-    if (day < 10) {
+  }
+  if (day < 10) {
       day = '0' + day.toString();
-    }
-  
-    var maxCheckInDate = year + '-' + month + '-' + day;
-  
-    // Disable booked dates for check-in
-  
-    $('.checkInDate').datepicker({
+  }
+
+  var maxCheckInDate = year + '-' + month + '-' + day;
+  $('.checkInDate').attr('max', maxCheckInDate);
+
+  // Adjusted booked dates with check-in and check-out dates as objects
+
+  $('.checkInDate').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: minDate,
       maxDate: maxCheckInDate,
       beforeShowDay: function(date) {
-        var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-        return [bookedDates.indexOf(dateString) == -1, '']; // Check for booked dates
+          var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+          for (var i = 0; i < bookedDates.length; i++) {
+              var checkIn = new Date(bookedDates[i].checkIn);
+              var checkOut = new Date(bookedDates[i].checkOut);
+              if (date >= checkIn && date <= checkOut) {
+                  // Disable booked dates and days between them
+                  if (date.getTime() >= checkIn.getTime() && date.getTime() <= checkOut.getTime()) {
+                      return [false, 'booked-date', 'Booked'];
+                  } else {
+                      return [true, ''];
+                  }
+              }
+              // Check if the current date is the check-in date itself, and disable it
+              if (dateString === bookedDates[i].checkIn) {
+                  return [false, 'booked-date', 'Booked'];
+              }
+          }
+          return [true, ''];
       },
       onSelect: function(selectedDate) {
-        var checkInDate = $(this).datepicker('getDate');
-        var checkOutMinDate = formatDate(checkInDate.setDate(checkInDate.getDate() + 1)); // Add one day to check-in for min checkout date
-        
-        $('.checkOutDate').datepicker('option', 'minDate', checkOutMinDate);
-  
-        // Disable dates between check-in and potential check-out
-        var maxCheckOutDate = new Date(oneYearLater);
-        $('.checkOutDate').datepicker({
-          beforeShowDay: function(date) {
-            var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-            if (date < checkInDate || date > maxCheckOutDate) {
-              return [false, '']; // Disable dates before check-in or after potential checkout
-            }
-            return [bookedDates.indexOf(dateString) == -1, '']; // Check for booked dates within valid range
+          var checkInDate = $(this).datepicker('getDate');
+          checkInDate.setDate(checkInDate.getDate() + 1); // Add one day to check-in date
+          
+          var checkOutMinDate = formatDate(checkInDate);
+          $('.checkOutDate').datepicker('option', 'minDate', checkOutMinDate);
+
+          var maxCheckOutDate = new Date(oneYearLater);
+          var foundDisabledDate = false;
+          for (var i = 0; i < bookedDates.length; i++) {
+              var disabledDate = new Date(bookedDates[i].checkOut);
+              if (disabledDate > checkInDate) {
+                  maxCheckOutDate = new Date(disabledDate);
+                  maxCheckOutDate.setDate(maxCheckOutDate.getDate() - 1); // Set max date to the day before the first disabled date after the check-in date
+                  foundDisabledDate = true;
+                  break;
+              }
           }
-        });
+          if (!foundDisabledDate) {
+              maxCheckOutDate = new Date(oneYearLater);
+              maxCheckOutDate.setDate(maxCheckOutDate.getDate() + 1); // Set max date to one year and one day from the current date
+          }
+          var maxCheckOutDateString = formatDate(maxCheckOutDate);
+          $('.checkOutDate').datepicker('option', 'maxDate', maxCheckOutDateString);
       }
-    });
-  
-    $('.checkOutDate').datepicker({
+  });
+
+  $('.checkOutDate').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: minDate,
       beforeShowDay: function(date) {
-        var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-        return [bookedDates.indexOf(dateString) == -1, '']; // Check for booked dates
+          var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+          for (var i = 0; i < bookedDates.length; i++) {
+              var checkIn = new Date(bookedDates[i].checkIn);
+              var checkOut = new Date(bookedDates[i].checkOut);
+              if (date >= checkIn && date <= checkOut) {
+                  // Disable booked dates and days between them
+                  if (date.getTime() >= checkIn.getTime() && date.getTime() <= checkOut.getTime()) {
+                      return [false, 'booked-date', 'Booked'];
+                  } else {
+                      return [true, ''];
+                  }
+              }
+              // Check if the current date is the check-in date itself, and disable it
+              if (dateString === bookedDates[i].checkIn) {
+                  return [false, 'booked-date', 'Booked'];
+              }
+          }
+          return [true, ''];
       }
-    });
-  
-    function formatDate(date) {
+  });
+
+  function formatDate(date) {
       var month = date.getMonth() + 1;
       var day = date.getDate();
       var year = date.getFullYear();
       if (month < 10) {
-        month = '0' + month.toString();
+          month = '0' + month.toString();
       }
       if (day < 10) {
-        day = '0' + day.toString();
+          day = '0' + day.toString();
       }
       return year + '-' + month + '-' + day;
-    }
-  });
+  }
+});
