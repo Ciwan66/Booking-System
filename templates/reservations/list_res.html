@@ -4,6 +4,84 @@
 {% block title %}Your Reservations{% endblock title %}
 
 {% block content %}
+
+
+<style>
+  /* Lazy Load Styles */
+.card-image {
+display: block;
+min-height: 20rem; /* layout hack */
+background: #fff center center no-repeat;
+background-size: cover;
+filter: blur(3px); /* blur the lowres image */
+}
+
+.card-image > img {
+display: block;
+width: 100%;
+opacity: 0; /* visually hide the img element */
+}
+
+.card-image.is-loaded {
+filter: none; /* remove the blur on fullres image */
+transition: filter 1s;
+}
+
+
+
+
+/* Layout Styles */
+html, body {
+width: 100%;
+height: 100%;
+margin: 0;
+font-size: 16px;
+font-family: sans-serif;
+}
+
+.card-list {
+display: block;
+margin: 1rem auto;
+padding: 0;
+font-size: 0;
+text-align: center;
+list-style: none;
+}
+
+.card {
+display: inline-block;
+width: 90%;
+max-width: 20rem;
+margin: 1rem;
+font-size: 1rem;
+text-decoration: none;
+overflow: hidden;
+box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
+transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+}
+
+.card:hover {
+transform: translateY(-0.5rem) scale(1.0125);
+box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
+}
+
+.card-description {
+display: block;
+padding: 1em 0.5em;
+color: #515151;
+text-decoration: none;
+}
+
+.card-description > h2 {
+margin: 0 0 0.5em;
+}
+
+.card-description > p {
+margin: 0;
+}
+</style>
+
+
   <h1 class="mb-4">Your Reservations</h1>
   
   <!-- Tab Buttons -->
@@ -24,81 +102,126 @@
     <!-- Pending Reservations -->
     <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
       <div class="row">
-        {% for reservation in reservations %}
+        <ul class="card-list">
+          {% comment %}pending res {% endcomment %}
+          {% for reservation in reservations %}
           {% if reservation.reservation_status_id == 1 %}
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                {% if reservation.apartment.cover_image.url %}
-                  <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
-                {% else %}
-                  <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
-                {% endif %}
-                <div class="card-body">
-                  <h5 class="card-title">{{ reservation.apartment.name }}</h5>
-                  <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+          <li class="card">
+            <a
+              class="card-image"
+              href="{% url 'detail-reserv' reservation.pk  %}"
+              
+              style="background-image: url({{ reservation.apartment.cover_image.url }});"
+              data-image-full="{{ reservation.apartment.cover_image.url }}"
+            >
+              <img
+                src="{{ reservation.apartment.cover_image.url }}"
+                alt="Jane Doe"
+              />
+            </a>
+            <a
+              class="card-description"
+              href="{% url 'detail-reserv' reservation.pk  %}"
+             
+            >
+              <h2>{{ reservation.apartment.apt_name|truncatewords:2 }}</h2>
+              <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
                   <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
                   <p class="card-text">Total Price: {{ reservation.total_price }}</p>
                   <p class="card-text">Status: {{ reservation.reservation_status }}</p>
-                  <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
-                </div>
-              </div>
-            </div>
+
+            </a>
+            
+  
+          </li>
           {% endif %}
-        {% endfor %}
+          {% endfor %}
+        </ul>
+
+
+
       </div>
     </div>
 
     <!-- Accepted Reservations -->
     <div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
       <div class="row">
-        {% for reservation in reservations %}
+        <ul class="card-list">
+          {% comment %}pending res {% endcomment %}
+          {% for reservation in reservations %}
           {% if reservation.reservation_status_id == 2 %}
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                {% if reservation.apartment.cover_image.url %}
-                  <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
-                {% else %}
-                  <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
-                {% endif %}
-                <div class="card-body">
-                  <h5 class="card-title">{{ reservation.apartment.name }}</h5>
-                  <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+          <li class="card">
+            <a
+              class="card-image"
+              href="{% url 'detail-reserv' reservation.pk  %}"
+              
+              style="background-image: url({{ reservation.apartment.cover_image.url }});"
+              data-image-full="{{ reservation.apartment.cover_image.url }}"
+            >
+              <img
+                src="{{ reservation.apartment.cover_image.url }}"
+                alt="Jane Doe"
+              />
+            </a>
+            <a
+              class="card-description"
+              href="{% url 'detail-reserv' reservation.pk  %}"
+             
+            >
+              <h2>{{ reservation.apartment.apt_name|truncatewords:2 }}</h2>
+              <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
                   <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
                   <p class="card-text">Total Price: {{ reservation.total_price }}</p>
                   <p class="card-text">Status: {{ reservation.reservation_status }}</p>
-                  <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
-                </div>
-              </div>
-            </div>
+
+            </a>
+            
+  
+          </li>
           {% endif %}
-        {% endfor %}
+          {% endfor %}
+        </ul>
       </div>
     </div>
 
     <!-- Rejected Reservations -->
     <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
       <div class="row">
-        {% for reservation in reservations %}
+        <ul class="card-list">
+          {% comment %}pending res {% endcomment %}
+          {% for reservation in reservations %}
           {% if reservation.reservation_status_id == 3 %}
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                {% if reservation.apartment.cover_image.url %}
-                  <img src="{{ reservation.apartment.cover_image.url }}" class="card-img-top" alt="Apartment Image">
-                {% else %}
-                  <img src="{% static 'path_to_default_image.jpg' %}" class="card-img-top" alt="Default Image">
-                {% endif %}
-                <div class="card-body">
-                  <h5 class="card-title">{{ reservation.apartment.name }}</h5>
-                  <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
+          <li class="card">
+            <a
+              class="card-image"
+              href="{% url 'detail-reserv' reservation.pk  %}"
+              
+              style="background-image: url({{ reservation.apartment.cover_image.url }});"
+              data-image-full="{{ reservation.apartment.cover_image.url }}"
+            >
+              <img
+                src="{{ reservation.apartment.cover_image.url }}"
+                alt="Jane Doe"
+              />
+            </a>
+            <a
+              class="card-description"
+              href="{% url 'detail-reserv' reservation.pk  %}"
+             
+            >
+              <h2>{{ reservation.apartment.apt_name|truncatewords:2 }}</h2>
+              <p class="card-text">Check-in Date: {{ reservation.check_in_date }}</p>
                   <p class="card-text">Check-out Date: {{ reservation.check_out_date }}</p>
                   <p class="card-text">Total Price: {{ reservation.total_price }}</p>
                   <p class="card-text">Status: {{ reservation.reservation_status }}</p>
-                  <a href="{% url 'detail-reserv' reservation.pk  %}" class="btn btn-primary">Detail</a>
-                </div>
-              </div>
-            </div>
+
+            </a>
+            
+  
+          </li>
           {% endif %}
-        {% endfor %}
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </div>
@@ -110,5 +233,44 @@
       $(this).tab('show');
     });
   });
+</script>
+
+
+<script>
+  // This is "probably" IE9 compatible but will need some fallbacks for IE8
+// - (event listeners, forEach loop)
+
+// wait for the entire page to finish loading
+window.addEventListener('load', function() {
+
+// setTimeout to simulate the delay from a real page load
+setTimeout(lazyLoad, 1000);
+
+});
+
+function lazyLoad() {
+var card_images = document.querySelectorAll('.card-image');
+
+// loop over each card image
+card_images.forEach(function(card_image) {
+var image_url = card_image.getAttribute('data-image-full');
+var content_image = card_image.querySelector('img');
+
+// change the src of the content image to load the new high res photo
+content_image.src = image_url;
+
+// listen for load event when the new photo is finished loading
+content_image.addEventListener('load', function() {
+// swap out the visible background image with the new fully downloaded photo
+card_image.style.backgroundImage = 'url(' + image_url + ')';
+// add a class to remove the blur filter to smoothly transition the image change
+card_image.className = card_image.className + ' is-loaded';
+});
+
+});
+
+}
+
+
 </script>
 {% endblock content %}

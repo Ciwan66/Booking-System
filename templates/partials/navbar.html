@@ -23,10 +23,16 @@
                 <i class="fas fa-bars toggle-menu"></i>
                 <ul class="mb-0 list-unstyled">
                     <li><a class="p-3 text-decoration-none rounded navLink" href="{% url "index" %}">Home</a></li>
-                    <li><a class="p-3 text-decoration-none rounded navLink" href="#about">About Us</a></li>
+                    {% if request.path == '/' %}
+                      <li><a class="p-3 text-decoration-none rounded navLink" href="#about">About Us</a></li>
                     <li><a class="p-3 text-decoration-none rounded navLink" href="#service">Service</a></li>
                     <li><a class="p-3 text-decoration-none rounded navLink" href="#reviews">Reviews</a></li>
                     <li><a class="p-3 text-decoration-none rounded navLink" href="#contact">Contact</a></li>
+
+                {% else %}
+                    <!-- Here you can include a different navbar or leave it empty -->
+                {% endif %}
+                  
                     {% if user.is_authenticated %}
                     <li><a class="p-3 text-decoration-none rounded navLink" href="{% url 'list-reserv' %}">My Reservations</a></li>
                     <li><a class="p-3 text-decoration-none rounded navLink" href="{% url "favorite_list" %}">My Favorites</a></li>
