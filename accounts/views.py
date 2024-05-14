@@ -21,6 +21,7 @@ from django.views.decorators.http import require_http_methods
 
 
 @login_required
+@require_http_methods(["GET"])
 def dashboard(request):
     return render (request,'accounts/dashboard.html')
 
@@ -28,6 +29,7 @@ class RegisterView(View):
     form_class = RegisterForm
     initial = {'key': 'value'}
     template_name = 'accounts/register.html'
+    SuccessMessageMixin = "Account Created"
 
     def dispatch(self, request, *args, **kwargs):
         # will redirect to the home page if a user tries to access the register page while logged in
@@ -84,7 +86,8 @@ class CustomLoginView(LoginView):
 
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
-
+    
+@require_http_methods(["GET","POST"])
 def activate(request, uidb64, token):  
     User = get_user_model()  
     try:  

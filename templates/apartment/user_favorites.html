@@ -92,7 +92,7 @@ html, body {
 		<a class="card-image" rel="noopener" href="{% url 'detail' favorite.apartment.id %}" target="_blank" style="background-image: url({% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %});" data-image-full="{% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}">
 			<img src="{% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" alt="Jane Doe" />
 		</a>
-		<a class="card-description" href="{% url 'detail' favorite.apartment.id %}" target="_blank">
+		<a class="card-description" href="{% url 'detail' favorite.apartment.id %}" target="_blank" rel="noopener">
 			<h2>{{ favorite.apartment.apt_name|truncatewords:2 }}</h2>
 			<p>{{ favorite.apartment.city }}, {{ favorite.apartment.country }}</p>
 		</a>

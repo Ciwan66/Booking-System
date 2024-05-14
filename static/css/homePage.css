@@ -1,6 +1,3 @@
-body{
-    background-color: #313131;
-}
 * {
     margin: 0;
     padding: 0;
@@ -53,7 +50,11 @@ header {
     gap: 30px !important;
 }
 
-
+.landing {
+    background-image: url("../images/homeImage.jpg");
+    background-size: cover;
+    height: 100vh;
+}
 @media screen and (max-width: 576px) {
     .landing {
         height: 45.9vh;
@@ -83,9 +84,7 @@ header {
         padding: 0 20px 14px;
     }
 }
-.form-control {
-    border-radius: 0;
-}
+
 .tm-search-form {
     width: 54%;
     background-color: var(--secondary-color);

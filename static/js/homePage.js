@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Sample array of destinations
-var destinations = [];
+let destinations = [];
 
 function populateDestinations() {
-    var inputCity = $("#inputCity");
+    let inputCity = $("#inputCity");
 
     destinations.forEach(function(destination) {
-        var option = new Option(destination, destination);
+        let option = new Option(destination, destination);
         inputCity.append(option);
     });
 
@@ -29,10 +29,10 @@ document.getElementById('minPrice').addEventListener('input', validatePrices);
 document.getElementById('maxPrice').addEventListener('input', validatePrices);
 
 function validatePrices() {
-    var minPrice = parseFloat(document.getElementById('minPrice').value);
-    var maxPrice = parseFloat(document.getElementById('maxPrice').value);
+    let minPrice = parseFloat(document.getElementById('minPrice').value);
+    let maxPrice = parseFloat(document.getElementById('maxPrice').value);
 
-    var errorMessage = '';
+    let errorMessage = '';
 
     if (minPrice <= 0 || maxPrice <= 0) {
         errorMessage = 'Prices must be greater than zero.';
@@ -45,44 +45,44 @@ function validatePrices() {
 // ---------------------------------------------------------------------
 $(function() {
     // Set minimum date for check-in
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    var year = today.getFullYear();
+    let today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    let year = today.getFullYear();
     if (month < 10) {
         month = '0' + month.toString();
     }
     if (day < 10) {
         day = '0' + day.toString();
     }
-    var minDate = year + '-' + month + '-' + day;
+    let minDate = year + '-' + month + '-' + day;
     $('.checkInDate').attr('min', minDate);
 
     // Set minimum and maximum date for check-out
     $('.checkInDate').on('change', function() {
-        var checkInDate = new Date($(this).val());
+        let checkInDate = new Date($(this).val());
         checkInDate.setDate(checkInDate.getDate() + 1); // Add one day to check-in date
         
-        var checkOutMinDate = checkInDate.toISOString().split('T')[0];
+        let checkOutMinDate = checkInDate.toISOString().split('T')[0];
         $('.checkOutDate').attr('min', checkOutMinDate);
 
-        var oneYearAndOneDayLater = new Date(today);
+        let oneYearAndOneDayLater = new Date(today);
         oneYearAndOneDayLater.setFullYear(oneYearAndOneDayLater.getFullYear() + 1);
         oneYearAndOneDayLater.setDate(oneYearAndOneDayLater.getDate() + 1); // Add one more day for maximum
-        var maxDate = oneYearAndOneDayLater.toISOString().split('T')[0];
+        let maxDate = oneYearAndOneDayLater.toISOString().split('T')[0];
         $('.checkOutDate').attr('max', maxDate);
     });
 });
 
 // Set maximum date for check-in
 $(function() {
-    var today = new Date();
-    var oneYearLater = new Date(today);
+    let today = new Date();
+    let oneYearLater = new Date(today);
     oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
 
-    var month = oneYearLater.getMonth() + 1;
-    var day = oneYearLater.getDate();
-    var year = oneYearLater.getFullYear();
+    let month = oneYearLater.getMonth() + 1;
+    let day = oneYearLater.getDate();
+    let year = oneYearLater.getFullYear();
 
     if (month < 10) {
         month = '0' + month.toString();
@@ -91,7 +91,7 @@ $(function() {
         day = '0' + day.toString();
     }
 
-    var maxDate = year + '-' + month + '-' + day;
+    let maxDate = year + '-' + month + '-' + day;
     $('.checkInDate').attr('max', maxDate);
 
 });

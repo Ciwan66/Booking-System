@@ -136,8 +136,8 @@ class ReservationUpdateView(LoginRequiredMixin, UpdateView):
         obj.status = ReservationStatus.objects.get(pk=1)
         return super().form_valid(form)
 
-@require_http_methods(["POST","GET"])
 @user_passes_test(lambda u: u.is_staff, login_url='admin:index')
+@require_http_methods(["POST","GET"])
 def apartment_admin(request):
     if request.method == 'POST':
         res_id = request.POST.get('reservation_id')
@@ -164,8 +164,8 @@ def apartment_admin(request):
     reservations = Reservation.objects.filter(reservation_status=ReservationStatus.objects.get(pk=1))
     return render(request, 'admin/apartment_admin.html', {'reservations': reservations})
 
-@require_http_methods(["GET", "POST"])
 @login_required
+@require_http_methods(["GET", "POST"])
 def cancel_reservation(request, reservation_id):
     try:
         reservation = get_object_or_404(Reservation, pk=reservation_id, user=request.user)
@@ -183,6 +183,6 @@ def cancel_reservation(request, reservation_id):
     except:
         return redirect('error-url')
 
-
+@require_http_methods(["GET"])
 def redirect_for_errors(request):
     return render(request, 'errors/auth.html')

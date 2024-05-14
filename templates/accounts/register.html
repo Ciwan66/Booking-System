@@ -73,12 +73,23 @@
                               <p class="mb-0">
                                   At Opulence, we redefine luxury living for your vacation experience. Our curated selection of exquisite apartments offers unparalleled comfort and style in some of the world's most desirable destinations. From stunning city escapes to idyllic beachfront retreats, each property in our portfolio is handpicked to ensure an unforgettable stay.                       
                               </p>
-                              <p>{% if form.errors %}
+                              <p>
+                                {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+                                {% if form.errors %}
                                 <div >
                                     Please correct the following issues:<br>
                                     {% for field, errors in form.errors.items %}
                                         {% for error in errors %}
-                                            <li>{{ error }}</li>
+                                        <ul>
+                            <li>{{ error }}</li>
+                                        </ul>
                                         {% endfor %}
                                     {% endfor %}
                                 </div>

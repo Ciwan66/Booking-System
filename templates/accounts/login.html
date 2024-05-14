@@ -4,6 +4,14 @@
 
 
 {% block content %}
+    {% if messages %}
+{% for message in messages %}
+  <div id="success-message" class="alert alert-success" role="alert">
+    {{ message }}
+  </div>
+{% endfor %}
+{% endif %}
+
 
 <section class="gradient-form" style="background-color: #eee;">
     <div class="container py-sm-5 h-100">
@@ -49,6 +57,7 @@
                         </div>
                         <!-- the left side -->
 
+
                         <!-- the right side -->
                         <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
                             <div class="text-white px-3 py-4 p-md-5 mx-md-4">
@@ -67,5 +76,30 @@
     </div>
 </section>
 
+<style>
+    #success-message {
+        display: none; /* Hide the message initially */
+        position: fixed;
+        top: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000; /* Ensure the message appears above other elements */
+      }
+      
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show the success message when the page loads
+        var successMessage = document.getElementById('success-message');
+        if (successMessage) {
+          successMessage.style.display = 'block';
+          // Close the message when clicked anywhere on the document
+          document.addEventListener('click', function() {
+            successMessage.style.display = 'none';
+          });
+        }
+      });
+      
+</script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   {% endblock content %}

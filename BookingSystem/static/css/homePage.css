@@ -84,9 +84,7 @@ header {
         padding: 0 20px 14px;
     }
 }
-.form-control {
-    border-radius: 0;
-}
+
 .tm-search-form {
     width: 54%;
     background-color: var(--secondary-color);

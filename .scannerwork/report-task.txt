@@ -2,5 +2,5 @@ projectKey=booking_system
 serverUrl=http://localhost:9000
 serverVersion=10.5.1.90531
 dashboardUrl=http://localhost:9000/dashboard?id=booking_system
-ceTaskId=042e1ff4-f743-486e-a2ad-751a9d3f33ad
-ceTaskUrl=http://localhost:9000/api/ce/task?id=042e1ff4-f743-486e-a2ad-751a9d3f33ad
+ceTaskId=da6b6753-cfe2-4628-9f4c-8fee9f3f9dfa
+ceTaskUrl=http://localhost:9000/api/ce/task?id=da6b6753-cfe2-4628-9f4c-8fee9f3f9dfa
