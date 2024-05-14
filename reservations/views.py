@@ -56,10 +56,11 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
         apartment_id = self.kwargs['pk']
         return HttpResponseRedirect(reverse('detail', args=[apartment_id]))
     def form_invalid(self, form):
-        response = super().form_invalid(form)
         apartment_id = self.kwargs['pk']
         messages.error(self.request,"Check dates must be entered")
         return HttpResponseRedirect(reverse('detail', args=[apartment_id]))
+
+    
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -158,8 +159,8 @@ def apartment_admin(request):
             send_mail(subject, message, email_from, recipient_list)
 
         except Reservation.DoesNotExist:
-            pass
-            return redirect(reverse('test'))
+            
+            return redirect(reverse('admin:index'))
 
     reservations = Reservation.objects.filter(reservation_status=ReservationStatus.objects.get(pk=1))
     return render(request, 'admin/apartment_admin.html', {'reservations': reservations})
@@ -182,6 +183,7 @@ def cancel_reservation(request, reservation_id):
 
     except:
         return redirect('error-url')
+        raise
 
 @require_http_methods(["GET"])
 def redirect_for_errors(request):

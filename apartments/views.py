@@ -26,7 +26,6 @@ class Index(ListView):
 
         # Assuming you have a model named Apartment with fields apt_name and cover_image
         apartments = Apartment.objects.all()[:9]
-        cities =City.objects.all()[:8],
 
         # Group apartments into sets of three
         grouped_apartments = [apartments[i:i+3] for i in range(0, len(apartments), 3)]

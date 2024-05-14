@@ -89,11 +89,11 @@ class CustomLoginView(LoginView):
     
 @require_http_methods(["GET","POST"])
 def activate(request, uidb64, token):  
-    User = get_user_model()  
+    uuser = get_user_model()  
     try:  
         uid = force_str(urlsafe_base64_decode(uidb64))  
-        user = User.objects.get(pk=uid)  
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):  
+        user = uuser.objects.get(pk=uid)  
+    except(TypeError, ValueError, OverflowError, uuser.DoesNotExist):  
         user = None  
     if user is not None and account_activation_token.check_token(user, token):  
         user.is_active = True  

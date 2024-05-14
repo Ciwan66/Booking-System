@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
+COMMON_CLASS = 'form-control mb-4'
+
 class RegisterForm(UserCreationForm):
 
     first_name=forms.CharField(max_length=50,
@@ -22,7 +24,7 @@ class RegisterForm(UserCreationForm):
     email=forms.EmailField(max_length=50,
                             required=True,
                             widget=forms.TextInput(attrs={'id': 'email', 
-                                                          'class': 'form-control mb-4', 
+                                                          'class': COMMON_CLASS, 
                                                           'placeholder': 'Email address'}))
 
     password1=forms.CharField(max_length=50,
@@ -39,7 +41,7 @@ class RegisterForm(UserCreationForm):
 
     phone_number=forms.CharField(max_length=11,
                             required=True,
-                            widget=forms.TextInput(attrs={'id': 'phoneNumber', 'class': 'form-control mb-4', 'placeholder': 'Phone Number'}))
+                            widget=forms.TextInput(attrs={'id': 'phoneNumber', 'class': COMMON_CLASS, 'placeholder': 'Phone Number'}))
 
     class Meta:
         model = CustomUser
@@ -67,7 +69,7 @@ class RegisterForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username=forms.EmailField(max_length=50,
                             required=True,
-                            widget=forms.EmailInput(attrs={'id':'form2Example11' ,'class':'form-control mb-4',
+                            widget=forms.EmailInput(attrs={'id':'form2Example11' ,'class':COMMON_CLASS,
                                           'placeholder':'Email address' }))
     password=forms.CharField(max_length=50,
                             required=False,
