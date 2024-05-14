@@ -1,7 +1,7 @@
 <br><br><br>
 
 <div id="carouselExampleDark1" class="carousel carousel-dark slide">
-    <h2>Recominded For You</h2>
+    <h2 class="text-center">Recominded For You</h2>
 
     <div class="carousel-indicators">
         {% for apartment_set in apartment_sets %}
@@ -13,7 +13,7 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="10000">
                 <div  class="row justify-content-center align-items-center">
                     {% for apartment in apartment_set %}
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
                             <div class="card p-2 m-3 justify-content-between">
                                 <div class="position-relative overflow-hidden">
                                     <a href="{% url 'detail' apartment.id %}">
