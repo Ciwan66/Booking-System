@@ -12,6 +12,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse , reverse_lazy
 from django.contrib import messages
 
+from django.views.decorators.http import require_http_methods
 
 
 
@@ -59,7 +60,7 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
         apartment_id = self.kwargs['pk']
         messages.error(self.request,"Check dates must be entered")
         return HttpResponseRedirect(reverse('detail', args=[apartment_id]))
-    
+
     def form_valid(self, form):
         obj = form.save(commit=False)
         apartment_id = self.request.POST.get('apartment')
@@ -135,7 +136,7 @@ class ReservationUpdateView(LoginRequiredMixin, UpdateView):
         obj.status = ReservationStatus.objects.get(pk=1)
         return super().form_valid(form)
 
-
+@require_http_methods(["POST","GET"])
 @user_passes_test(lambda u: u.is_staff, login_url='admin:index')
 def apartment_admin(request):
     if request.method == 'POST':
@@ -163,7 +164,7 @@ def apartment_admin(request):
     reservations = Reservation.objects.filter(reservation_status=ReservationStatus.objects.get(pk=1))
     return render(request, 'admin/apartment_admin.html', {'reservations': reservations})
 
-
+@require_http_methods(["GET", "POST"])
 @login_required
 def cancel_reservation(request, reservation_id):
     try:

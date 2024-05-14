@@ -1,8 +1,12 @@
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="You can search apartments">
+    <meta name="theme-color" content="#317EFB"/>
+
     <title>Home</title>
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <link
@@ -36,6 +40,7 @@
 {% include "partials/search_bar.html" %}
     <!-- home -->
 
+   
     <!-- first carousel -->
     {% include "apartment/apartment_list.html" %}
     <!-- first carousel -->
