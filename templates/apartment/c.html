@@ -1,0 +1,47 @@
+{% load static %}
+<div id="carouselExampleDark2" class="carousel carousel-dark slide">
+    <div class="carousel-indicators">
+
+      {% for city in cities_sets %}
+      <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+  {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for city in cities_sets %}
+
+      <div class="carousel-item {% if forloop.first %} active {% endif %}" data-bs-interval="10000">
+        <div class="d-flex mb-4 p-3 secondCarouselContainer">
+          {% for city in cities_sets %}
+
+          <div class="w-50">
+            <img src="{% static '/images/3.jpg' %}" class="mb-2" alt="" />
+            <h3 class="text-center mt-2">{{city.city_name}}</h3>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleDark2"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleDark2"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>

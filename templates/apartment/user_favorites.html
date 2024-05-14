@@ -89,7 +89,7 @@ html, body {
     {% for favorite in favorites %}
 	
 	<li class="card">
-		<a class="card-image" href="{% url 'detail' favorite.apartment.id %}" target="_blank" style="background-image: url({% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %});" data-image-full="{% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}">
+		<a class="card-image" rel="noopener" href="{% url 'detail' favorite.apartment.id %}" target="_blank" style="background-image: url({% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %});" data-image-full="{% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}">
 			<img src="{% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" alt="Jane Doe" />
 		</a>
 		<a class="card-description" href="{% url 'detail' favorite.apartment.id %}" target="_blank">
@@ -105,7 +105,7 @@ html, body {
 
                             <!-- Add form fields here if necessary -->
                             <button class="btn" type="submit" >
-                                <h2 title="Add to favorite" class="bi bi-balloon-heart "></h2>
+                                <i title="Add to favorite" class="bi bi-balloon-heart "></i>
                              </button>
                         </form>
                         
@@ -117,7 +117,7 @@ html, body {
                             <input type="hidden" name="next" value="{{ request.path }}">
 
                             <button class="btn" type="submit">
-                                <h2 title="Remove from favorite" class="bi bi-balloon-heart-fill"></h2>
+                                <i title="Remove from favorite" class="bi bi-balloon-heart-fill"></i>
                               </button>
                         </form>
                         {% endif %}
@@ -129,49 +129,6 @@ html, body {
 	
 </ul>
 
-    {% comment %} <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% if favorites %}
-        {% for favorite in favorites %}
-        <div class="col">
-            <a href="{% url 'detail' favorite.apartment.id %}" class="card text-decoration-none">
-                <img width="200px" src="{% if favorite.apartment.cover_image %}{{ favorite.apartment.cover_image.url }}{% else %}placeholder.jpg{% endif %}" class="card-img-top" alt="Apartment Image">
-                <div class="card-body">
-                    <h5 class="card-title">{{ favorite.apartment.apt_name }}</h5>
-                    <p class="card-text"><strong>Location:</strong> {{ favorite.apartment.city }}, {{ favorite.apartment.country }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-
-
-                        {% if not favorite %}
-                        <form method="post" action="{% url 'favorite_create'  %}">
-                    
-                            {% csrf_token %}
-                            <input type="hidden" name='apartment' value='{{apartment.id}}'>
-                            <input type="hidden" name="next" value="{{ request.path }}">
-
-                            <!-- Add form fields here if necessary -->
-                            <button class="btn" type="submit" >
-                                <h2 title="Add to favorite" class="bi bi-balloon-heart "></h2>
-                             </button>
-                        </form>
-                        
-                        {% endif %}
-                        {% if favorite %}
-                        
-                        <form method="post" action="{% url 'favorite_delete' favorite.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ request.path }}">
-
-                            <button class="btn" type="submit">
-                                <h2 title="Remove from favorite" class="bi bi-balloon-heart-fill"></h2>
-                              </button>
-                        </form>
-                        {% endif %}
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div> {% endcomment %}
 {% else %}
 <p>No Favorites yet.</p
 
