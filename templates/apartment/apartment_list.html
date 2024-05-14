@@ -17,7 +17,7 @@
                             <div class="card p-2 m-3 justify-content-between">
                                 <div class="position-relative overflow-hidden">
                                     <a href="{% url 'detail' apartment.id %}">
-                                        <img style="height:400px;"   class="img-fluid" style="max-height: 300px; width: 100%;" src="{{ apartment.cover_image.url }}" alt="">
+                                        <img style="height:250px;"   class="img-fluid" style="max-height: 300px; width: 100%;" src="{{ apartment.cover_image.url }}" alt="">
                                     </a>
                                     <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">{{ apartment.category|truncatewords:3 }}</div>
                                 </div>
