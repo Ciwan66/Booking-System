@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.urls import reverse_lazy
 from django.http import Http404
 from datetime import datetime
+from django.views.decorators.http import require_http_methods
+
 
 
 
@@ -99,7 +101,7 @@ class ApartmentDetailView(DetailView):
                 
         return context
 # search apartment function its have the following fields and i return the apartmens  that matchs these fields
-
+@require_http_methods(["GET"])
 def search_apartments(request):
     city_name = request.GET.get("city")
     n_rooms = request.GET.get("n_rooms")
@@ -156,6 +158,11 @@ class FavoriteCreateView(CreateView):
         self.object.user = self.request.user
         self.object.save()
         return redirect(self.get_success_url())
+
+    
+
+
+
 
 class FavoriteDeleteView(DeleteView):
     model = favorite

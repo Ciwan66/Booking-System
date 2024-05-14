@@ -17,6 +17,7 @@ from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.decorators.http import require_http_methods
 
 
 @login_required
@@ -36,11 +37,9 @@ class RegisterView(View):
         # else process dispatch as it otherwise normally would
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
     
-    
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial=self.initial)
         return render(request, self.template_name, {'form': form})
-
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
 
@@ -73,7 +72,6 @@ class RegisterView(View):
 class CustomLoginView(LoginView):
     form_class = LoginForm
     template_name = 'accounts/login.html'
-
     def form_valid(self, form):
         remember_me = form.cleaned_data.get('remember_me')
 
@@ -86,7 +84,7 @@ class CustomLoginView(LoginView):
 
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
-    
+
 def activate(request, uidb64, token):  
     User = get_user_model()  
     try:  
