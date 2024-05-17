@@ -66,6 +66,8 @@
                 </div>
                 <div class="address">{{apartment.city}}, {{apartment.country}}</div>
             </div>
+            {% if user.is_authenticated %}
+
             <form action="{% url "creat-reserv" apartment.id %}" method="POST">
                 {% csrf_token %}
                 <div class="right-side d-flex">
@@ -91,7 +93,9 @@
                     </ul>
                 </div>
             </form>
-
+            {% else  %}
+                <h4><a href="{% url "users_login" %}?next=/res/res-house/{{apartment.id}}">Login</a> to reserve</h4>
+            {% endif %}
         </div>
         <!-- above pictures -->
 
@@ -169,7 +173,7 @@
         <div class="map">
             <iframe
                 title="map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d211214.65662049875!2d44.04034597598148!3d34.19162469456739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1556d18dc9b35aa1%3A0x2c63735c09e91577!2z2LPYp9mF2LHYp9ih2Iwg2LXZhNin2K0g2KfZhNiv2YrZhiDZhdit2KfZgdi42KnYjCDYp9mE2LnYsdin2YI!5e0!3m2!1sar!2str!4v1715189426135!5m2!1sar!2str"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192697.889936843!2d28.847029489176265!3d41.00546275345215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1715974824939!5m2!1str!2str"
                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
