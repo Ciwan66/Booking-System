@@ -185,7 +185,7 @@
         <div class="evaluation d-flex flex-column align-items-center">
             <h4 class="m-0 rateText">Rate this apartment:</h4>
             <div class="rating mb-3">
-                <form method="POST" action="{% url " comment" apartment.id %}">
+                <form method="POST" action="{% url 'comment' apartment.id %}">
                     {% csrf_token %}
                     <input type="radio" id="star5" name="rating" value="5" />
                     <label for="star5"></label>
