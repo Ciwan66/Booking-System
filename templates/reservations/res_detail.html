@@ -55,6 +55,8 @@
                                                 </div>
                                                 <div class="reservation-status">
                                                     <h6>Reservation Status : <strong>{{ reservation.reservation_status }}</strong></h6>
+                                                    <a  href="{% url 'detail' reservation.apartment.id %}"><button type="button" >Go to apartment</button></a>
+
                                                     <p></p>
                                                 </div>
                                             </div>

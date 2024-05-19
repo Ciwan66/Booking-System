@@ -17,12 +17,15 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+   
 </head>
 
-<body>
+    {% include "partials/loader.html" %}
+
     <h1 class="text-center my-4"><a href="/">Home</a> | <a href="/favorites/">Favorites</a></h1>
     <div class="container">
-        <!-- main description that was displayed in search results -->
+
         <!-- main description that was displayed in search results -->
 
         <!-- above pictures -->
@@ -207,10 +210,11 @@
             </form>
         </div>
         <!-- services and evaluation -->
-        {% endif %}
-        {% if user.is_authenticated %}
-        {% include "reviews/list_comment.html" %}
 
+        {% endif %}
+
+        {% if user.is_authenticated and not add_comment %}
+        {% include "reviews/list_comment.html" %}
         {% endif %}
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -257,6 +261,8 @@
 
 
     <script src="{% static 'js/detailsPage.js' %}"></script>
-</body>
+
+    {% include "partials/end_loader.html" %}
+
 
 </html>
