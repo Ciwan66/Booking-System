@@ -20,18 +20,17 @@
 
    
 </head>
+    {% include "partials/header.html" %}
 
     {% include "partials/loader.html" %}
 
-    <h1 class="text-center my-4"><a href="/">Home</a> | <a href="/favorites/">Favorites</a></h1>
-    <div class="container">
 
         <!-- main description that was displayed in search results -->
 
         <!-- above pictures -->
         <div class="head d-flex justify-content-between mb-4">
             <div class="left-side-info d-flex flex-column justify-content-center align-items-center">
-
+                <p>👁️:{{apartment.views}}</p>
                 {% if user.is_authenticated %}
                 {% if not favorite %}
                 <form method="post" action="{% url 'favorite_create'  %}">
@@ -172,14 +171,7 @@
 
 
         <!-- map -->
-        <!-- map -->
-        <div class="map">
-            <iframe
-                title="map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192697.889936843!2d28.847029489176265!3d41.00546275345215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1715974824939!5m2!1str!2str"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+       
         <!-- map -->
 
         <!-- map -->
@@ -214,9 +206,11 @@
         {% endif %}
 
         {% if user.is_authenticated and not add_comment %}
+        <div class="services">
         {% include "reviews/list_comment.html" %}
+
+        </div>
         {% endif %}
-    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

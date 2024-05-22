@@ -32,12 +32,12 @@ class Apartment(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     country=models.ForeignKey(Country,on_delete=models.SET_NULL,null=True,blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE,null=True)
-    actual_address=models.CharField(max_length=255,blank=True)
+    actual_address=models.CharField(max_length=255,null=True,blank=True)
     maps_link=models.CharField(max_length=255,blank=True)
     apt_name = models.CharField(max_length=255)
     description = models.TextField()
     cover_image=models.ImageField(upload_to='covers/',null=True)
-    district = models.CharField(max_length=30,blank=True)
+    # district = models.CharField(max_length=30,null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_booked = models.BooleanField(default=False)
     rooms = models.IntegerField(null=True)
@@ -47,6 +47,10 @@ class Apartment(models.Model):
     tv = models.BooleanField(default=False)
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    #big int field with 0 deefault for views
+    views = models.BigIntegerField(default=0)
+
+
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 

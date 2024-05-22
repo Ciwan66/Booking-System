@@ -25,7 +25,8 @@ class Index(ListView):
         context = super().get_context_data(**kwargs)
 
         # Assuming you have a model named Apartment with fields apt_name and cover_image
-        apartments = Apartment.objects.all()[:9]
+        # filter apartment by views
+        apartments = Apartment.objects.all().order_by('-views')[:9]
 
         # Group apartments into sets of three
         grouped_apartments = [apartments[i:i+3] for i in range(0, len(apartments), 3)]
@@ -42,12 +43,14 @@ class Index(ListView):
 class ApartmentListView(ListView):
     model = Apartment
     context_object_name = 'apartments'
-    template_name = "apartment/list.html"
+    template_name = "list.html"
 
 
 #  i added the data context to  filter and put the options in the selects to search apartments by country or city...
 
     def get_context_data(self, **kwargs):
+        
+
         context = super().get_context_data(**kwargs)
         context = {
             'apartments':Apartment.objects.filter(is_active=True),
@@ -63,7 +66,7 @@ class ApartmentListView(ListView):
 class ApartmentDetailView(DetailView):
     
     model = Apartment
-    template_name = "apartment/detail.html"
+    template_name = "detail.html"
     
 
     
@@ -73,7 +76,10 @@ class ApartmentDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context['pk'] = self.kwargs['pk']
+
         apartment=context['apartment']
+        apartment.views += 1
+        apartment.save()
         if self.request.user.is_authenticated :
             if Reservation.objects.filter(user=self.request.user,apartment=apartment,reservation_status=2):
                 if not Comment.objects.filter(user=self.request.user,apartment=apartment):
@@ -140,10 +146,10 @@ def search_apartments(request):
         'cities': City.objects.all(),
     }
 
-    return render(request, 'apartment/find_apartment.html', context)
+    return render(request, 'find_apartment.html', context)
 class FavoriteCreateView(CreateView):
     model = favorite
-    template_name = "apartment/detail.html"
+    template_name = "detail.html"
     fields=['apartment']
 
     def get_success_url(self):
@@ -178,7 +184,7 @@ class FavoriteDeleteView(DeleteView):
  
 class FavoriteListView(ListView):
     model = favorite
-    template_name = "apartment/user_favorites.html"
+    template_name = "user_favorites.html"
 
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)

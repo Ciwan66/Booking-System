@@ -21,7 +21,7 @@ from django.views.decorators.http import require_http_methods
 # Create your views here.
 class ReservationListView(LoginRequiredMixin, ListView):
     model = Reservation
-    template_name = 'reservations/list_res.html'
+    template_name = 'list_res.html'
     context_object_name = 'reservations'
 
     def get_queryset(self):
@@ -30,7 +30,7 @@ class ReservationListView(LoginRequiredMixin, ListView):
 
 class ReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
-    template_name = "reservations/res_detail.html"
+    template_name = "res_detail.html"
     context_object_name = "reservation"
 
     def get_queryset(self):
@@ -47,7 +47,7 @@ class ReservationDetailView(LoginRequiredMixin, DetailView):
 
 class ReservationCreateView(LoginRequiredMixin, CreateView):
     login_url = "/accounts/login/"
-    template_name = "reservations/res_apt.html"
+    template_name = "res_apt.html"
     redirect_field_name = "next"
     model = Reservation
     success_url = reverse_lazy('list-reserv')
@@ -97,7 +97,7 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
 
 class ReservationUpdateView(LoginRequiredMixin, UpdateView):
     model = Reservation
-    template_name = "reservations/update_res.html"
+    template_name = "update_res.html"
     form_class = UpdateResForm
     success_url = '/res'
 
